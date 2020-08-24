@@ -19,7 +19,7 @@ http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
 - [ ] [Expdta](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#EXPDTA)
 - [ ] [Nummdl](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#NUMMDL)
 - [ ] [Mdltyp](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#MDLTYP)
-- [ ] [Author](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#AUTHOR)
+- [X] [Author](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#AUTHOR)
 - [ ] [Sprsde](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#SPRSDE)
 - [ ] [Revdat](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#REVDAT)
 - [ ] [Jrnl](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#JRNL)
