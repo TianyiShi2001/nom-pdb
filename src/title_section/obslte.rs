@@ -1,7 +1,5 @@
-use chrono::{
-    format::{strftime::StrftimeItems, Parsed},
-    NaiveDate,
-};
+use crate::common::parser::parse_date;
+use chrono::NaiveDate;
 use nom::{
     bytes::complete::take,
     character::complete::multispace1,
@@ -35,7 +33,7 @@ pub struct Header<'a> {
     /// 62 - 65       IDcode        rIdCode       ID code of entry that replaced this one.
     /// 67 - 70       IDcode        rIdCode       ID code of entry that replaced this one.
     /// 72 - 75       IDcode        rIdCode       ID code of entry that replaced this one.
-    pub classification: &'a str,
-    pub deposition_date: NaiveDate,
+    pub date_replaced: NaiveDate,
     pub id_code: &'a str,
+    pub id_code_replaced: Vec<&'a str>,
 }

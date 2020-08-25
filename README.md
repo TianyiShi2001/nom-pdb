@@ -2,6 +2,41 @@
 
 PDB parser implemented in Rust using nom
 
+# Example (Last Updated 2020-08-25)
+
+```rust
+use crate::complete::Pdb;
+use std::str::from_utf8_unchecked;
+
+fn main() {
+    let data = include_bytes!("../assets/4F7I.pdb");
+    unsafe {
+        let data = from_utf8_unchecked(data);
+        let (data, r) = Pdb::parse(data).unwrap();
+        println!("{:?}, {:?}", data, r);
+    }
+}
+```
+
+```
+Pdb { 
+    header: Header { 
+        classification: "OXIDOREDUCTASE", 
+        deposition_date: 2012-05-16, 
+        id_code: "4F7I" 
+    }, 
+    title: "STRUCTURE OF ISOPROPYLMALATE DEHYDROGENASE FROM THERMUS THERMOPHILUS IN COMPLEX WITH IPM, MN AND NADH", 
+    authors: ["A.PALLO", "E.GRACZER", "P.ZAVODSZKY", "M.S.WEISS", "M.VAS"], 
+    cryst1: Cryst1 { a: 148.38, b: 50.72, c: 178.24, alpha: 90.0, beta: 93.09, gamma: 90.0, lattice_type: SideCentered, space_group: SpaceGroup(GroupAxis(1, 1), None, None), z: 16 }, atoms: [
+        Atom { id: 1, id1: ' ', residue: Ser, chain: 'A', sequence_number: 0, insertion_code: ' ', x: -12.138, y: 1.867, z: 20.782, occupancy: 1.0, temperature_factor: 67.46, element: N, charge: 0 }, 
+        Atom { id: 2, id1: ' ', residue: Ser, chain: 'A', sequence_number: 0, insertion_code: ' ', x: -11.456, y: 0.553, z: 20.889, occupancy: 1.0, temperature_factor: 64.07, element: C, charge: 0 }, 
+        ...
+        ......
+        Atom { id: 10592, id1: ' ', residue: Ala, chain: 'D', sequence_number: 348, insertion_code: ' ', x: -18.613, y: -18.963, z: 60.665, occupancy: 1.0, temperature_factor: 90.85, element: C, charge: 0 }
+    ] 
+}
+```
+
 # References
 
 http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
