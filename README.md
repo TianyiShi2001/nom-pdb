@@ -44,13 +44,13 @@ http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
 ### Title Section
 - [X] [Header](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#HEADER)
 - [ ] [Obslte](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#OBSLTE)
-- [ ] [Title](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#TITLE)
+- [X] [Title](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#TITLE)
 - [ ] [Splt](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#SPLIT)
 - [ ] [Caveat](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#CAVEAT)
 - [ ] [Compnd](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#COMPND)
 - [ ] [Source](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#SOURCE)
 - [ ] [Keywds](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#KEYWDS)
-- [ ] [Expdta](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#EXPDTA)
+- [X] [Expdta](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#EXPDTA)
 - [ ] [Nummdl](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#NUMMDL)
 - [ ] [Mdltyp](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#MDLTYP)
 - [X] [Author](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#AUTHOR)
@@ -103,3 +103,4 @@ http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
 ### Bookkeeping Section
 - [ ] [Master](http://www.wwpdb.org/documentation/file-format-content/format33/sect11.html#MASTER)
 - [ ] [End](http://www.wwpdb.org/documentation/file-format-content/format33/sect11.html#END)
+

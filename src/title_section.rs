@@ -5,5 +5,6 @@ pub mod keywords;
 pub mod obslte;
 pub mod title;
 pub use author::{Authors, AuthorsParserComplete};
+pub use expdta::{ExperimentalTechniques, ExperimentalTechniquesParser};
 pub use header::{Header, HeaderParserComplete};
 pub use title::{Title, TitleParserComplete};

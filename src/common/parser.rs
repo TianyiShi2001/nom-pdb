@@ -1,3 +1,4 @@
+use crate::common::types::AminoAcid;
 use chrono::{
     format::{strftime::StrftimeItems, Parsed},
     NaiveDate,
@@ -10,10 +11,11 @@ use nom::{
     sequence::preceded,
     IResult,
 };
+use std::str::FromStr;
 
 pub trait FieldParserComplete {
     type Output;
-    fn parse(i: &str) -> IResult<&str, Self::Output>;
+    fn parse(inp: &str) -> IResult<&str, Self::Output>;
 }
 
 // fn ws<'a, F: 'a, O, E: ParseError<&'a str>>(inner: F) -> impl Fn(&'a str) -> IResult<&'a str, O, E>
@@ -406,4 +408,8 @@ pub struct Dbref {
     pub idbns_begin: Option<char>,
     pub db_seq_end: u32,
     pub dbins_end: Option<char>,
+}
+
+pub fn parse_amino_acid(inp: &str) -> IResult<&str, AminoAcid> {
+    map(take(3usize), |x| AminoAcid::from_str(x).unwrap())(inp)
 }

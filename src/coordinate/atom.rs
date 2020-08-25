@@ -17,7 +17,8 @@
 //! |77 - 78        |LString(2)   | element     | Element symbol, right-justified.          |
 //! |79 - 80        |LString(2)   | charge      | Charge  on the atom.                      |
 use crate::common::parser::FieldParserComplete;
-use crate::common::parser::{parse_right_f32, parse_right_i8, parse_right_u32};
+use crate::common::parser::{parse_amino_acid, parse_right_f32, parse_right_i8, parse_right_u32};
+use crate::common::types::AminoAcid;
 use nom::bytes::complete::take;
 use nom::character::complete::anychar;
 use nom::combinator::map;
@@ -53,7 +54,7 @@ impl FieldParserComplete for AtomParserComplete {
         // })(inp)?;
         let (inp, _) = take(4usize)(inp)?;
         let (inp, id1) = anychar(inp)?;
-        let (inp, residue) = map(take(3usize), |x| AminoAcid::from_str(x).unwrap())(inp)?;
+        let (inp, residue) = parse_amino_acid(inp)?;
         let (inp, _) = take(1usize)(inp)?;
         let (inp, chain) = anychar(inp)?;
         let (inp, sequence_number) = parse_right_u32(inp, 4)?;
@@ -208,59 +209,6 @@ impl FromStr for Element {
             "F" => Ok(Element::F),
             "Al" => Ok(Element::Al),
             _ => Err(format!("Unknown atom name {}", inp)),
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub enum AminoAcid {
-    Ala,
-    Arg,
-    Asn,
-    Asp,
-    Cys,
-    Gln,
-    Glu,
-    Gly,
-    His,
-    Ile,
-    Leu,
-    Lys,
-    Met,
-    Phe,
-    Pro,
-    Ser,
-    Thr,
-    Trp,
-    Tyr,
-    Val,
-}
-use AminoAcid::*;
-impl std::str::FromStr for AminoAcid {
-    type Err = String;
-    fn from_str(inp: &str) -> std::result::Result<Self, <Self as std::str::FromStr>::Err> {
-        match inp {
-            "ALA" => Ok(Ala),
-            "ARG" => Ok(Arg),
-            "ASN" => Ok(Asn),
-            "ASP" => Ok(Asp),
-            "CYS" => Ok(Cys),
-            "GLN" => Ok(Gln),
-            "GLU" => Ok(Glu),
-            "GLY" => Ok(Gly),
-            "HIS" => Ok(His),
-            "ILE" => Ok(Ile),
-            "LEU" => Ok(Leu),
-            "LYS" => Ok(Lys),
-            "MET" => Ok(Met),
-            "PHE" => Ok(Phe),
-            "PRO" => Ok(Pro),
-            "SER" => Ok(Ser),
-            "THR" => Ok(Thr),
-            "TRP" => Ok(Trp),
-            "TYR" => Ok(Tyr),
-            "VAL" => Ok(Val),
-            _ => Err(format!("Unknown experimental result {}", inp)),
         }
     }
 }
