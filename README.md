@@ -1,4 +1,5 @@
 # nom-pdb
+![CI](https://github.com/TianyiShi2001/nom-pdb/workflows/Continuous%20integration/badge.svg)
 
 PDB parser implemented in Rust using nom
 
@@ -103,4 +104,5 @@ http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
 ### Bookkeeping Section
 - [ ] [Master](http://www.wwpdb.org/documentation/file-format-content/format33/sect11.html#MASTER)
 - [ ] [End](http://www.wwpdb.org/documentation/file-format-content/format33/sect11.html#END)
+
 
