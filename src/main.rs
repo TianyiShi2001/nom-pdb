@@ -10,13 +10,22 @@ use primary_structure::seqres::SeqResParserComplete;
 // use crate::common::parser::parse_multiline_string;
 use std::str::from_utf8_unchecked;
 
+use nom_pdb::{apply_file_content, apply_file_content_unsafe};
+use std::fs::read_to_string;
+
 fn main() {
     // .unwrap();
     // println!("{:?},{:?}", i, r);
-    let data = include_bytes!("../assets/3SE5.pdb");
+    // let data = include_bytes!("../assets/4F7I.pdb");
+    // unsafe {
+    //     let data = from_utf8_unchecked(data);
+    //     let (data, r) = Pdb::parse(data).unwrap();
+    //     println!("{:?}, {:?}", data, r);
+    // }
     unsafe {
-        let data = from_utf8_unchecked(data);
-        let (data, r) = Pdb::parse(data).unwrap();
-        println!("{:?}, {:?}", data, r);
+        apply_file_content_unsafe("assets/4F7I.pdb", |x| {
+            println!("{:?}", x);
+        })
+        .unwrap();
     }
 }
