@@ -25,13 +25,11 @@
 
 use crate::common::parser::parse_right;
 use crate::common::parser::FieldParser;
-use crate::common::types::AminoAcid;
 use nom::bytes::complete::take;
-use nom::character::complete::anychar;
-use nom::combinator::map;
 use nom::IResult;
-use std::str::FromStr;
-#[derive(Debug, Clone)]
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Anisou {
     pub id: u32,
     pub u11: i32,

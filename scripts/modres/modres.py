@@ -18,22 +18,50 @@ import os
 # | 30 - 70 | String       | comment  | Description of the residue modification. |   !
 
 
-processed = json.load(os.path.join(
-    os.path.dirname(__file__), "processed.json"))
-modres = json.load(os.path.join(
-    os.path.dirname(__file__), "modres.json"))
-PDB_DIR = sys.argv[1]
+PROCESSED = os.path.join(
+    os.path.dirname(__file__), "processed.json")
+MODRES = os.path.join(
+    os.path.dirname(__file__), "modres.json")
+ANB = os.path.join(
+    os.path.dirname(__file__), "ambiguous.json")
+
+with open(PROCESSED) as f:
+    processed = json.load(f)
+with open(MODRES) as f:
+    modres = json.load(f)
+with open(ANB) as f:
+    anb = json.load(f)
+PDB_DIR = sys.argv[1] if len(
+    sys.argv) >= 2 else "/run/media/tianyi/LaCie/pdb/decompressed"
 for fn in [f for f in os.listdir(PDB_DIR) if not (f in processed)]:
     print(fn)
     with open(fn) as f:
-        read = False
-        while True:
-            line = f.readline()
+        read = [False]
+        while line := f.readline():
             if line[:6] == "MODRES":
                 resname = line[12:15]
                 stdres = line[24:27]
                 desc = line[29:].strip()
-                if modres["resname"]:
-                    assert(modres["resname"][1] == desc)
+                if anb.get(resname):
+                    if [stdres, desc] not in anb[resname]:
+                        anb[resname].append([stdres, desc])
+                elif modres.get(resname):
+                    if modres[resname][1] != desc:
+                        anb[resname] = [modres[resname][:2], [stdres, desc]]
+                        del modres[resname]
+                    else:
+                        modres[resname][2] += 1
                 else:
-                    modres["resname"] = [stdres, desc]
+                    modres[resname] = [stdres, desc, 1]
+                read[0] = True
+            else:
+                if read[0]:
+                    break
+        processed.append(fn)
+
+with open(MODRES, "w") as f:
+    json.dump(modres, f)
+with open(PROCESSED, "w") as f:
+    json.dump(processed, f)
+with open(ANB, "w") as f:
+    json.dump(anb, f)

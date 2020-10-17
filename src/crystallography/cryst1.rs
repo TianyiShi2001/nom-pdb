@@ -24,13 +24,13 @@
 
 use crate::common::parser::parse_right;
 use crate::common::parser::FieldParser;
-
 use nom::{
-    bytes::complete::{tag, take},
+    bytes::complete::take,
     character::complete::{anychar, line_ending},
     IResult,
 };
-#[derive(Debug, Clone, PartialEq, Default)]
+use serde::{Deserialize, Serialize};
+#[derive(Debug, Clone, PartialEq, Default, Serialize, Deserialize)]
 pub struct Cryst1 {
     pub a: f32,
     pub b: f32,
@@ -45,7 +45,7 @@ pub struct Cryst1 {
 
 // Space groups can be defined by combining the point group identifier with the uppercase P, C, I,
 // or F for primitive, side-centered, body-centered, or face-centered lattices.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum LatticeType {
     Primitive,
     SideCentered,
@@ -60,10 +60,10 @@ impl Default for LatticeType {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Debug, Clone, PartialEq, Eq, Default, Serialize, Deserialize)]
 pub struct GroupAxis(pub u32, pub u32);
 
-#[derive(Debug, Clone, PartialEq, Eq, Default)]
+#[derive(Debug, Clone, PartialEq, Eq, Default, Serialize, Deserialize)]
 pub struct SpaceGroup(pub GroupAxis, pub Option<GroupAxis>, pub Option<GroupAxis>);
 
 pub struct Cryst1Parser;

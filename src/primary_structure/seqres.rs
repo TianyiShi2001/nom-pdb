@@ -40,7 +40,8 @@ impl FieldParser for SeqResParser {
     type Output = SeqRes;
     fn parse(inp: &str) -> IResult<&str, SeqRes> {
         let mut v: Vec<(char, Vec<AminoAcid>)> = Vec::new();
-        let (mut inp, _) = take(6usize)(inp)?; // very first line
+        // let (mut inp, _) = take(6usize)(inp)?; // very first line
+        let mut inp = inp;
         loop {
             let (i, chain) = parse_chain(inp)?;
             v.push(chain);

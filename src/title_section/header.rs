@@ -14,8 +14,9 @@
 use crate::common::parser::{parse_date, FieldParser};
 use chrono::NaiveDate;
 use nom::{bytes::complete::take, character::complete::multispace1, combinator::map, IResult};
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Header {
     pub classification: String,
     pub deposition_date: NaiveDate,

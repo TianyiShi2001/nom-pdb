@@ -9,7 +9,9 @@ keywords = ["bioinformatics", "protein", "parser","nom", "pdb"]
 
 [dependencies]
 nom = "5"
-chrono = "0.4"
+chrono = {version = "0.4", features = ["serde"]}
 #itertools = "0.8"
-memmap = "0.7"
+#memmap = "0.7"
 num-traits = "0.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

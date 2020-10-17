@@ -1,0 +1,2726 @@
+{
+    "PCA": [
+        [
+            "GLN",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "GLN",
+            "PYROGLUTAMIC ACID"
+        ],
+        [
+            "GLU",
+            "PYROGLUTAMIC ACID"
+        ],
+        [
+            "GLU",
+            "PYROGLUTAMATE"
+        ],
+        [
+            "GLU",
+            "TAMINE  PYROGLUTAMIC ACID"
+        ],
+        [
+            "   ",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "GLU",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CYS": [
+        [
+            "CYS",
+            "1.81"
+        ],
+        [
+            "CYS",
+            "S-S BOND TO SEO"
+        ],
+        [
+            "CYS",
+            "LOST ONE O OF THE CACODYLATE GROUP"
+        ],
+        [
+            "CYS",
+            "DISULFIDE BRIDGE"
+        ],
+        [
+            "CYS",
+            "1.99"
+        ],
+        [
+            "CYS",
+            "COVALENT"
+        ],
+        [
+            "CYS",
+            "2.02"
+        ],
+        [
+            "CYS",
+            "2.03"
+        ],
+        [
+            "CYS",
+            "2.04"
+        ],
+        [
+            "CYS",
+            "2.05"
+        ],
+        [
+            "CYS",
+            "S"
+        ]
+    ],
+    "MEN": [
+        [
+            "ASN",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ],
+        [
+            "ASN",
+            "N-METHYL ASPARAGINE"
+        ],
+        [
+            "ASN",
+            "GAMMA-N METHYLATION OF ASN"
+        ],
+        [
+            "ASN",
+            "GAMMA METHYL ASPARAGINE"
+        ],
+        [
+            "ASN",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MSE": [
+        [
+            "MET",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "MET",
+            "SELENOMETHIONINE"
+        ],
+        [
+            "   ",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "LEU",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "TPQ": [
+        [
+            "TYR",
+            "SEE REMARK 800"
+        ],
+        [
+            "TYR",
+            ""
+        ],
+        [
+            "TYR",
+            "5-(2-CARBOXY-2-AMINOETHYL)"
+        ],
+        [
+            "TYR",
+            "2,4,5,-TRIHYDROXYPHENYLALANINE QUINONE"
+        ],
+        [
+            "TYR",
+            "MODIFIED TYROSINE"
+        ],
+        [
+            "TYR",
+            "2,4,5-TRIHYDROXYPHENYLALANINE QUINONE"
+        ]
+    ],
+    "KCX": [
+        [
+            "LYS",
+            "NZ-CARBOXYLIC ACID"
+        ],
+        [
+            "LYS",
+            "LYSINE NZ-CARBOXYLIC ACID"
+        ],
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "LYS",
+            "N-CARBOXYLATED LYSINE"
+        ],
+        [
+            "LYS",
+            "LYSYL-CARBAMATE"
+        ],
+        [
+            "LYS",
+            "CARBOXYLATED LYSINE"
+        ]
+    ],
+    "BB9": [
+        [
+            "CYS",
+            ""
+        ],
+        [
+            "CYS",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ]
+    ],
+    "MH6": [
+        [
+            "SER",
+            "3-HYDROXY-2-IMINOPROPANOIC ACID"
+        ],
+        [
+            "SER",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ]
+    ],
+    "SER": [
+        [
+            "SER",
+            "COVALENT LINK WITH BJI"
+        ],
+        [
+            "SER",
+            "COVALENT LINK WITH BJP"
+        ],
+        [
+            "SER",
+            "COVALENT LINK WITH BJH"
+        ],
+        [
+            "SER",
+            "COVALENT LINK WITH OCP"
+        ],
+        [
+            "SER",
+            "MODIFIED BY HSF"
+        ],
+        [
+            "SER",
+            "GLYCOSYLATION SITE"
+        ],
+        [
+            "SER",
+            "1.26"
+        ],
+        [
+            "SER",
+            "1.39"
+        ],
+        [
+            "SER",
+            "1.43"
+        ],
+        [
+            "SER",
+            "1.45"
+        ],
+        [
+            "SER",
+            "ACYLATION SITE"
+        ],
+        [
+            "SER",
+            "1.58"
+        ],
+        [
+            "SER",
+            "1.62"
+        ]
+    ],
+    "AIB": [
+        [
+            "ALA",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "ALA",
+            "ALPHA-AMINOISOBUTYRIC ACID"
+        ]
+    ],
+    "BRU": [
+        [
+            "  U",
+            "5-BROMO-2'-DEOXY DERIVATIVE"
+        ],
+        [
+            "  U",
+            "URACIL MODIFIED WITH BR"
+        ],
+        [
+            " DU",
+            ""
+        ],
+        [
+            "  T",
+            "5-BROMODEOXYURIDINE"
+        ],
+        [
+            " DU",
+            "5-BROMO-2'-DEOXYURIDINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "SME": [
+        [
+            "MET",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "MET",
+            "METHIONINE SULFOXIDE"
+        ]
+    ],
+    "CSS": [
+        [
+            "CYS",
+            "S-MERCAPTOCYSTEIN"
+        ],
+        [
+            "CYS",
+            "S-MERCAPTOCYSTEINE"
+        ],
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "TLN": [
+        [
+            "  T",
+            "THYMINE MODIFIED WITH OMB"
+        ],
+        [
+            " DU",
+            ""
+        ]
+    ],
+    "CSO": [
+        [
+            "CYS",
+            "S-HYDROXY-CYSTEINE"
+        ],
+        [
+            "CYS",
+            "S-HYDROXYCYSTEINE"
+        ],
+        [
+            "CYS",
+            "S-HYDROXYCYSTINE"
+        ],
+        [
+            "CYS",
+            "MODIFIED CYSTEINE"
+        ],
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "CYS",
+            "CYSTEINE SULFOXIDE"
+        ],
+        [
+            "CYS",
+            "HYDROXYCYSTEINE"
+        ],
+        [
+            "CYS",
+            "S-OXY CYSTEINE"
+        ]
+    ],
+    "LYS": [
+        [
+            "LYS",
+            "SCHIFF BASE LINKAGE"
+        ],
+        [
+            "LYS",
+            "COVALENT"
+        ],
+        [
+            "LYS",
+            "1.324"
+        ],
+        [
+            "ALA",
+            "SITE-DIRECTED MUTATION"
+        ]
+    ],
+    "A2M": [
+        [
+            "  A",
+            ""
+        ],
+        [
+            "  A",
+            "2'-O-METHYL-ADENOSINE-5'-MONOPHOSPHATE"
+        ],
+        [
+            "  A",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "DPP": [
+        [
+            "SER",
+            "AMINOSERINE"
+        ],
+        [
+            "ALA",
+            "DIAMINOPROPANOIC ACID"
+        ],
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CSX": [
+        [
+            "CYS",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ],
+        [
+            "CYS",
+            "S-OXY CYSTEINE"
+        ],
+        [
+            "CYS",
+            "S-OXYCYSTEINE"
+        ],
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "   ",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HYP": [
+        [
+            "PRO",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ],
+        [
+            "PRO",
+            "4-HYDROXYPROLINE"
+        ],
+        [
+            "PRO",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "PRO",
+            "HYDROXYPROLINE"
+        ]
+    ],
+    "DHA": [
+        [
+            "SER",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ],
+        [
+            "SER",
+            "2-AMINO-ACRYLIC ACID"
+        ],
+        [
+            "ALA",
+            "2-AMINO-ACRYLIC ACID"
+        ],
+        [
+            "ALA",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ]
+    ],
+    "7MG": [
+        [
+            "  G",
+            "7N-METHYL-8-HYDROGUANOSINE-5'-MONOPHOSPHATE"
+        ],
+        [
+            "  G",
+            ""
+        ],
+        [
+            "  G",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "1MA": [
+        [
+            "  A",
+            "6-HYDRO-1-METHYLADENOSINE-5'-MONOPHOSPHATE"
+        ],
+        [
+            "  A",
+            ""
+        ],
+        [
+            "  A",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "5CM": [
+        [
+            "  C",
+            "5-METHYL-2'-DEOXY-5'-CYTIDINE-5'-MONOPHOSPHATE"
+        ],
+        [
+            " DC",
+            ""
+        ],
+        [
+            " DC",
+            "5-METHYL CYTOSINE"
+        ]
+    ],
+    "PFF": [
+        [
+            "PHE",
+            "4-FLUORO-L-PHENYLALANINE"
+        ],
+        [
+            "PHE",
+            "4-FLUORO-L-PHENYLANANINE"
+        ],
+        [
+            "PHE",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MAA": [
+        [
+            "ALA",
+            "N-METHYLALANINE"
+        ],
+        [
+            "ALA",
+            "N-METHYL-L-ALANINE"
+        ]
+    ],
+    "CGU": [
+        [
+            "GLU",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "GLU",
+            "GAMMA-CARBOXY-GLUTAMIC ACID"
+        ]
+    ],
+    "GTP": [
+        [
+            "  G",
+            "GUNANOSINE-5'-TRIPHOSPHATE"
+        ],
+        [
+            "  G",
+            "GUANOSINE-5'-TRIPHOSPHATE"
+        ],
+        [
+            "  U",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "  G",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "PHD": [
+        [
+            "ASP",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "ASP",
+            "ASPARTYL PHOSPHATE"
+        ],
+        [
+            "ASP",
+            "ASPARTYL-PHOSPHATE"
+        ]
+    ],
+    "TPO": [
+        [
+            "THR",
+            "PHOSPHORYLATION SITE"
+        ],
+        [
+            "THR",
+            "PHOSPHOTHREONINE"
+        ],
+        [
+            "THR",
+            "PHOSPHORYLATED THREONINE"
+        ],
+        [
+            "THR",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "THR",
+            "O-PHOSPHOTHREONINE"
+        ],
+        [
+            "THR",
+            "MODIFIED THREONINE"
+        ],
+        [
+            "THR",
+            "PHOSPHOSERINE"
+        ],
+        [
+            "TYR",
+            "PHOSPHOTHREONINE"
+        ],
+        [
+            "   ",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "LCG": [
+        [
+            " DG",
+            ""
+        ],
+        [
+            "  G",
+            "LNA-GUANOSINE"
+        ],
+        [
+            " DG",
+            "MODIFIED GUANOSINE NUCLEOTIDE"
+        ]
+    ],
+    "MSO": [
+        [
+            "MET",
+            "SELENOMETHIONINE SELENOXIDE"
+        ]
+    ],
+    "M3L": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "LYS",
+            "N-TRIMETHYLLYSINE"
+        ]
+    ],
+    "PTR": [
+        [
+            "TYR",
+            "PHOSPHOTYROSINE"
+        ],
+        [
+            "TYR",
+            "O-PHOSPHOTYROSINE"
+        ],
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "TYR",
+            "PHOSPHONOTYROSINE"
+        ]
+    ],
+    "SMC": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "CYS",
+            "S-METHYLCYSTEINE"
+        ],
+        [
+            "MET",
+            "S-METHYLCYSTEINE"
+        ]
+    ],
+    "MDO": [
+        [
+            "ALA",
+            "CYCLISED ALA-SER-GLY"
+        ],
+        [
+            "SER",
+            "CYCLISED ALA-SER-GLY"
+        ],
+        [
+            "GLY",
+            "CYCLISED ALA-SER-GLY"
+        ],
+        [
+            "ALA",
+            ""
+        ],
+        [
+            "SER",
+            ""
+        ],
+        [
+            "GLY",
+            ""
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "ALA",
+            "CHROMOPHORE"
+        ],
+        [
+            "SER",
+            "CHROMOPHORE"
+        ]
+    ],
+    "LCC": [
+        [
+            "  C",
+            "MODIFIED CYTOSINE NUCLEOTIDE"
+        ]
+    ],
+    "CXM": [
+        [
+            "MET",
+            "N-(DIHYDROXYMETHYL)-L-METHIONINE"
+        ],
+        [
+            "MET",
+            "N-CARBOXYMETHIONINE"
+        ],
+        [
+            "MET",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "   ",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "6HC": [
+        [
+            "  C",
+            "HEXITOL-CYTOSINE"
+        ],
+        [
+            " DC",
+            ""
+        ]
+    ],
+    "6HG": [
+        [
+            "  G",
+            "HEXITOL-GUANOSINE"
+        ],
+        [
+            " DG",
+            ""
+        ]
+    ],
+    "6HT": [
+        [
+            "  T",
+            "HEXITOL-THYMIDINE"
+        ],
+        [
+            " DT",
+            ""
+        ]
+    ],
+    "6HA": [
+        [
+            "  A",
+            "HEXITOL-ADENOSINE"
+        ],
+        [
+            " DA",
+            ""
+        ]
+    ],
+    "8OG": [
+        [
+            "  G",
+            "8-OXO-2'-DEOXY-GUANOSINE-5'-MONOPHOSPHATE"
+        ],
+        [
+            " DG",
+            ""
+        ],
+        [
+            "  G",
+            "MODIFIED GUANOSINE"
+        ],
+        [
+            " DG",
+            "8-OXO-2'-DEOXY-GUANOSINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "TYI": [
+        [
+            "TYR",
+            "OSINE  3,5 DIIODOTYROSINE"
+        ],
+        [
+            "TYR",
+            "3,5-DIIODOTYROSINE"
+        ],
+        [
+            "TYR",
+            "3,5- DIIODOTYROSINE"
+        ],
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "BB6": [
+        [
+            "CYS",
+            "(2Z)-2-AMINO-3-SULFANYLBUT-2-ENOIC ACID"
+        ]
+    ],
+    "BB7": [
+        [
+            "CYS",
+            ""
+        ]
+    ],
+    "BB8": [
+        [
+            "PHE",
+            "(2S,3S)-BETA-HYDROXY-PHENYLALANINE"
+        ]
+    ],
+    "2PR": [
+        [
+            " DG",
+            "2-AMINOPURINE"
+        ],
+        [
+            " DG",
+            ""
+        ],
+        [
+            " DG",
+            "2-AMINOPURINE-2'-DEOXYRIBO-5'-MONOPHOSPHA"
+        ]
+    ],
+    "DAL": [
+        [
+            "SER",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ],
+        [
+            "ALA",
+            "D-ALANINE"
+        ]
+    ],
+    "BH2": [
+        [
+            "ASP",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ]
+    ],
+    "TRQ": [
+        [
+            "TRP",
+            "TRYPTOPHAN TRYPTOPHYLQUINONE"
+        ],
+        [
+            "TRP",
+            ""
+        ],
+        [
+            "TRP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "TQQ": [
+        [
+            "TRP",
+            "TRYPTOPHYLQUINONE N-SEMIQUINONE"
+        ],
+        [
+            "TRP",
+            "TRYPTOPHYLQUINONE N-QUINOL"
+        ],
+        [
+            "TRP",
+            ""
+        ]
+    ],
+    "6OG": [
+        [
+            "  G",
+            "MODIFIED GUANOSINE"
+        ],
+        [
+            "  G",
+            "O-6-METHYL-2'-DEOXY-GUANOSINE-5'-MONOPHOSPHATE"
+        ],
+        [
+            " DG",
+            "6-O-METHYL GUANOSINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "BFD": [
+        [
+            "ASP",
+            "ASPARTATE BERYLLIUM FLUORIDE"
+        ],
+        [
+            "ASP",
+            "ASPARTATE BERYLLIUM TRIFLUORIDE"
+        ],
+        [
+            "ASP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "DBU": [
+        [
+            "THR",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ],
+        [
+            "THR",
+            "(2E)-2-AMINOBUT-2-ENOIC ACID"
+        ],
+        [
+            "THR",
+            "(2Z)-2-AMINOBUT-2-ENOIC ACID"
+        ],
+        [
+            "THR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "TS9": [
+        [
+            "ILE",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ],
+        [
+            "ILE",
+            ""
+        ]
+    ],
+    "KPI": [
+        [
+            "LYS",
+            "NZ-(1-CARBOXYETHYL)-LYSINE"
+        ],
+        [
+            "LYS",
+            ""
+        ],
+        [
+            "LYS",
+            "PYRUVOYL LYSINE"
+        ],
+        [
+            "LYS",
+            "PYRUVOYLLYSINE"
+        ],
+        [
+            "LYS",
+            "MODIFIED LYSINE"
+        ],
+        [
+            "LYS",
+            "CARBOXYMETHYL LYSINE"
+        ],
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "LYS",
+            "PYRUVYLLYSINE"
+        ]
+    ],
+    "ORN": [
+        [
+            "ALA",
+            "L-ORNITHINE"
+        ],
+        [
+            "ALA",
+            "ORNITHINE"
+        ],
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "MET",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "LCA": [
+        [
+            "  A",
+            ""
+        ]
+    ],
+    "TBG": [
+        [
+            "VAL",
+            "3-METHYL-L-VALINE"
+        ]
+    ],
+    "CRO": [
+        [
+            "SER",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            ""
+        ],
+        [
+            "TYR",
+            ""
+        ],
+        [
+            "THR",
+            ""
+        ],
+        [
+            "THR",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "TRP",
+            "CHROMOPHORE"
+        ],
+        [
+            "THR",
+            "CHROMOPHORE"
+        ]
+    ],
+    "OCS": [
+        [
+            "CYS",
+            "CYSTEINE SULFONIC ACID"
+        ],
+        [
+            "CYS",
+            "CYSTEINESULFONIC ACID"
+        ],
+        [
+            "CYS",
+            "CYSTEINE SULPHONIC ACID"
+        ],
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "SEC",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CY3": [
+        [
+            "CYS",
+            "MODIFIED CYSTEINE"
+        ],
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "AYA": [
+        [
+            "ALA",
+            "N-ACETYL ALANINE"
+        ],
+        [
+            "ALA",
+            "N-ACETYLALANINE"
+        ],
+        [
+            "ALA",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "M1G": [
+        [
+            "  G",
+            "MALONDIALDEHYDE DEOXYGUANOSINE"
+        ],
+        [
+            " DG",
+            ""
+        ]
+    ],
+    "CYD": [
+        [
+            "CYS",
+            "2-AMINO-6-(CYSTEIN-S-YL)-5-OXO-HEXANOIC ACID"
+        ]
+    ],
+    "MLY": [
+        [
+            "LYS",
+            "N,N-DIMETHYLLYSINE"
+        ],
+        [
+            "LYS",
+            "N-DIMETHYL-LYSINE"
+        ],
+        [
+            "LYS",
+            "N- DIMETHYL- LYSINE"
+        ],
+        [
+            "LYS",
+            "DIMETHYL-LYSINE"
+        ],
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "DAH": [
+        [
+            "PHE",
+            "3-HYDROXY-L-TYROSINE"
+        ],
+        [
+            "PHE",
+            "3,4-DIHYDROXYPHENYLALANINE"
+        ],
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "DDZ": [
+        [
+            "ALA",
+            "3,3-DIHYDROXY L-ALANINE"
+        ],
+        [
+            "CYS",
+            "3,3-DIHYDROXY L-ALANINE"
+        ]
+    ],
+    "ILX": [
+        [
+            "ILE",
+            "4,5-DIHYDROXYISOLEUCINE"
+        ],
+        [
+            "ILE",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ]
+    ],
+    "TRX": [
+        [
+            "TRP",
+            "6-HYDROXYTRYPTOPHAN"
+        ],
+        [
+            "TRP",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ],
+        [
+            "TRP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "DOC": [
+        [
+            " DC",
+            "2,3-DIDEOXYCYTOSINE-MONOPHOSPHATE"
+        ],
+        [
+            " DC",
+            "2',3'-DIDEOXYCYTIDINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "O2G": [
+        [
+            " DG",
+            "MODIFIED GUANOSINE"
+        ],
+        [
+            " DG",
+            "N2-NAPHTHALENE DEOXYGUANOSINE"
+        ]
+    ],
+    "  Z": [
+        [
+            " DC",
+            ""
+        ],
+        [
+            " DC",
+            "MODIFIED DC"
+        ]
+    ],
+    "CSD": [
+        [
+            "CYS",
+            "CYSTEINE-S-DIOXIDE"
+        ],
+        [
+            "CYS",
+            "3-SULFINOALANINE"
+        ],
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "TDY": [
+        [
+            " DT",
+            "MODIFIED DT"
+        ]
+    ],
+    "PRV": [
+        [
+            "GLY",
+            "(2R)-AMINO(2-NITROPHENYL)ETHANOIC ACID"
+        ]
+    ],
+    "5UA": [
+        [
+            " DA",
+            "5'-O-CARBOXY-2'-DEOXYADENOSINE"
+        ]
+    ],
+    "A23": [
+        [
+            "  A",
+            "ADENOSINE-5'-PHOSPHATE-2',3'-CYCLIC PHOSPHATE"
+        ],
+        [
+            "  A",
+            ""
+        ],
+        [
+            "  A",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SEP": [
+        [
+            "SER",
+            "PHOSPHORYLATED SERINE"
+        ],
+        [
+            "SER",
+            "PHOSPHOSERINE"
+        ],
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "   ",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "THR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    " DG": [
+        [
+            "  G",
+            "2'-DEOXYGUANOSINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "3GL": [
+        [
+            "GLU",
+            "POST-TRANSLATIONAL MODIFICATION"
+        ]
+    ],
+    "ASN": [
+        [
+            "ASN",
+            "1.44"
+        ],
+        [
+            "ASN",
+            "1.45"
+        ],
+        [
+            "ASN",
+            "GLYCOSYLATION SITE"
+        ],
+        [
+            "ASN",
+            ""
+        ]
+    ],
+    "AGT": [
+        [
+            "CYS",
+            ""
+        ]
+    ],
+    "NRQ": [
+        [
+            "MET",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "MET",
+            ""
+        ],
+        [
+            "TYR",
+            ""
+        ],
+        [
+            "GLY",
+            ""
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "MET",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ]
+    ],
+    "CH6": [
+        [
+            "MET",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "MET",
+            ""
+        ],
+        [
+            "TYR",
+            ""
+        ],
+        [
+            "GLY",
+            ""
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "MET",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ]
+    ],
+    "PR3": [
+        [
+            "CYS",
+            "S,S-PROPYLTHIOCYSTEINE"
+        ]
+    ],
+    "CR2": [
+        [
+            "SER",
+            "CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            ""
+        ],
+        [
+            "TYR",
+            ""
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ],
+        [
+            "ALA",
+            "CHROMOPHORE"
+        ]
+    ],
+    "C12": [
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "THR",
+            ""
+        ],
+        [
+            "TYR",
+            ""
+        ],
+        [
+            "GLY",
+            ""
+        ]
+    ],
+    "GYS": [
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "SER",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "SER",
+            ""
+        ],
+        [
+            "TYR",
+            ""
+        ],
+        [
+            "GLY",
+            ""
+        ],
+        [
+            "SER",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ]
+    ],
+    "CR8": [
+        [
+            "HIS",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CIRCULARIZED TRI-PEPTIDE CHROMOPHORE"
+        ],
+        [
+            "HIS",
+            ""
+        ],
+        [
+            "TYR",
+            ""
+        ],
+        [
+            "GLY",
+            ""
+        ],
+        [
+            "HIS",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ]
+    ],
+    "DDG": [
+        [
+            " DG",
+            "2',3'-DIDEOXY-GUANOSINE-5'-MONOPHOSPHATE"
+        ],
+        [
+            " DG",
+            ""
+        ]
+    ],
+    "FME": [
+        [
+            "MET",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "MET",
+            "N-FORMYLMETHIONINE"
+        ],
+        [
+            "MET",
+            "FORMYLATED METHIONINE"
+        ],
+        [
+            "   ",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SLZ": [
+        [
+            "LYS",
+            "THIA-LYSINE"
+        ],
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "PYR": [
+        [
+            "SER",
+            "PYRUVATE"
+        ]
+    ],
+    "SBG": [
+        [
+            "SER",
+            "O-[(S)-HYDROXY(METHYL)PHOSPHORYL]-L-SERINE"
+        ],
+        [
+            "SER",
+            "MODIFIED SERINE"
+        ]
+    ],
+    "FOX": [
+        [
+            " DC",
+            "FORMAMIDOPYRIMIDIN ADENINE ANALOG"
+        ],
+        [
+            " DG",
+            ""
+        ]
+    ],
+    "ALY": [
+        [
+            "LYS",
+            "ACETYLLYSINE"
+        ],
+        [
+            "LYS",
+            "ACETYLATED LYSINE"
+        ],
+        [
+            "LYS",
+            "N(6)-ACETYLLYSINE"
+        ],
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "FZN": [
+        [
+            "LYS",
+            "MODIFIED LYSINE"
+        ],
+        [
+            "LYS",
+            ""
+        ]
+    ],
+    "R1A": [
+        [
+            "CYS",
+            "SPIN LABEL CYS"
+        ],
+        [
+            "CYS",
+            ""
+        ]
+    ],
+    "KYN": [
+        [
+            "TRP",
+            ""
+        ]
+    ],
+    "FDL": [
+        [
+            "LYS",
+            ""
+        ]
+    ],
+    "CME": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "CYS",
+            "S,S-(2-HYDROXYETHYL)THIOCYSTEINE"
+        ]
+    ],
+    "SEB": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MLZ": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "LYS",
+            "N-METHYL-LYSINE"
+        ]
+    ],
+    "ALC": [
+        [
+            "PHE",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "ALA",
+            "2-AMINO-3-CYCLOHEXYL-PROPIONIC ACID"
+        ]
+    ],
+    "LLP": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "LYS",
+            ""
+        ]
+    ],
+    "MIS": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "SER",
+            "MONOISOPROPYLPHOSPHORYLSERINE"
+        ]
+    ],
+    "HIC": [
+        [
+            "HIS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "HIS",
+            "4-METHYL-HISTIDINE"
+        ]
+    ],
+    "CSU": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "CYS",
+            "CYSTEINE-S-SULFONIC ACID"
+        ]
+    ],
+    "CAF": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "IYR": [
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SLL": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "LYS",
+            ""
+        ]
+    ],
+    "MYK": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MEQ": [
+        [
+            "GLN",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "OAS": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CAS": [
+        [
+            "CYS",
+            "S-(DIMETHYLARSENIC)CYCTEINE"
+        ],
+        [
+            "CYS",
+            "S-(DIMETHYLARSENIC)CYSTEINE"
+        ],
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CCC": [
+        [
+            "  C",
+            "CYCLIC CMP"
+        ]
+    ],
+    "CCS": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "NAG": [
+        [
+            "NAG",
+            "N-ACETYL-D-GLUCOSAMINE"
+        ],
+        [
+            "NAG",
+            "-D"
+        ]
+    ],
+    "MAN": [
+        [
+            "MAN",
+            "N-ACETYL-D-GLUCOSAMINE"
+        ],
+        [
+            "MAN",
+            "-D"
+        ]
+    ],
+    "MHO": [
+        [
+            "MET",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "MET",
+            "S-OXYMETHIONINE"
+        ]
+    ],
+    "CYG": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SCY": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "CYS",
+            "S-ACETYL-CYSTEINE"
+        ]
+    ],
+    "PSU": [
+        [
+            "  U",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "  U",
+            "PSEUDOURIDINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "M2G": [
+        [
+            "  G",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "  G",
+            "N2-DIMETHYLGUANOSINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "5MC": [
+        [
+            "  C",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "  C",
+            "5-METHYLCYTIDINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "2MG": [
+        [
+            "  G",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "  G",
+            "2N-METHYLGUANOSINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "4OC": [
+        [
+            "  C",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "UR3": [
+        [
+            "  U",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MA6": [
+        [
+            "  A",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "NEP": [
+        [
+            "HIS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "0AF": [
+        [
+            "TRP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "TYS": [
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "TYR",
+            "O-SULFO-L-TYROSINE"
+        ]
+    ],
+    "BTK": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "KCR": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HS8": [
+        [
+            "HIS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "YCM": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SAC": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "PRK": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HIX": [
+        [
+            "PHE",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "NLE": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "QPA": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "NVA": [
+        [
+            "THR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "G7M": [
+        [
+            "  G",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "0TD": [
+        [
+            "ASP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HOX": [
+        [
+            "HIS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "FTR": [
+        [
+            "TRP",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "TRP",
+            "FLUOROTRYPTOPHANE"
+        ]
+    ],
+    "APK": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "OCY": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "PIA": [
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "SER",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ],
+        [
+            "GLN",
+            "CHROMOPHORE"
+        ]
+    ],
+    "NMM": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MK8": [
+        [
+            "LEU",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "GLU",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "ILE",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SCH": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "   ",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CMT": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "ABA": [
+        [
+            "ASN",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "ALA",
+            "ALPHA-AMINOBUTYRIC ACID"
+        ],
+        [
+            "MET",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "GLU",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "RC7": [
+        [
+            "   ",
+            "CHROMOPHORE"
+        ]
+    ],
+    "OTY": [
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "GLZ": [
+        [
+            "GLY",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "4HH": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SNC": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CSP": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "B3K": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "B3X": [
+        [
+            "ASN",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "B3A": [
+        [
+            "ALA",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "PHI": [
+        [
+            "PHE",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SAR": [
+        [
+            "GLY",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HZP": [
+        [
+            "PRO",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "ALO": [
+        [
+            "THR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "4BF": [
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "LPD": [
+        [
+            "PRO",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "N7P": [
+        [
+            "PRO",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CRF": [
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "SER",
+            "CHROMOPHORE"
+        ]
+    ],
+    "CIR": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "PXU": [
+        [
+            "PRO",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SCS": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "ASB": [
+        [
+            "ASP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "M2L": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "4PH": [
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "TOX": [
+        [
+            "TRP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MHS": [
+        [
+            "HIS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "DAB": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SNN": [
+        [
+            "ASP",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "ASN",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "4SU": [
+        [
+            "  U",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "H2U": [
+        [
+            "  U",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "  U",
+            "5,6-DIHYDROURIDINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "5MU": [
+        [
+            "  U",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "  U",
+            "5-METHYLURIDINE 5'-MONOPHOSPHATE"
+        ]
+    ],
+    "AZH": [
+        [
+            "ILE",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "AGM": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MGN": [
+        [
+            "GLN",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "GL3": [
+        [
+            "GLY",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HLU": [
+        [
+            "LEU",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "4FW": [
+        [
+            "TRP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "OMT": [
+        [
+            "MET",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "AAR": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "FP9": [
+        [
+            "PRO",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "4FB": [
+        [
+            "PRO",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "PRS": [
+        [
+            "PRO",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "OSE": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "DA2": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MEA": [
+        [
+            "PHE",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "89L": [
+        [
+            "LIG",
+            "4"
+        ]
+    ],
+    "CGV": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "NFA": [
+        [
+            "PHE",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CH7": [
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ],
+        [
+            "LYS",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ]
+    ],
+    "TYQ": [
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "2TY": [
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HSK": [
+        [
+            "HIS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HTR": [
+        [
+            "TRP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "XYG": [
+        [
+            "ASP",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ]
+    ],
+    "0WE": [
+        [
+            "LIG",
+            "6"
+        ],
+        [
+            "LIG",
+            "7"
+        ],
+        [
+            "LIG",
+            "8"
+        ]
+    ],
+    "M0H": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "OMU": [
+        [
+            "  U",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "OMC": [
+        [
+            "  C",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "  C",
+            "O2'-METHYLYCYTIDINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "OMG": [
+        [
+            "  G",
+            "MODIFIED RESIDUE"
+        ],
+        [
+            "  G",
+            "O2'-METHYLGUANOSINE-5'-MONOPHOSPHATE"
+        ]
+    ],
+    "MIA": [
+        [
+            "  A",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SEE": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "A8E": [
+        [
+            "VAL",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "2LT": [
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "1MG": [
+        [
+            "  G",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "2MA": [
+        [
+            "  A",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SVV": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CRQ": [
+        [
+            "GLN",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ]
+    ],
+    "DAS": [
+        [
+            "ASP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "DLE": [
+        [
+            "LEU",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "4CF": [
+        [
+            "ILE",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "GYC": [
+        [
+            "CYS",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ]
+    ],
+    "OHI": [
+        [
+            "HIS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CRU": [
+        [
+            "GLU",
+            "CHROMOPHORE"
+        ],
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ],
+        [
+            "GLY",
+            "CHROMOPHORE"
+        ]
+    ],
+    "HAR": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SE7": [
+        [
+            "SEC",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CZ2": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "CBV": [
+        [
+            "  C",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "2MR": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "IEY": [
+        [
+            "TYR",
+            "CHROMOPHORE"
+        ]
+    ],
+    "SUN": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SGB": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SDP": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "SVX": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "OMX": [
+        [
+            "TYR",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "ALS": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "LYZ": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "TSY": [
+        [
+            "CYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "ASA": [
+        [
+            "ASP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HRG": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MMO": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "B3D": [
+        [
+            "ASP",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "HMR": [
+        [
+            "ARG",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "MVA": [
+        [
+            "VAL",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "ML3": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "2ML": [
+        [
+            "LEU",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "1X6": [
+        [
+            "SER",
+            "MODIFIED RESIDUE"
+        ]
+    ],
+    "KYQ": [
+        [
+            "LYS",
+            "MODIFIED RESIDUE"
+        ]
+    ]
+}

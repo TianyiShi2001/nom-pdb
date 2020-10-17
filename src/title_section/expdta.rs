@@ -13,6 +13,8 @@
 //! |         |                              | optional comment desc                     |
 
 use crate::common::parser::{parse_multiline_list, FieldParser};
+use serde::{Deserialize, Serialize};
+
 pub type ExperimentalTechniques = Vec<ExperimentalTechnique>;
 pub struct ExperimentalTechniquesParser;
 impl FieldParser for ExperimentalTechniquesParser {
@@ -30,7 +32,7 @@ impl FieldParser for ExperimentalTechniquesParser {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum ExperimentalTechnique {
     XRayDiffraction,
     ElectronMicroscopy,

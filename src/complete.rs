@@ -6,18 +6,20 @@ use crate::common::parser::FieldParser;
 use nom::bytes::complete::take;
 use nom::character::complete::{line_ending, not_line_ending};
 use nom::IResult;
+use serde::{Deserialize, Serialize};
+use serde_json;
 // use nom::Err::Error;
 
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct Pdb {
     pub header: Header,
     pub title: Title,
     pub authors: Authors,
     pub experimental_techniques: ExperimentalTechniques,
     pub cryst1: Cryst1,
+    pub modres: Modres,
     pub seqres: SeqRes,
-    pub atoms: Vec<Atom>,
-    pub anisou: Vec<Anisou>,
+    pub models: Models,
 }
 
 impl Pdb {}
@@ -127,6 +129,8 @@ pub struct Parser<'a> {
 impl<'a> Parser<'a> {
     pub fn parse(mut inp: &str) -> nom::IResult<&str, Pdb> {
         let mut pdb = Pdb::default();
+        pdb.models = vec![Model::default()];
+        let mut model_idx = 0;
         loop {
             let (i, tag) = take(6usize)(inp)?;
             inp = match tag {
@@ -134,12 +138,20 @@ impl<'a> Parser<'a> {
                 "TITLE " => TitleParser::parse_into(&i, &mut pdb.title),
                 "AUTHOR" => AuthorsParser::parse_into(&i, &mut pdb.authors),
                 "CRYST1" => Cryst1Parser::parse_into(&i, &mut pdb.cryst1),
-                "SEQRES" => SeqResParser::parse_into(inp, &mut pdb.seqres),
+                "SEQRES" => SeqResParser::parse_into(&i, &mut pdb.seqres),
+                "MODRES" => ModresParser::parse_into(&i, &mut pdb.modres),
                 "EXPDTA" => {
                     ExperimentalTechniquesParser::parse_into(&i, &mut pdb.experimental_techniques)
                 }
-                "ATOM  " => AtomParser::parse_into_vec(&i, &mut pdb.atoms),
-                "ANISOU" => AnisouParser::parse_into_vec(&i, &mut pdb.anisou),
+                "ATOM  " => AtomParser::parse_into_vec(&i, &mut pdb.models[model_idx].atoms),
+                "ANISOU" => AnisouParser::parse_into_vec(&i, &mut pdb.models[model_idx].anisou),
+                "ENDMDL" => {
+                    pdb.models.push(Model::default());
+                    model_idx += 1;
+                    let (i, _) = not_line_ending(i)?;
+                    let (i, _) = line_ending(i)?;
+                    i
+                }
                 "END   " => {
                     inp = "";
                     break;

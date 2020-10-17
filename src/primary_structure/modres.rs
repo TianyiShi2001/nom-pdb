@@ -28,6 +28,7 @@ use nom::{
     combinator::{map, peek},
     IResult,
 };
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::str::FromStr;
 
@@ -35,7 +36,7 @@ type Chain = char;
 type SequenceNumber = u32;
 type Position = (Chain, SequenceNumber);
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct CustomAminoAcid {
     pub(crate) standard_res: AminoAcid,
     pub(crate) description: String,
