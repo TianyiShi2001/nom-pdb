@@ -27,7 +27,7 @@
 //! | 64 - 66 | Residue name | resName  | Residue name.                                                                                                                     |
 //! | 68 - 70 | Residue name | resName  | Residue name.                                                                                                                     |
 
-use crate::common::parser::{parse_amino_acid, parse_right_u32, FieldParser};
+use crate::common::parser::{parse_amino_acid, parse_right, FieldParser};
 use crate::common::types::AminoAcid;
 use nom::bytes::complete::take;
 use nom::character::complete::{anychar, multispace1};
@@ -55,7 +55,7 @@ pub fn parse_chain(inp: &str) -> IResult<&str, (char, Vec<AminoAcid>)> {
     let (inp, _) = take(5usize)(inp)?; // first line 7 - 11
     let (inp, chain) = anychar(inp)?; // first line 12
     let (inp, _) = take(1usize)(inp)?; // first line 13
-    let (inp, n) = parse_right_u32(inp, 4)?; // first line 14 - 17
+    let (inp, n) = parse_right::<u32>(inp, 4)?; // first line 14 - 17
     let (inp, _) = take(2usize)(inp)?; // first line 18 - 19
     let lines = n / 13u32;
     let last_line_items = n % 13u32;

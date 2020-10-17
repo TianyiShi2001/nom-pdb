@@ -20,7 +20,7 @@
 // * MODRES comes after SEQRES, thus non-standard residue names in SEQRES cannot be identified
 //   directly
 
-use crate::common::parser::{parse_amino_acid, parse_right_u32, FieldParser};
+use crate::common::parser::{parse_amino_acid, parse_right, FieldParser};
 use crate::common::types::AminoAcid;
 use nom::{
     bytes::complete::take,
@@ -72,7 +72,7 @@ impl ModresParser {
         let (inp, _) = take(1usize)(inp)?;
         let (inp, chain) = anychar(inp)?;
         let (inp, _) = take(1usize)(inp)?;
-        let (inp, sequence_number) = parse_right_u32(inp, 4usize)?;
+        let (inp, sequence_number) = parse_right::<u32>(inp, 4usize)?;
         let (inp, insertion_code) = anychar(inp)?;
         let (inp, _) = take(1usize)(inp)?;
         let (inp, standard_res) = parse_amino_acid(inp)?;

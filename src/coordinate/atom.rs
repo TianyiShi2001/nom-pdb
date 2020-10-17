@@ -62,7 +62,7 @@
 //! factor rather than the full isotropic value.
 
 use crate::common::parser::FieldParser;
-use crate::common::parser::{parse_amino_acid, parse_right_f32, parse_right_i8, parse_right_u32};
+use crate::common::parser::{parse_amino_acid, parse_right};
 use crate::common::types::AminoAcid;
 use nom::bytes::complete::take;
 use nom::character::complete::anychar;
@@ -72,7 +72,7 @@ use std::str::FromStr;
 #[derive(Debug, Clone)]
 pub struct Atom {
     pub id: u32,
-    pub name: AminoAcidAtomName,
+    // pub name: AminoAcidAtomName, // ! is this useful?
     pub id1: char,
     pub residue: AminoAcid,
     pub chain: char,
@@ -91,25 +91,25 @@ pub struct AtomParser;
 impl FieldParser for AtomParser {
     type Output = Atom;
     fn parse(inp: &str) -> IResult<&str, Atom> {
-        let (inp, id) = parse_right_u32(inp, 5)?;
+        let (inp, id) = parse_right::<u32>(inp, 5)?;
         let (inp, _) = take(1usize)(inp)?;
-        // ! to be implemented
-        let (inp, name) = map(map(take(4usize), str::trim), |x| {
-            AminoAcidAtomName::from_str(x).unwrap()
-        })(inp)?;
-        // let (inp, _) = take(4usize)(inp)?;
+        // ! is this useful?
+        // let (inp, name) = map(map(take(4usize), str::trim), |x| {
+        //     AminoAcidAtomName::from_str(x).unwrap()
+        // })(inp)?;
+        let (inp, _) = take(4usize)(inp)?;
         let (inp, id1) = anychar(inp)?;
         let (inp, residue) = parse_amino_acid(inp)?;
         let (inp, _) = take(1usize)(inp)?;
         let (inp, chain) = anychar(inp)?;
-        let (inp, sequence_number) = parse_right_u32(inp, 4)?;
+        let (inp, sequence_number) = parse_right::<u32>(inp, 4)?;
         let (inp, insertion_code) = anychar(inp)?;
         let (inp, _) = take(3usize)(inp)?;
-        let (inp, x) = parse_right_f32(inp, 8)?;
-        let (inp, y) = parse_right_f32(inp, 8)?;
-        let (inp, z) = parse_right_f32(inp, 8)?;
-        let (inp, occupancy) = parse_right_f32(inp, 6)?;
-        let (inp, temperature_factor) = parse_right_f32(inp, 6)?;
+        let (inp, x) = parse_right::<f32>(inp, 8)?;
+        let (inp, y) = parse_right::<f32>(inp, 8)?;
+        let (inp, z) = parse_right::<f32>(inp, 8)?;
+        let (inp, occupancy) = parse_right::<f32>(inp, 6)?;
+        let (inp, temperature_factor) = parse_right::<f32>(inp, 6)?;
         let (inp, _) = take(10usize)(inp)?;
         let (inp, element) = map(map(take(2usize), str::trim_start), |x| {
             Element::from_str(x).unwrap()
@@ -123,7 +123,6 @@ impl FieldParser for AtomParser {
             inp,
             Atom {
                 id,
-                name,
                 id1,
                 residue,
                 chain,
@@ -141,73 +140,73 @@ impl FieldParser for AtomParser {
     }
 }
 
-// ! to be implemented
-#[derive(Debug, Clone)]
-pub enum AminoAcidAtomName {
-    C,
-    CA,
-    CB,
-    CD,
-    CD1,
-    CD2,
-    CE,
-    CE1,
-    CE2,
-    CG,
-    CG1,
-    CG2,
-    CZ,
-    O,
-    OG,
-    OD1,
-    OD2,
-    OE,
-    OE1,
-    OE2,
-    N,
-    NE,
-    NH,
-    NH1,
-    NH2,
-    NZ,
-    SD,
-}
+// // ! to be implemented
+// #[derive(Debug, Clone)]
+// pub enum AminoAcidAtomName {
+//     C,
+//     CA,
+//     CB,
+//     CD,
+//     CD1,
+//     CD2,
+//     CE,
+//     CE1,
+//     CE2,
+//     CG,
+//     CG1,
+//     CG2,
+//     CZ,
+//     O,
+//     OG,
+//     OD1,
+//     OD2,
+//     OE,
+//     OE1,
+//     OE2,
+//     N,
+//     NE,
+//     NH,
+//     NH1,
+//     NH2,
+//     NZ,
+//     SD,
+// }
 
-impl FromStr for AminoAcidAtomName {
-    type Err = String;
-    fn from_str(inp: &str) -> std::result::Result<Self, <Self as std::str::FromStr>::Err> {
-        match inp {
-            "C" => Ok(AminoAcidAtomName::C),
-            "CA" => Ok(AminoAcidAtomName::CA),
-            "CB" => Ok(AminoAcidAtomName::CB),
-            "CD" => Ok(AminoAcidAtomName::CD),
-            "CD1" => Ok(AminoAcidAtomName::CD1),
-            "CD2" => Ok(AminoAcidAtomName::CD2),
-            "CE" => Ok(AminoAcidAtomName::CE),
-            "CE1" => Ok(AminoAcidAtomName::CE1),
-            "CE2" => Ok(AminoAcidAtomName::CE2),
-            "CG" => Ok(AminoAcidAtomName::CG),
-            "CG1" => Ok(AminoAcidAtomName::CG1),
-            "CG2" => Ok(AminoAcidAtomName::CG2),
-            "CZ" => Ok(AminoAcidAtomName::CZ),
-            "O" => Ok(AminoAcidAtomName::O),
-            "OD1" => Ok(AminoAcidAtomName::OD1),
-            "OD2" => Ok(AminoAcidAtomName::OD2),
-            "OG" => Ok(AminoAcidAtomName::OG),
-            "OE" => Ok(AminoAcidAtomName::OE),
-            "OE1" => Ok(AminoAcidAtomName::OE1),
-            "OE2" => Ok(AminoAcidAtomName::OE2),
-            "N" => Ok(AminoAcidAtomName::N),
-            "NE" => Ok(AminoAcidAtomName::NE),
-            "NH" => Ok(AminoAcidAtomName::NH),
-            "NH1" => Ok(AminoAcidAtomName::NH1),
-            "NH2" => Ok(AminoAcidAtomName::NH2),
-            "NZ" => Ok(AminoAcidAtomName::NZ),
-            "SD" => Ok(AminoAcidAtomName::SD),
-            _ => Err(format!("Unknown atom name {}", inp)),
-        }
-    }
-}
+// impl FromStr for AminoAcidAtomName {
+//     type Err = String;
+//     fn from_str(inp: &str) -> std::result::Result<Self, <Self as std::str::FromStr>::Err> {
+//         match inp {
+//             "C" => Ok(AminoAcidAtomName::C),
+//             "CA" => Ok(AminoAcidAtomName::CA),
+//             "CB" => Ok(AminoAcidAtomName::CB),
+//             "CD" => Ok(AminoAcidAtomName::CD),
+//             "CD1" => Ok(AminoAcidAtomName::CD1),
+//             "CD2" => Ok(AminoAcidAtomName::CD2),
+//             "CE" => Ok(AminoAcidAtomName::CE),
+//             "CE1" => Ok(AminoAcidAtomName::CE1),
+//             "CE2" => Ok(AminoAcidAtomName::CE2),
+//             "CG" => Ok(AminoAcidAtomName::CG),
+//             "CG1" => Ok(AminoAcidAtomName::CG1),
+//             "CG2" => Ok(AminoAcidAtomName::CG2),
+//             "CZ" => Ok(AminoAcidAtomName::CZ),
+//             "O" => Ok(AminoAcidAtomName::O),
+//             "OD1" => Ok(AminoAcidAtomName::OD1),
+//             "OD2" => Ok(AminoAcidAtomName::OD2),
+//             "OG" => Ok(AminoAcidAtomName::OG),
+//             "OE" => Ok(AminoAcidAtomName::OE),
+//             "OE1" => Ok(AminoAcidAtomName::OE1),
+//             "OE2" => Ok(AminoAcidAtomName::OE2),
+//             "N" => Ok(AminoAcidAtomName::N),
+//             "NE" => Ok(AminoAcidAtomName::NE),
+//             "NH" => Ok(AminoAcidAtomName::NH),
+//             "NH1" => Ok(AminoAcidAtomName::NH1),
+//             "NH2" => Ok(AminoAcidAtomName::NH2),
+//             "NZ" => Ok(AminoAcidAtomName::NZ),
+//             "SD" => Ok(AminoAcidAtomName::SD),
+//             _ => Err(format!("Unknown atom name {}", inp)),
+//         }
+//     }
+// }
 
 #[derive(Debug, Clone)]
 pub enum Element {

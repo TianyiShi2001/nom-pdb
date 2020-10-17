@@ -22,8 +22,8 @@
 //! - https://infogalactic.com/info/Hermann%E2%80%93Mauguin_notation
 //! - https://enacademic.com/dic.nsf/enwiki/1879109
 
+use crate::common::parser::parse_right;
 use crate::common::parser::FieldParser;
-use crate::common::parser::{parse_right_f32, parse_right_u8};
 
 use nom::{
     bytes::complete::{tag, take},
@@ -70,15 +70,15 @@ pub struct Cryst1Parser;
 impl FieldParser for Cryst1Parser {
     type Output = Cryst1;
     fn parse(i: &str) -> IResult<&str, Cryst1> {
-        let (i, a) = parse_right_f32(i, 9)?; // 7 - 15
-        let (i, b) = parse_right_f32(i, 9)?; // 16 - 24
-        let (i, c) = parse_right_f32(i, 9)?; // 25 - 33
-        let (i, alpha) = parse_right_f32(i, 7)?; // 34 - 40
-        let (i, beta) = parse_right_f32(i, 7)?; // 41 - 47
-        let (i, gamma) = parse_right_f32(i, 7)?; // 48 - 54
+        let (i, a) = parse_right::<f32>(i, 9)?; // 7 - 15
+        let (i, b) = parse_right::<f32>(i, 9)?; // 16 - 24
+        let (i, c) = parse_right::<f32>(i, 9)?; // 25 - 33
+        let (i, alpha) = parse_right::<f32>(i, 7)?; // 34 - 40
+        let (i, beta) = parse_right::<f32>(i, 7)?; // 41 - 47
+        let (i, gamma) = parse_right::<f32>(i, 7)?; // 48 - 54
         let (i, lattice_type) = parse_lattice_type(i)?; // 55 - 57
         let (i, space_group) = parse_space_group(i)?; // 58 - 66
-        let (i, z) = parse_right_u8(i, 4)?; // 67 - 70
+        let (i, z) = parse_right::<u8>(i, 4)?; // 67 - 70
         let (i, _) = take(10usize)(i)?; // 71 - 80
         let (i, _) = line_ending(i)?;
         Ok((

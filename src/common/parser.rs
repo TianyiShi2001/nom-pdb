@@ -35,6 +35,10 @@ pub trait FieldParser {
 //     preceded(multispace0, &inner)(i)
 // }
 
+fn char_is_space(c: char) -> bool {
+    c == ' '
+}
+
 pub(crate) fn parse_date(i: &str) -> IResult<&str, NaiveDate> {
     let (i, day) = take(2usize)(i)?;
     let (i, _) = take(1usize)(i)?;
@@ -62,49 +66,20 @@ fn parse_month(i: &str) -> IResult<&str, u32> {
     })(i)
 }
 
-pub(crate) fn parse_right_f32<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, f32> {
-    let (i, s) = take_while(char_is_space)(i)?;
-    let l = s.len();
-    if l > length - 3 {
-        panic!("Failed to parse float")
-    }
-    let (i, digit) = take(length - l)(i)?;
-    let digit: f32 = digit.parse().unwrap();
-    Ok((i, digit))
-}
-pub(crate) fn parse_right_u8<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, u8> {
+pub(crate) fn parse_right<'a, T>(i: &'a str, length: usize) -> IResult<&'a str, T>
+where
+    T: FromStr + std::fmt::Debug,
+{
     let (i, s) = take_while(char_is_space)(i)?;
     let l = s.len();
     if l >= length {
         panic!("Failed to parse int")
     }
     let (i, digit) = take(length - l)(i)?;
-    let digit: u8 = digit.parse().unwrap();
-    Ok((i, digit))
-}
-pub(crate) fn parse_right_i8<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, i8> {
-    let (i, s) = take_while(char_is_space)(i)?;
-    let l = s.len();
-    if l >= length {
-        panic!("Failed to parse int")
+    match digit.parse() {
+        Err(_) => Err(nom::Err::Error((i, nom::error::ErrorKind::Digit))),
+        Ok(x) => Ok((i, x)),
     }
-    let (i, digit) = take(length - l)(i)?;
-    let digit: i8 = digit.parse().unwrap();
-    Ok((i, digit))
-}
-pub(crate) fn parse_right_u32<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, u32> {
-    let (i, s) = take_while(char_is_space)(i)?;
-    let l = s.len();
-    if l >= length {
-        panic!("Failed to parse int")
-    }
-    let (i, digit) = take(length - l)(i)?;
-    let digit: u32 = digit.parse().unwrap();
-    Ok((i, digit))
-}
-
-pub(crate) fn char_is_space(chr: char) -> bool {
-    chr == ' '
 }
 
 // * MULTILINE PARSERS ---------------------------------------------------------
