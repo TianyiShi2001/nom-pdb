@@ -1,45 +1,20 @@
 pub mod anisou;
-pub use anisou::{Anisou, AnisouParser};
+pub use anisou::AnisouParser;
 pub mod atom;
 pub use atom::AtomParser;
 pub mod hetatom;
 pub use hetatom::HetAtomParser;
 
-use crate::common::{
-    parser::{parse_amino_acid, parse_right},
-    types::AminoAcid,
-};
+use crate::common::parser::{parse_amino_acid, parse_right};
 
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
-use serde::{Deserialize, Serialize};
+use protein_core::types::{
+    atom::{AminoAcidAtomName, Atom},
+    element::Element,
+};
+
 use std::str::FromStr;
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-pub struct Model {
-    pub atoms: Vec<Atom>,
-    pub anisou: Vec<Anisou>,
-}
-
-pub type Models = Vec<Model>;
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Atom {
-    pub id: u32,
-    pub name: AminoAcidAtomName,
-    pub id1: char,
-    pub residue: AminoAcid,
-    pub chain: char,
-    pub sequence_number: u32,
-    pub insertion_code: char,
-    pub x: f32,
-    pub y: f32,
-    pub z: f32,
-    pub occupancy: f32,
-    pub temperature_factor: f32,
-    pub element: Element,
-    pub charge: i8,
-    pub hetatom: bool,
-}
 pub struct GenericAtomParser;
 
 impl GenericAtomParser {
@@ -90,84 +65,5 @@ impl GenericAtomParser {
                 hetatom,
             },
         ))
-    }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub enum AminoAcidAtomName {
-    N,
-    CA,
-    C,
-    O,
-    Other(String), // TODO: a 'lossy' version?
-}
-
-impl FromStr for AminoAcidAtomName {
-    type Err = String;
-    fn from_str(inp: &str) -> std::result::Result<Self, <Self as std::str::FromStr>::Err> {
-        match inp {
-            "C" => Ok(AminoAcidAtomName::C),
-            "CA" => Ok(AminoAcidAtomName::CA),
-            "O" => Ok(AminoAcidAtomName::O),
-            "N" => Ok(AminoAcidAtomName::N),
-            _ => Ok(AminoAcidAtomName::Other(inp.to_owned())),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
-pub enum Element {
-    H,
-    C,
-    O,
-    N,
-    P,
-    S,
-    Na,
-    Mg,
-    Cl,
-    K,
-    Ca,
-    Fe,
-    Mn,
-    Co,
-    Cr,
-    I,
-    Zn,
-    Cu,
-    F,
-    Al,
-    Se,
-    V,
-}
-
-impl FromStr for Element {
-    type Err = String;
-    fn from_str(inp: &str) -> std::result::Result<Self, <Self as std::str::FromStr>::Err> {
-        match inp {
-            "H" => Ok(Element::H),
-            "C" => Ok(Element::C),
-            "O" => Ok(Element::O),
-            "N" => Ok(Element::N),
-            "P" => Ok(Element::P),
-            "S" => Ok(Element::S),
-            "Na" => Ok(Element::Na),
-            "Mg" => Ok(Element::Mg),
-            "Cl" => Ok(Element::Cl),
-            "K" => Ok(Element::K),
-            "Ca" => Ok(Element::Ca),
-            "Fe" => Ok(Element::Fe),
-            "Mn" => Ok(Element::Mn),
-            "Co" => Ok(Element::Co),
-            "Cr" => Ok(Element::Cr),
-            "I" => Ok(Element::I),
-            "Zn" => Ok(Element::Zn),
-            "Cu" => Ok(Element::Cu),
-            "F" => Ok(Element::F),
-            "Al" => Ok(Element::Al),
-            "Se" => Ok(Element::Se),
-            "V" => Ok(Element::V),
-            _ => Err(format!("Unknown atom name {}", inp)),
-        }
     }
 }

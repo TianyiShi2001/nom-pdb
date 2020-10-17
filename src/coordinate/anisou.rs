@@ -27,18 +27,8 @@ use crate::common::parser::parse_right;
 use crate::common::parser::FieldParser;
 use nom::bytes::complete::take;
 use nom::IResult;
-use serde::{Deserialize, Serialize};
+use protein_core::types::Anisou;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Anisou {
-    pub id: u32,
-    pub u11: i32,
-    pub u22: i32,
-    pub u33: i32,
-    pub u12: i32,
-    pub u13: i32,
-    pub u23: i32,
-}
 pub struct AnisouParser;
 
 impl FieldParser for AnisouParser {

@@ -28,13 +28,13 @@
 //! | 68 - 70 | Residue name | resName  | Residue name.                                                                                                                     |
 
 use crate::common::parser::{parse_amino_acid, parse_right, FieldParser};
-use crate::common::types::AminoAcid;
 use nom::bytes::complete::take;
 use nom::character::complete::{anychar, multispace1};
 use nom::combinator::peek;
 use nom::IResult;
+use protein_core::types::AminoAcid;
 
-pub type SeqRes = Vec<(char, Vec<AminoAcid>)>;
+use crate::types::SeqRes;
 pub struct SeqResParser;
 impl FieldParser for SeqResParser {
     type Output = SeqRes;

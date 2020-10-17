@@ -1,13 +1,19 @@
+//! # nom-pdb
+//!
+//! A PDB (Protein Data Bank) file parser implemented with nom.
+//!
+//! See [github repository](https://github.com/TianyiShi2001/nom-pdb) for examples.
+
 pub mod aux;
 pub mod common;
 pub mod complete;
 pub mod coordinate;
 pub mod crystallography;
 pub mod parserbuilder;
-pub mod partial;
 pub mod primary_structure;
 pub mod remark;
 pub mod title_section;
+pub(crate) mod types;
 
 // use std::str::from_utf8_unchecked;
 

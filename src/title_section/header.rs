@@ -12,26 +12,8 @@
 //! | 51 - 59 | Date/`chrono::NaiveDate`         | `deposition_date`        | Deposition date. This is the date the coordinates  were received at the PDB.   |
 //! | 63 - 66 | IDcode/`String`      | `id_code`         | This identifier is unique within the PDB. |
 use crate::common::parser::{parse_date, FieldParser};
-use chrono::NaiveDate;
+use crate::types::*;
 use nom::{bytes::complete::take, character::complete::multispace1, combinator::map, IResult};
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-pub struct Header {
-    pub classification: String,
-    pub deposition_date: NaiveDate,
-    pub id_code: String,
-}
-
-impl Default for Header {
-    fn default() -> Self {
-        Header {
-            classification: String::new(),
-            deposition_date: NaiveDate::from_ymd(1900, 1, 1),
-            id_code: String::new(),
-        }
-    }
-}
 
 pub struct HeaderParser;
 
@@ -61,6 +43,7 @@ pub struct HeaderParserParallel;
 #[cfg(test)]
 mod tests {
     use super::*;
+    use chrono::NaiveDate;
     #[test]
     fn test_parse_header() {
         let i = "    VIRAL PROTEIN                           27-MAR-98   1A8O              \nTITLE     HIV CAPSID C-TERMINAL DOMAIN                                          ";

@@ -1,4 +1,4 @@
-use crate::common::types::AminoAcid;
+use protein_core::types::AminoAcid;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 

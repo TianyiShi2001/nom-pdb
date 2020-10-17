@@ -21,29 +21,15 @@
 //   directly
 
 use crate::common::parser::{parse_amino_acid, parse_right, FieldParser};
-use crate::common::types::AminoAcid;
+use crate::types::*;
 use nom::{
     bytes::complete::take,
     character::complete::{anychar, line_ending},
     combinator::{map, peek},
     IResult,
 };
-use serde::{Deserialize, Serialize};
+
 use std::collections::HashMap;
-use std::str::FromStr;
-
-type Chain = char;
-type SequenceNumber = u32;
-type Position = (Chain, SequenceNumber);
-
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct CustomAminoAcid {
-    pub(crate) standard_res: AminoAcid,
-    pub(crate) description: String,
-    pub(crate) occurence: Vec<Position>,
-}
-
-pub type Modres = HashMap<String, CustomAminoAcid>;
 
 pub struct ModresParser;
 

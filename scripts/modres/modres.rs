@@ -1,7 +1,8 @@
-use crate::common::types::AminoAcid;
+use protein_core::types::AminoAcid;
 use std::str::FromStr;
 #[derive(Debug, Clone, Eq, PartialEq)]
-pub enum NonstandardAminoAcid {    Dm0,
+pub enum NonstandardAminoAcid {
+    Dm0,
     Api,
     Fty,
     Oar,
@@ -171,10 +172,11 @@ pub enum NonstandardAminoAcid {    Dm0,
     Kzy,
     Qc4,
     Ff9,
-
-}impl NonstandardAminoAcid {
+}
+impl NonstandardAminoAcid {
     pub fn standard_res(&self) -> Option<AminoAcid> {
-        match &self {            Self::Dm0 => Some(AminoAcid::Lys),
+        match &self {
+            Self::Dm0 => Some(AminoAcid::Lys),
             Self::Api => Some(AminoAcid::Lys),
             Self::Fty => Some(AminoAcid::Tyr),
             Self::Oar => Some(AminoAcid::Arg),
@@ -347,7 +349,8 @@ pub enum NonstandardAminoAcid {    Dm0,
         }
     }
     pub fn description(&self) -> &'static str {
-        match &self {            Self::Dm0 => "",
+        match &self {
+            Self::Dm0 => "",
             Self::Api => "2,6-DIAMINOPIMELIC ACID",
             Self::Fty => "DEOXY-DIFLUOROMETHELENE-PHOSPHOTYROSINE",
             Self::Oar => "N-(4-AMINO-5-HYDROXY-PENTYL)-GUANIDINE",
@@ -522,8 +525,9 @@ pub enum NonstandardAminoAcid {    Dm0,
 }
 impl FromStr for NonstandardAminoAcid {
     type Err = String;
-    fn from_str(inp: & str) -> Result<Self,<Self as FromStr >::Err> {
-        match inp {            "DM0" => Ok(Self::Dm0),
+    fn from_str(inp: &str) -> Result<Self, <Self as FromStr>::Err> {
+        match inp {
+            "DM0" => Ok(Self::Dm0),
             "API" => Ok(Self::Api),
             "FTY" => Ok(Self::Fty),
             "OAR" => Ok(Self::Oar),

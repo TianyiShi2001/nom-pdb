@@ -65,7 +65,7 @@ for k, v in modres.items():
     from_str_s += f'            "{uc}" => Ok(Self::{tc}),\n'
 
 
-s = """use crate::common::types::AminoAcid;
+s = """use protein_core::types::AminoAcid;
 use std::str::FromStr;
 use serde::{Deserialize, Serialize};
 """

@@ -1,3 +1,3 @@
-use crate::common::types::AminoAcid;
+use protein_core::types::AminoAcid;
 pub type ExtendedAminoAcid = (String, Option<AminoAcid>);
 pub type ExtendedAminoAcidAlphabet = Vec<ExtendedAminoAcid>;

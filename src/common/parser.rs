@@ -1,4 +1,3 @@
-use crate::common::types::AminoAcid;
 use chrono::{
     format::{strftime::StrftimeItems, Parsed},
     NaiveDate,
@@ -11,6 +10,7 @@ use nom::{
     sequence::preceded,
     IResult,
 };
+use protein_core::types::AminoAcid;
 use std::str::FromStr;
 
 pub trait FieldParser {

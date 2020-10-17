@@ -1,5 +1,5 @@
 use crate::common::parser::{parse_multiline_string, FieldParser};
-pub type Title = String;
+use crate::types::*;
 pub struct TitleParser;
 impl FieldParser for TitleParser {
     type Output = Title;

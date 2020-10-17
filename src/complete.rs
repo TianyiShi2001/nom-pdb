@@ -6,23 +6,11 @@ use crate::common::parser::FieldParser;
 use nom::bytes::complete::take;
 use nom::character::complete::{line_ending, not_line_ending};
 use nom::IResult;
+use protein_core::types::model::Model;
 use serde::{Deserialize, Serialize};
-use serde_json;
 // use nom::Err::Error;
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct Pdb {
-    pub header: Header,
-    pub title: Title,
-    pub authors: Authors,
-    pub experimental_techniques: ExperimentalTechniques,
-    pub cryst1: Cryst1,
-    pub modres: Modres,
-    pub seqres: SeqRes,
-    pub models: Models,
-}
-
-impl Pdb {}
+use protein_core::io::pdb::Pdb;
 
 /// http://www.wwpdb.org/documentation/file-format-content/format33/sect1.html
 #[derive(Eq, PartialEq, Debug, Ord, PartialOrd)]

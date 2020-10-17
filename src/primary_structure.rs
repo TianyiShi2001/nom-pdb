@@ -1,4 +1,4 @@
 pub mod seqres;
-pub use seqres::{SeqRes, SeqResParser};
+pub use seqres::SeqResParser;
 pub mod modres;
-pub use modres::{Modres, ModresParser};
+pub use modres::ModresParser;

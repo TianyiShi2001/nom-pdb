@@ -11,7 +11,7 @@ use crate::common::parser::parse_multiline_list;
 /// | 11 - 79 | List         | authorList   | List of the author names, separated          |
 /// |         |              |              | by commas.                                   |
 use crate::common::parser::FieldParser;
-pub type Authors = Vec<String>;
+use crate::types::*;
 pub struct AuthorsParser;
 impl FieldParser for AuthorsParser {
     type Output = Authors;
