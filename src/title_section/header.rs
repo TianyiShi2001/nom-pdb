@@ -9,7 +9,7 @@
 //! | 11 - 50 | String(40)/`String`   | `classification` | Classifies the molecule(s).               |
 //! | 51 - 59 | Date/`chrono::NaiveDate`         | `deposition_date`        | Deposition date. This is the date the coordinates  were received at the PDB.   |
 //! | 63 - 66 | IDcode/`String`      | `id_code`         | This identifier is unique within the PDB. |
-use crate::common::parser::{parse_date, FieldParserComplete};
+use crate::common::parser::{parse_date, FieldParser};
 use chrono::NaiveDate;
 use nom::{bytes::complete::take, character::complete::multispace1, combinator::map, IResult};
 
@@ -30,9 +30,9 @@ impl Default for Header {
     }
 }
 
-pub struct HeaderParserComplete;
+pub struct HeaderParser;
 
-impl FieldParserComplete for HeaderParserComplete {
+impl FieldParser for HeaderParser {
     type Output = Header;
     fn parse(inp: &str) -> IResult<&str, Self::Output> {
         let (inp, _) = take(4usize)(inp)?;
@@ -56,12 +56,12 @@ pub struct HeaderParserStreaming;
 pub struct HeaderParserParallel;
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     #[test]
     fn test_parse_header() {
         let i = "    VIRAL PROTEIN                           27-MAR-98   1A8O              \nTITLE     HIV CAPSID C-TERMINAL DOMAIN                                          ";
-        let (i, r) = HeaderParserComplete::parse(i).unwrap();
+        let (i, r) = HeaderParser::parse(i).unwrap();
         assert_eq!(
             i.to_owned(),
             "TITLE     HIV CAPSID C-TERMINAL DOMAIN                                          "

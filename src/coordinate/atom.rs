@@ -16,7 +16,7 @@
 //! |61 - 66        |Real(6.2)    | tempFactor  | Temperature  factor.                      |
 //! |77 - 78        |LString(2)   | element     | Element symbol, right-justified.          |
 //! |79 - 80        |LString(2)   | charge      | Charge  on the atom.                      |
-use crate::common::parser::FieldParserComplete;
+use crate::common::parser::FieldParser;
 use crate::common::parser::{parse_amino_acid, parse_right_f32, parse_right_i8, parse_right_u32};
 use crate::common::types::AminoAcid;
 use nom::bytes::complete::take;
@@ -41,9 +41,9 @@ pub struct Atom {
     pub element: Element,
     pub charge: i8,
 }
-pub struct AtomParserComplete;
+pub struct AtomParser;
 
-impl FieldParserComplete for AtomParserComplete {
+impl FieldParser for AtomParser {
     type Output = Atom;
     fn parse(inp: &str) -> IResult<&str, Atom> {
         let (inp, id) = parse_right_u32(inp, 5)?;

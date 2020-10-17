@@ -5,8 +5,8 @@ pub mod crystallography;
 pub mod primary_structure;
 pub mod title_section;
 use crate::complete::Pdb;
-use common::parser::FieldParserComplete;
-use primary_structure::seqres::SeqResParserComplete;
+use common::parser::FieldParser;
+use primary_structure::seqres::SeqResParser;
 // use crate::common::parser::parse_multiline_string;
 use std::str::from_utf8_unchecked;
 

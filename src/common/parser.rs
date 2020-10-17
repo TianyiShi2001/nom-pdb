@@ -13,9 +13,19 @@ use nom::{
 };
 use std::str::FromStr;
 
-pub trait FieldParserComplete {
+pub trait FieldParser {
     type Output;
     fn parse(inp: &str) -> IResult<&str, Self::Output>;
+    fn parse_into<'a, 'b>(inp: &'a str, dst: &'b mut Self::Output) -> &'a str {
+        let (i, data) = Self::parse(inp).expect("parse error");
+        *dst = data;
+        i
+    }
+    fn parse_into_vec<'a>(inp: &'a str, dst: &mut Vec<Self::Output>) -> &'a str {
+        let (i, data) = Self::parse(inp).expect("parse error");
+        dst.push(data);
+        i
+    }
 }
 
 // fn ws<'a, F: 'a, O, E: ParseError<&'a str>>(inner: F) -> impl Fn(&'a str) -> IResult<&'a str, O, E>
@@ -25,7 +35,7 @@ pub trait FieldParserComplete {
 //     preceded(multispace0, &inner)(i)
 // }
 
-pub fn parse_date(i: &str) -> IResult<&str, NaiveDate> {
+pub(crate) fn parse_date(i: &str) -> IResult<&str, NaiveDate> {
     let (i, day) = take(2usize)(i)?;
     let (i, _) = take(1usize)(i)?;
     let (i, month) = parse_month(i)?;
@@ -52,7 +62,7 @@ fn parse_month(i: &str) -> IResult<&str, u32> {
     })(i)
 }
 
-pub fn parse_right_f32<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, f32> {
+pub(crate) fn parse_right_f32<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, f32> {
     let (i, s) = take_while(char_is_space)(i)?;
     let l = s.len();
     if l > length - 3 {
@@ -62,7 +72,7 @@ pub fn parse_right_f32<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, f3
     let digit: f32 = digit.parse().unwrap();
     Ok((i, digit))
 }
-pub fn parse_right_u8<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, u8> {
+pub(crate) fn parse_right_u8<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, u8> {
     let (i, s) = take_while(char_is_space)(i)?;
     let l = s.len();
     if l >= length {
@@ -72,7 +82,7 @@ pub fn parse_right_u8<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, u8>
     let digit: u8 = digit.parse().unwrap();
     Ok((i, digit))
 }
-pub fn parse_right_i8<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, i8> {
+pub(crate) fn parse_right_i8<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, i8> {
     let (i, s) = take_while(char_is_space)(i)?;
     let l = s.len();
     if l >= length {
@@ -82,7 +92,7 @@ pub fn parse_right_i8<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, i8>
     let digit: i8 = digit.parse().unwrap();
     Ok((i, digit))
 }
-pub fn parse_right_u32<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, u32> {
+pub(crate) fn parse_right_u32<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, u32> {
     let (i, s) = take_while(char_is_space)(i)?;
     let l = s.len();
     if l >= length {
@@ -93,13 +103,13 @@ pub fn parse_right_u32<'a, 'b>(i: &'a str, length: usize) -> IResult<&'a str, u3
     Ok((i, digit))
 }
 
-pub fn char_is_space(chr: char) -> bool {
+pub(crate) fn char_is_space(chr: char) -> bool {
     chr == ' '
 }
 
 // * MULTILINE PARSERS ---------------------------------------------------------
 
-pub fn parse_multiline_list(inp: &str) -> IResult<&str, Vec<String>> {
+pub(crate) fn parse_multiline_list(inp: &str) -> IResult<&str, Vec<String>> {
     // ! need improvement
     let (mut inp, _) = take(4usize)(inp)?; // 7 - 10
     let mut v: Vec<String> = Vec::new();
@@ -129,7 +139,7 @@ pub fn parse_multiline_list(inp: &str) -> IResult<&str, Vec<String>> {
     }
 }
 
-pub fn parse_multiline_string<'a>(
+pub(crate) fn parse_multiline_string<'a>(
     inp: &'a str,
     record_identifier: &str,
 ) -> IResult<&'a str, String> {
@@ -147,6 +157,35 @@ pub fn parse_multiline_string<'a>(
         inp = i;
     }
 }
+
+pub(crate) fn parse_multiline<'a, T, F>(
+    inp: &'a str,
+    record_identifier: &str,
+    continuation: bool,
+    parse_oneline: F,
+) -> IResult<&'a str, Vec<T>>
+where
+    F: Fn(&'a str) -> IResult<&'a str, T>,
+{
+    // ! need improvement
+    let offset = if continuation { 10usize } else { 6usize };
+    let (mut inp, _) = take(4usize)(inp)?; // 7 - 10
+    let mut res = Vec::<T>::new();
+    loop {
+        let (i, item) = parse_oneline(inp)?;
+        res.push(item);
+        if peek(take(6usize))(i)?.1 != record_identifier {
+            return Ok((i, res));
+        }
+        let (i, _) = take(offset)(i)?;
+        inp = i;
+    }
+}
+
+// pub(crate) fn parse_specification(inp: &str) -> IResult<&str, Token> {
+//     let (mut inp, _) = take(4usize)(inp)?;
+//     let (inp, token) = is_not(":")(inp)?;
+// }
 
 /// Represents keys of CMPND and SOURCE records
 #[derive(Debug, PartialEq, Clone)]
@@ -410,6 +449,6 @@ pub struct Dbref {
     pub dbins_end: Option<char>,
 }
 
-pub fn parse_amino_acid(inp: &str) -> IResult<&str, AminoAcid> {
-    map(take(3usize), |x| AminoAcid::from_str(x).unwrap())(inp)
+pub(crate) fn parse_amino_acid(inp: &str) -> IResult<&str, AminoAcid> {
+    map(take(3usize), AminoAcid::parse)(inp)
 }

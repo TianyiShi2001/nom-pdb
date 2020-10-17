@@ -8,10 +8,10 @@
 /// | 9 - 10  | Continuation  | continuation | Allows concatenation of multiple records. |
 /// | 11 - 79 | SList         | technique    | The experimental technique(s) with        |
 /// |         |                              | optional comment desc                     |
-use crate::common::parser::{parse_multiline_list, FieldParserComplete};
+use crate::common::parser::{parse_multiline_list, FieldParser};
 pub type ExperimentalTechniques = Vec<ExperimentalTechnique>;
 pub struct ExperimentalTechniquesParser;
-impl FieldParserComplete for ExperimentalTechniquesParser {
+impl FieldParser for ExperimentalTechniquesParser {
     type Output = Vec<ExperimentalTechnique>;
     fn parse(inp: &str) -> nom::IResult<&str, ExperimentalTechniques> {
         let (inp, techniques_as_str) = parse_multiline_list(inp)?;

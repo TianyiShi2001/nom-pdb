@@ -1,7 +1,9 @@
+pub mod aux;
 pub mod common;
 pub mod complete;
 pub mod coordinate;
 pub mod crystallography;
+pub mod parserbuilder;
 pub mod partial;
 pub mod primary_structure;
 pub mod title_section;

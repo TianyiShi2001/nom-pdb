@@ -1,4 +1,4 @@
-use crate::common::parser::FieldParserComplete;
+use crate::common::parser::FieldParser;
 use crate::common::parser::{parse_right_f32, parse_right_u8};
 /// Parsing the [Cryst1](www.wwpdb.org/documentation/file-format-content/format33/sect8.html#CRYST1)
 /// The CRYST1 record presents the unit cell parameters, space group, and Z value. If the structure was not determined by crystallographic means, CRYST1 simply provides the unitary values, with an appropriate REMARK.
@@ -60,8 +60,8 @@ pub struct GroupAxis(pub u32, pub u32);
 #[derive(Debug, Clone, PartialEq, Eq, Default)]
 pub struct SpaceGroup(pub GroupAxis, pub Option<GroupAxis>, pub Option<GroupAxis>);
 
-pub struct Cryst1ParserComplete;
-impl FieldParserComplete for Cryst1ParserComplete {
+pub struct Cryst1Parser;
+impl FieldParser for Cryst1Parser {
     type Output = Cryst1;
     fn parse(i: &str) -> IResult<&str, Cryst1> {
         let (i, a) = parse_right_f32(i, 9)?; // 7 - 15
@@ -126,13 +126,13 @@ fn parse_group_axis(i: &str) -> IResult<&str, Option<GroupAxis>> {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     #[test]
     fn test_parse_cryst1() {
         let i = "   41.980   41.980   88.920  90.00  90.00  90.00 P 43 21 2     8          
 ORIGX1      1.000000  0.000000  0.000000        0.00000                         ";
-        let (i, r) = Cryst1ParserComplete::parse(i).unwrap();
+        let (i, r) = Cryst1Parser::parse(i).unwrap();
         assert_eq!(
             i.to_owned(),
             "ORIGX1      1.000000  0.000000  0.000000        0.00000                         "

@@ -1,23 +1,14 @@
 # nom-pdb
 ![CI](https://github.com/TianyiShi2001/nom-pdb/workflows/Continuous%20integration/badge.svg)
 
-PDB parser implemented in Rust using nom
+PDB parser implemented in Rust using nom.
 
-# Example (Last Updated 2020-08-25)
+# Example (Last Updated 2020-10-17)
 
 ```rust
-use crate::complete::Pdb;
-use std::str::from_utf8_unchecked;
-
-fn main() {
-    let data = include_bytes!("../assets/4F7I.pdb");
-    unsafe {
-        let data = from_utf8_unchecked(data);
-        let (data, r) = Pdb::parse(data).unwrap();
-        println!("{:?}, {:?}", data, r);
-    }
-}
+cargo run --example 4f7i
 ```
+
 ```
 Pdb { 
     header: Header { 
@@ -36,6 +27,8 @@ Pdb {
     ] 
 }
 ```
+
+# Notes
 
 # References
 
@@ -94,7 +87,7 @@ http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
 - [ ] [ScaleN](http://www.wwpdb.org/documentation/file-format-content/format33/sect8.html#SCALEn)
 ### Coordinate Section
 - [ ] [Model](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#MODEL)
-- [ ] [Atom](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ATOM)
+- [X] [Atom](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ATOM)
 - [ ] [Anisou](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ANISOU)
 - [ ] [Ter](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#TER)
 - [ ] [Hetatm](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#HETATM)

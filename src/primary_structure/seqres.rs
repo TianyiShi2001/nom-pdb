@@ -20,7 +20,7 @@
 //! | 64 - 66 | Residue name | resName  | Residue name.                                                                                                                     |
 //! | 68 - 70 | Residue name | resName  | Residue name.                                                                                                                     |
 
-use crate::common::parser::{parse_amino_acid, parse_right_u32, FieldParserComplete};
+use crate::common::parser::{parse_amino_acid, parse_right_u32, FieldParser};
 use crate::common::types::AminoAcid;
 use nom::bytes::complete::take;
 use nom::character::complete::{anychar, multispace1};
@@ -28,12 +28,12 @@ use nom::combinator::peek;
 use nom::IResult;
 
 pub type SeqRes = Vec<(char, Vec<AminoAcid>)>;
-pub struct SeqResParserComplete;
-impl FieldParserComplete for SeqResParserComplete {
+pub struct SeqResParser;
+impl FieldParser for SeqResParser {
     type Output = SeqRes;
-    fn parse(inp: &str) -> IResult<&str, Self::Output> {
+    fn parse(inp: &str) -> IResult<&str, SeqRes> {
         let mut v: Vec<(char, Vec<AminoAcid>)> = Vec::new();
-        let mut inp = inp;
+        let (mut inp, _) = take(6usize)(inp)?; // very first line
         loop {
             let (i, chain) = parse_chain(inp)?;
             v.push(chain);

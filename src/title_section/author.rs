@@ -10,10 +10,10 @@ use crate::common::parser::parse_multiline_list;
 /// | 9 - 10  | Continuation | continuation | Allows concatenation of multiple records.    |
 /// | 11 - 79 | List         | authorList   | List of the author names, separated          |
 /// |         |              |              | by commas.                                   |
-use crate::common::parser::FieldParserComplete;
+use crate::common::parser::FieldParser;
 pub type Authors = Vec<String>;
-pub struct AuthorsParserComplete;
-impl FieldParserComplete for AuthorsParserComplete {
+pub struct AuthorsParser;
+impl FieldParser for AuthorsParser {
     type Output = Authors;
     fn parse(inp: &str) -> nom::IResult<&str, Authors> {
         let (inp, names) = parse_multiline_list(inp)?;
@@ -22,11 +22,11 @@ impl FieldParserComplete for AuthorsParserComplete {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     #[test]
     fn test_parse_authors() {
-        let (i, r) = AuthorsParserComplete::parse(
+        let (i, r) = AuthorsParser::parse(
             "    T.R.GAMBLE,S.YOO,F.F.VAJDOS,U.K.VON SCHWEDLER,                        
 AUTHOR   2 D.K.WORTHYLAKE,H.WANG,J.P.MCCUTCHEON,W.I.SUNDQUIST,C.P.HILL          
 REVDAT   5   03-NOV-09 1A8O    1       SEQADV                                   ",
