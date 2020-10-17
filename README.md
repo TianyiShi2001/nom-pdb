@@ -3,28 +3,127 @@
 
 PDB parser implemented in Rust using nom.
 
+## Features
+
+- Parses structural information and a subset of important metadata.
+- Able to deal with non-standard residues (not yet mature)
+- JSON serialization powered by serde.
+
 # Example (Last Updated 2020-10-17)
 
 ```rust
-cargo run --example 4f7i
+cargo run --example read 1a8o
 ```
 
-```
-Pdb { 
-    header: Header { 
-        classification: "OXIDOREDUCTASE", 
-        deposition_date: 2012-05-16, 
-        id_code: "4F7I" 
-    }, 
-    title: "STRUCTURE OF ISOPROPYLMALATE DEHYDROGENASE FROM THERMUS THERMOPHILUS IN COMPLEX WITH IPM, MN AND NADH", 
-    authors: ["A.PALLO", "E.GRACZER", "P.ZAVODSZKY", "M.S.WEISS", "M.VAS"], 
-    cryst1: Cryst1 { a: 148.38, b: 50.72, c: 178.24, alpha: 90.0, beta: 93.09, gamma: 90.0, lattice_type: SideCentered, space_group: SpaceGroup(GroupAxis(1, 1), None, None), z: 16 }, atoms: [
-        Atom { id: 1, id1: ' ', residue: Ser, chain: 'A', sequence_number: 0, insertion_code: ' ', x: -12.138, y: 1.867, z: 20.782, occupancy: 1.0, temperature_factor: 67.46, element: N, charge: 0 }, 
-        Atom { id: 2, id1: ' ', residue: Ser, chain: 'A', sequence_number: 0, insertion_code: ' ', x: -11.456, y: 0.553, z: 20.889, occupancy: 1.0, temperature_factor: 64.07, element: C, charge: 0 }, 
-        ...
-        ......
-        Atom { id: 10592, id1: ' ', residue: Ala, chain: 'D', sequence_number: 348, insertion_code: ' ', x: -18.613, y: -18.963, z: 60.665, occupancy: 1.0, temperature_factor: 90.85, element: C, charge: 0 }
-    ] 
+```json
+{
+  "header": {
+    "classification": "VIRAL PROTEIN",
+    "deposition_date": "1998-03-27",
+    "id_code": "1A8O"
+  },
+  "title": "HIV CAPSID C-TERMINAL DOMAIN",
+  "authors": [
+    "T.R.GAMBLE",
+    "S.YOO",
+    "F.F.VAJDOS",
+    "U.K.VON SCHWEDLER",
+    "D.K.WORTHYLAKE",
+    "H.WANG",
+    "J.P.MCCUTCHEON",
+    "W.I.SUNDQUIST",
+    "C.P.HILL"
+  ],
+  "experimental_techniques": [
+    "XRayDiffraction"
+  ],
+  "cryst1": {
+    "a": 41.98,
+    "b": 41.98,
+    "c": 88.92,
+    "alpha": 90.0,
+    "beta": 90.0,
+    "gamma": 90.0,
+    "lattice_type": "Primitive",
+    "space_group": [
+      [
+        4,
+        3
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        1
+      ]
+    ],
+    "z": 8
+  },
+  "modres": {
+    "MSE": {
+      "standard_res": "Met",
+      "description": "SELENOMETHIONINE",
+      "occurence": [
+        [
+          "A",
+          151
+        ],
+        [
+          "A",
+          185
+        ],
+        [
+          "A",
+          214
+        ],
+        [
+          "A",
+          215
+        ]
+      ]
+    }
+  },
+  "seqres": [
+    [
+      "A",
+      [
+        {
+          "Custom": "MSE"
+        },
+        "Asp",
+        "Ile",
+        "Arg",
+        "Gln",
+        "Gly",
+        "Pro",
+    // snip //
+      ]
+    ]
+  ],
+  "atoms": [
+    {
+      "id": 9,
+      "name": "N",
+      "id1": " ",
+      "residue": "Asp",
+      "chain": "A",
+      "sequence_number": 152,
+      "insertion_code": " ",
+      "x": 21.554,
+      "y": 34.953,
+      "z": 27.691,
+      "occupancy": 1.0,
+      "temperature_factor": 19.26,
+      "element": "N",
+      "charge": 0
+    },
+    // snip //
+  ]
+  "anisou": [
+      // snip //
+  ]
 }
 ```
 
@@ -35,7 +134,10 @@ Pdb {
 - http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
 - https://proteopedia.org/wiki/index.php/Non-Standard_Residues#cite_note-pdb22-0
 
-# Status
+# Roadmap
+
+Note: Priority is, and should be placed on parsing structural information instead of metadata, since the latter is more or less disordered free-text and usually not of particular interest to users (even in cases where they are, users can examine the PDB file directly).
+
 ### Title Section
 - [X] [Header](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#HEADER)
 - [ ] [Obslte](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#OBSLTE)
@@ -52,15 +154,10 @@ Pdb {
 - [ ] [Sprsde](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#SPRSDE)
 - [ ] [Revdat](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#REVDAT)
 - [ ] [Jrnl](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#JRNL)
-    - [ ] Auth
-    - [ ] Titl
-    - [ ] Edit
-    - [ ] Ref
-    - [ ] Publ
-    - [ ] Refn
-    - [ ] Pmid
-    - [ ] Doi
 - [ ] [Remarks](http://www.wwpdb.org/documentation/file-format-content/format33/remarks.html)
+  - [ ] [Remarks 3](http://www.wwpdb.org/documentation/file-format-content/format33/remark3.html)
+  - [ ] [Remarks 0,1,2,4,5-299](http://www.wwpdb.org/documentation/file-format-content/format33/remarks1.html)
+  - [ ] [REMARK 300-999](http://www.wwpdb.org/documentation/file-format-content/format33/remarks2.html)
 ### Primary Structure Section
 - [ ] [Dbref](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#DBREF)
 - [ ] [Dbref1](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#DBREF1)
@@ -87,16 +184,18 @@ Pdb {
 - [ ] [OrigxN](http://www.wwpdb.org/documentation/file-format-content/format33/sect8.html#ORIGXn)
 - [ ] [ScaleN](http://www.wwpdb.org/documentation/file-format-content/format33/sect8.html#SCALEn)
 ### Coordinate Section
-- [ ] [Model](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#MODEL)
+- [X] [Model](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#MODEL)
 - [X] [Atom](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ATOM)
-- [ ] [Anisou](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ANISOU)
-- [ ] [Ter](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#TER)
+- [X] [Anisou](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ANISOU)
+- [X] [Ter](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#TER)
 - [ ] [Hetatm](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#HETATM)
-- [ ] [Endmdl](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ENDMDL)
+- [X] [Endmdl](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ENDMDL)
 ### Connectivity Section
 - [ ] [Conect](http://www.wwpdb.org/documentation/file-format-content/format33/sect10.html#CONECT)
 ### Bookkeeping Section
 - [ ] [Master](http://www.wwpdb.org/documentation/file-format-content/format33/sect11.html#MASTER)
-- [ ] [End](http://www.wwpdb.org/documentation/file-format-content/format33/sect11.html#END)
+- [X] [End](http://www.wwpdb.org/documentation/file-format-content/format33/sect11.html#END)
+
+
 
 
