@@ -32,7 +32,8 @@ Pdb {
 
 # References
 
-http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
+- http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
+- https://proteopedia.org/wiki/index.php/Non-Standard_Residues#cite_note-pdb22-0
 
 # Status
 ### Title Section

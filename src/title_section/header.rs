@@ -2,7 +2,9 @@
 //! The HEADER record uniquely identifies a PDB entry through the idCode field.
 //! This record also provides a classification for the entry. Finally, it contains
 //! the date when the coordinates were deposited to the PDB archive.
+//! 
 //! # Record Format
+//! 
 //! | COLUMNS | DATA  TYPE   | FIELD          | DEFINITION                                |
 //! |---------|--------------|----------------|-------------------------------------------|
 //! | 1 -  6  | Record name  | HEADER         |                                           |

@@ -1,5 +1,12 @@
-//! SEQRES records contain a listing of the consecutive chemical components covalently linked in a linear fashion to form a polymer. The chemical components included in this listing may be standard or modified amino acid and nucleic acid residues. It may also include other residues that are linked to the standard backbone in the polymer. Chemical components or groups covalently linked to side-chains (in peptides) or sugars and/or bases (in nucleic acid polymers) will not be listed here.
+//! SEQRES records contain a listing of the consecutive chemical components covalently linked
+//! in a linear fashion to form a polymer. The chemical components included in this listing may
+//! be standard or modified amino acid and nucleic acid residues. It may also include other residues
+//! that are linked to the standard backbone in the polymer. Chemical components or groups covalently
+//! linked to side-chains (in peptides) or sugars and/or bases (in nucleic acid polymers) will not be
+//! listed here.
+//!
 //! # Record Format
+//!
 //! | COLUMNS | DATA TYPE    | FIELD    | DEFINITION                                                                                                                        |
 //! | ------- | ------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------- |
 //! | 1 -  6  | Record name  | "SEQRES" |                                                                                                                                   |

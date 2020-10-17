@@ -1,5 +1,9 @@
-//! Parses KEYWDS record which is a multiline continuation record. Contains comma-seperated list of  keywords relevant to pdb entry.If successfull returns [Record](../ast/types/enum.Record.html) variant containing [KEYWDS](../ast/types/struct.Keywds.html) instance.
+//! Parses KEYWDS record which is a multiline continuation record. Contains comma-seperated list of
+//! keywords relevant to pdb entry.If successfull returns [Record](../ast/types/enum.Record.html)
+//! variant containing [KEYWDS](../ast/types/struct.Keywds.html) instance.
+//!
 //! # Record structure
+//!
 //! | COLUMNS | DATA  TYPE   | FIELD        | DEFINITION                                   |
 //! |---------|--------------|--------------|----------------------------------------------|
 //! | 1 -  6  | Record name  | KEYWDS       |                                              |

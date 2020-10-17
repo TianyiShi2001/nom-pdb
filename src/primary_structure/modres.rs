@@ -1,7 +1,10 @@
 //! The [MODRES](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#MODRES)
-//! record provides descriptions of modifications (e.g., chemical or post-translational) to protein and nucleic acid residues. Included are correlations between residue names given
-//! in a PDB entry and standard residues.
+//! record provides descriptions of modifications (e.g., chemical or post-translational) to protein
+//! and nucleic acid residues. Included are correlations between residue names given in a PDB entry
+//! and standard residues.
+//!
 //! # Record Format
+//!
 //! | COLUMNS | DATA TYPE    | FIELD    | DEFINITION                               |
 //! | ------- | ------------ | -------- | ---------------------------------------- |
 //! | 1 -  6  | Record name  | "MODRES" |                                          |
@@ -13,7 +16,9 @@
 //! | 25 - 27 | Residue name | stdRes   | Standard residue name.                   |
 //! | 30 - 70 | String       | comment  | Description of the residue modification. |
 
-// * MODRES comes after SEQRES, thus non-standard residue names in SEQRES cannot be identified directly
+//
+// * MODRES comes after SEQRES, thus non-standard residue names in SEQRES cannot be identified
+//   directly
 
 use crate::common::parser::{parse_amino_acid, parse_right_u32, FieldParser};
 use crate::common::types::AminoAcid;

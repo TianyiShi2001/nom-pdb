@@ -56,7 +56,6 @@ pub enum AminoAcid {
 impl FromStr for AminoAcid {
     type Err = String;
     fn from_str(inp: &str) -> Result<Self, <Self as FromStr>::Err> {
-        println!("{}", inp);
         match inp {
             "ALA" => Ok(Self::Ala),
             "ARG" => Ok(Self::Arg),

@@ -1,4 +1,13 @@
+//! # Overview
+//!
+//! The ATOM records present the atomic coordinates for standard amino acids and nucleotides. They
+//! also present the occupancy and temperature factor for each atom. Non-polymer chemical
+//! coordinates use the HETATM record type. The element symbol is always present on each ATOM
+//! record; charge is optional. Changes in ATOM/HETATM records result from the standardization atom
+//! and residue nomenclature. This nomenclature is described in the [Chemical Component Dictionary](ftp://ftp.wwpdb.org/pub/pdb/data/monomers).
+//!
 //! # Record Format
+//!
 //! |COLUMNS        |DATA  TYPE   | FIELD       | DEFINITION                                |
 //! |---------------|-------------|-------------|-------------------------------------------|
 //! | 1 -  6        |Record name  | "ATOM  "    |                                           |
@@ -16,6 +25,42 @@
 //! |61 - 66        |Real(6.2)    | tempFactor  | Temperature  factor.                      |
 //! |77 - 78        |LString(2)   | element     | Element symbol, right-justified.          |
 //! |79 - 80        |LString(2)   | charge      | Charge  on the atom.                      |
+//!
+//! # Details
+//!
+//! ATOM records for proteins are listed from amino to carboxyl terminus.
+//! Nucleic acid residues are listed from the 5' to the 3' terminus.
+//! Alignment of one-letter atom name such as C starts at column 14, while two-letter atom name such
+//! as FE starts at column 13. Atom nomenclature begins with atom type.
+//! No ordering is specified for polysaccharides.
+//! Non-blank alphanumerical character is used for chain identifier.
+//! The list of ATOM records in a chain is terminated by a TER record.
+//! If more than one model is present in the entry, each model is delimited by MODEL and ENDMDL
+//! records. AltLoc is the place holder to indicate alternate conformation. The alternate
+//! conformation can be in the entire polymer chain, or several residues or partial residue (several
+//! atoms within one residue). If an atom is provided in more than one position, then a non-blank
+//! alternate location indicator must be used for each of the atomic positions. Within a residue,
+//! all atoms that are associated with each other in a given conformation are assigned the same
+//! alternate position indicator. There are two ways of representing alternate conformation- either
+//! at atom level or at residue level (see examples). For atoms that are in alternate sites
+//! indicated by the alternate site indicator, sorting of atoms in the ATOM/HETATM list uses the
+//! following general rules:
+//!
+//! - In the simple case that involves a few  atoms or a few residues with alternate sites, the
+//!   coordinates occur one after  the other in the entry.
+//! - In the case of a large heterogen groups  which are disordered, the atoms for each conformer
+//!   are listed together.
+//!
+//! Alphabet letters are commonly used for insertion code. The insertion code is used when two
+//! residues have the same numbering. The combination of residue numbering and insertion code
+//! defines the unique residue. If the depositor provides the data, then the isotropic B value is
+//! given for the temperature factor. If there are neither isotropic B values from the depositor,
+//! nor anisotropic temperature factors in ANISOU, then the default value of 0.0 is used for the
+//! temperature factor. Columns 79 - 80 indicate any charge on the atom, e.g., 2+, 1-. In most
+//! cases, these are blank. For refinements with program REFMAC prior 5.5.0042 which use TLS
+//! refinement, the values of B may include only the TLS contribution to the isotropic temperature
+//! factor rather than the full isotropic value.
+
 use crate::common::parser::FieldParser;
 use crate::common::parser::{parse_amino_acid, parse_right_f32, parse_right_i8, parse_right_u32};
 use crate::common::types::AminoAcid;
@@ -27,7 +72,7 @@ use std::str::FromStr;
 #[derive(Debug, Clone)]
 pub struct Atom {
     pub id: u32,
-    // pub name: AminoAcidAtomName,
+    pub name: AminoAcidAtomName,
     pub id1: char,
     pub residue: AminoAcid,
     pub chain: char,
@@ -49,10 +94,10 @@ impl FieldParser for AtomParser {
         let (inp, id) = parse_right_u32(inp, 5)?;
         let (inp, _) = take(1usize)(inp)?;
         // ! to be implemented
-        // let (inp, name) = map(map(take(4usize), str::trim), |x| {
-        //     AminoAcidAtomName::from_str(x).unwrap()
-        // })(inp)?;
-        let (inp, _) = take(4usize)(inp)?;
+        let (inp, name) = map(map(take(4usize), str::trim), |x| {
+            AminoAcidAtomName::from_str(x).unwrap()
+        })(inp)?;
+        // let (inp, _) = take(4usize)(inp)?;
         let (inp, id1) = anychar(inp)?;
         let (inp, residue) = parse_amino_acid(inp)?;
         let (inp, _) = take(1usize)(inp)?;
@@ -78,7 +123,7 @@ impl FieldParser for AtomParser {
             inp,
             Atom {
                 id,
-                // name,
+                name,
                 id1,
                 residue,
                 chain,
@@ -114,6 +159,8 @@ pub enum AminoAcidAtomName {
     CZ,
     O,
     OG,
+    OD1,
+    OD2,
     OE,
     OE1,
     OE2,
@@ -144,6 +191,8 @@ impl FromStr for AminoAcidAtomName {
             "CG2" => Ok(AminoAcidAtomName::CG2),
             "CZ" => Ok(AminoAcidAtomName::CZ),
             "O" => Ok(AminoAcidAtomName::O),
+            "OD1" => Ok(AminoAcidAtomName::OD1),
+            "OD2" => Ok(AminoAcidAtomName::OD2),
             "OG" => Ok(AminoAcidAtomName::OG),
             "OE" => Ok(AminoAcidAtomName::OE),
             "OE1" => Ok(AminoAcidAtomName::OE1),
