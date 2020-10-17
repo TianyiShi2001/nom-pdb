@@ -17,6 +17,7 @@ pub struct Pdb {
     pub cryst1: Cryst1,
     pub seqres: SeqRes,
     pub atoms: Vec<Atom>,
+    pub anisou: Vec<Anisou>,
 }
 
 impl Pdb {}
@@ -138,6 +139,7 @@ impl<'a> Parser<'a> {
                     ExperimentalTechniquesParser::parse_into(&i, &mut pdb.experimental_techniques)
                 }
                 "ATOM  " => AtomParser::parse_into_vec(&i, &mut pdb.atoms),
+                "ANISOU" => AnisouParser::parse_into_vec(&i, &mut pdb.anisou),
                 "END   " => {
                     inp = "";
                     break;
