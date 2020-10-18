@@ -61,15 +61,6 @@
 //! refinement, the values of B may include only the TLS contribution to the isotropic temperature
 //! factor rather than the full isotropic value.
 
-use super::{Atom, GenericAtomParser};
-use crate::common::parser::FieldParser;
-use nom::IResult;
-
-pub struct AtomParser;
-
-impl FieldParser for AtomParser {
-    type Output = Atom;
-    fn parse(inp: &str) -> IResult<&str, Atom> {
-        GenericAtomParser::parse(inp, false)
-    }
-}
+// use super::{Atom, GenericAtomParser};
+// use crate::common::parser::FieldParser;
+// use nom::IResult;

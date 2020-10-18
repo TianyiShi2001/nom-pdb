@@ -6,3 +6,4 @@ These files are retrieved from [RSCB's FTP server](https://www.rcsb.org/pages/do
 - 1a8o: a simple X-Ray structure
 - 4f7i: Lots of sheets
 - 7znf: solution NMR; lots of models
+- 3l1p: complex with DNA

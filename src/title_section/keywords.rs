@@ -13,6 +13,6 @@
 use crate::common::parser::parse_multiline_list;
 
 type Keywords = Vec<String>;
-pub fn parse_kaywords(inp: &str) -> nom::IResult<&str, Keywords> {
+pub fn parse_kaywords(inp: &[u8]) -> nom::IResult<&[u8], Keywords> {
     parse_multiline_list(inp)
 }

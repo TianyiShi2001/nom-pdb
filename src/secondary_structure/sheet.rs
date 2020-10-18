@@ -50,28 +50,28 @@
 //! - Split strands, or strands with two or more runs of residues from discontinuous parts of the amino acid sequence, are explicitly listed. Detail description can be included in the REMARK 700 .
 
 use crate::common::parser::FieldParser;
-use crate::common::parser::{jump_newline, parse_right};
+use crate::common::parser::{jump_newline, parse_right, take_trim_start_own};
 use crate::types::{
-    AtomName, Registration, ResidueSerial, SecondaryStructureSerial, Sense, Sheet, Strand,
+    AminoAcidAtomName, AtomName, Registration, ResidueSerial, SecondaryStructureSerial, Sense,
+    Sheet, Strand,
 };
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
-use std::str::FromStr;
 
 pub struct SheetParser;
 
 impl FieldParser for SheetParser {
     type Output = Sheet;
-    fn parse(inp: &str) -> IResult<&str, Self::Output> {
+    fn parse(inp: &[u8]) -> IResult<&[u8], Self::Output> {
         Self::parse_sheet(inp)
     }
 }
 
 impl SheetParser {
-    fn parse_sheet(inp: &str) -> IResult<&str, Sheet> {
+    fn parse_sheet(inp: &[u8]) -> IResult<&[u8], Sheet> {
         let mut sheet = Sheet::default();
         // first line
         let (inp, _) = take(5usize)(inp)?; // 7 - 11
-        let (inp, id) = map(map(take(3usize), str::trim_start), str::to_owned)(inp)?; // 12 - 14
+        let (inp, id) = unsafe { take_trim_start_own(inp, 3usize)? }; // 12 - 14
         sheet.id = id;
         let (inp, num_strands) = parse_right::<SecondaryStructureSerial>(inp, 2)?; // 15 - 16
         let (inp, _) = take(1usize)(inp)?; // 17
@@ -92,20 +92,20 @@ impl SheetParser {
         Ok((last_inp, sheet))
     }
 
-    fn parse_first_line(inp: &str) -> IResult<&str, Strand> {
+    fn parse_first_line(inp: &[u8]) -> IResult<&[u8], Strand> {
         let (inp, res) = Self::parse_strand(inp)?;
         let (inp, _) = jump_newline(inp)?;
         Ok((inp, res))
     }
 
-    fn parse_line(inp: &str) -> IResult<&str, (Strand, Registration)> {
+    fn parse_line(inp: &[u8]) -> IResult<&[u8], (Strand, Registration)> {
         let (inp, strand) = Self::parse_strand(inp)?;
         let (inp, _) = take(1usize)(inp)?;
         let (inp, registration) = Self::parse_registration(inp)?;
         Ok((inp, (strand, registration)))
     }
 
-    fn parse_strand(inp: &str) -> IResult<&str, Strand> {
+    fn parse_strand(inp: &[u8]) -> IResult<&[u8], Strand> {
         // let (inp, _start_res) = map(take(3usize), parse_amino_acid)(inp)?;
         let (inp, _) = take(3usize)(inp)?; // 18 - 20
         let (inp, _) = take(1usize)(inp)?; //           21
@@ -127,7 +127,7 @@ impl SheetParser {
         };
         Ok((inp, strand))
     }
-    fn parse_registration(inp: &str) -> IResult<&str, Registration> {
+    fn parse_registration(inp: &[u8]) -> IResult<&[u8], Registration> {
         // | 42 - 45 | Atom         | curAtom     | Registration.  Atom name in current strand.       |
         // | 46 - 48 | Residue name | curResName  | Registration.  Residue name in current strand     |
         // | 50      | Character    | curChainId  | Registration. Chain identifier in                 |
@@ -144,12 +144,16 @@ impl SheetParser {
         // | 66 - 69 | Integer      | prevResSeq  | Registration. Residue sequence number             |
         // |         |              |             | in previous strand.                               |
         // | 70      | AChar        | prevICode   | Registration.  Insertion code in previous strand. |
-        let (inp, cur_atom) = map(take(4usize), |s| AtomName::from_str(s).unwrap())(inp)?; // 42 - 45
+        let (inp, cur_atom) = map(take(4usize), |s| {
+            AtomName::AminoAcid(AminoAcidAtomName::from_bytes_fixed4(s))
+        })(inp)?; // 42 - 45
         let (inp, _) = take(4usize)(inp)?; // 46 - 48; 49
         let (inp, cur_chain) = anychar(inp)?; // 50
         let (inp, cur_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 51 - 54
         let (inp, _) = take(2usize)(inp)?; // 55; 56
-        let (inp, prev_atom) = map(take(4usize), |s| AtomName::from_str(s).unwrap())(inp)?; // 57 - 60
+        let (inp, prev_atom) = map(take(4usize), |s| {
+            AtomName::AminoAcid(AminoAcidAtomName::from_bytes_fixed4(s))
+        })(inp)?; // 57 - 60
         let (inp, _) = take(4usize)(inp)?; // 61 - 63; 64
         let (inp, prev_chain) = anychar(inp)?; // 65
         let (inp, prev_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 66 - 69
@@ -161,12 +165,12 @@ impl SheetParser {
         Ok((inp, registration))
     }
 
-    fn parse_sense(inp: &str) -> IResult<&str, Sense> {
+    fn parse_sense(inp: &[u8]) -> IResult<&[u8], Sense> {
         let (inp, sense) = take(2usize)(inp)?;
         let sense = match sense {
-            " 1" => Sense::Parallel,
-            " 0" => Sense::Unknown,
-            "-1" => Sense::Antiparallel,
+            b" 1" => Sense::Parallel,
+            b" 0" => Sense::Unknown,
+            b"-1" => Sense::Antiparallel,
             _ => panic!("Error when parsing beta-strand sense!"),
         };
         Ok((inp, sense))

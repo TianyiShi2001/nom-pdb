@@ -31,20 +31,15 @@
 //! - For NMR entries, CONECT records for one model are generated describing heterogen connectivity and others for LINK records assuming that all models are homogeneous models.
 
 use crate::common::parser::FieldParser;
-use crate::common::parser::{jump_newline, parse_amino_acid, parse_right};
+use crate::common::parser::{jump_newline, parse_right};
 use crate::types::{AtomSerial, Connect};
-use nom::{
-    bytes::complete::take,
-    character::complete::{line_ending, not_line_ending},
-    combinator::{map, peek},
-    IResult,
-};
+use nom::IResult;
 
 pub struct ConectParser;
 
 impl FieldParser for ConectParser {
     type Output = Vec<Connect>;
-    fn parse(inp: &str) -> IResult<&str, Self::Output> {
+    fn parse(inp: &[u8]) -> IResult<&[u8], Self::Output> {
         let mut res = Vec::new();
         let (inp, x) = parse_right::<AtomSerial>(inp, 5)?;
         let mut last_inp = inp;
@@ -55,7 +50,7 @@ impl FieldParser for ConectParser {
             } else {
                 res.push([y, x]);
             }
-            if inp.as_bytes()[..5] == b"     "[..] {
+            if inp[..5] == b"     "[..] {
                 break;
             }
             last_inp = inp

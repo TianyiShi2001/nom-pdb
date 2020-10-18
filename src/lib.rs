@@ -4,7 +4,6 @@
 //!
 //! See [github repository](https://github.com/TianyiShi2001/nom-pdb) for examples.
 
-pub mod aux;
 pub mod common;
 pub mod complete;
 pub mod coordinate;
@@ -24,15 +23,15 @@ pub(crate) mod types;
 
 // pub enum Record<'a> {
 //     Header(title_section::header::Header<'a>),
-//     Authors(Vec<&'a str>),
-//     Keywords(Vec<&'a str>),
+//     Authors(Vec<&'a [u8]>),
+//     Keywords(Vec<&'a [u8]>),
 //     Cryst1(crystallography::cryst1::Cryst1),
 // }
 
 // use memmap::MmapOptions;
-// pub unsafe fn apply_file_content_unsafe<F, T>(fp: &str, parser: F) -> Result<T, std::io::Error>
+// pub unsafe fn apply_file_content_unsafe<F, T>(fp: &[u8], parser: F) -> Result<T, std::io::Error>
 // where
-//     F: FnOnce(&str) -> T,
+//     F: FnOnce(&[u8]) -> T,
 // {
 //     let file = File::open(fp)?;
 //     let mmap = MmapOptions::new().map(&file)?;
@@ -41,12 +40,29 @@ pub(crate) mod types;
 //     Ok(res)
 // }
 
-// pub fn apply_file_content<F, T>(fp: &str, parser: F) -> Result<T, std::io::Error>
+// pub fn apply_file_content<F, T>(fp: &[u8], parser: F) -> Result<T, std::io::Error>
 // where
-//     F: FnOnce(&str) -> T,
+//     F: FnOnce(&[u8]) -> T,
 // {
 //     let bytes = read(fp)?;
 //     let data = unsafe { from_utf8_unchecked(&bytes) };
 //     let res = parser(data);
 //     Ok(res)
+// }
+mod utils;
+use std::fs::File;
+use std::io::{self, prelude::*, BufReader};
+use std::path::Path;
+
+pub struct Parser {
+    buffer: String,
+}
+
+use crate::utils::BoxedError;
+
+// impl Parser {
+//     pub fn parse_file<P: AsRef<Path>>(path: P) -> Result<(), BoxedError> {
+//         let file = File::open(path)?;
+//         let reader = BufReader::new(file);
+//     }
 // }

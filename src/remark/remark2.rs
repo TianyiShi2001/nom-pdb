@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 
 // pub struct Remark2Parser {};
 // impl FieldParser for Remark2Parser {
-//     fn parse(i: &str) -> IResult<&str, Cryst1> {
+//     fn parse(i: &[u8]) -> IResult<&[u8], Cryst1> {
 // }
 
 // 6 + 4

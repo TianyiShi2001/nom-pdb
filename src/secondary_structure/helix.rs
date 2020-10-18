@@ -47,7 +47,7 @@
 //! |Polyproline                     |           10                 |       
 
 use crate::common::parser::FieldParser;
-use crate::common::parser::{jump_newline, parse_right};
+use crate::common::parser::{jump_newline, parse_right, take_trim_own};
 use crate::types::{Helix, HelixClass, ResidueSerial};
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
 
@@ -55,9 +55,9 @@ pub struct HelixParser;
 
 impl FieldParser for HelixParser {
     type Output = Helix;
-    fn parse(inp: &str) -> IResult<&str, Self::Output> {
+    fn parse(inp: &[u8]) -> IResult<&[u8], Self::Output> {
         let (inp, _) = take(5usize)(inp)?; // 7; 8 - 10; 11
-        let (inp, id) = map(map(take(3usize), str::trim), str::to_owned)(inp)?; // 12 - 14
+        let (inp, id) = take(3usize)(inp)?; // 12 - 14
         let (inp, _) = take(5usize)(inp)?; // 15; 16 - 18; 19
         let (inp, start_chain) = anychar(inp)?; // 20
         let (inp, _) = take(1usize)(inp)?; // 21
@@ -69,21 +69,21 @@ impl FieldParser for HelixParser {
         let (inp, end_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 34 - 37
         let (inp, _end_icode) = anychar(inp)?; // 38
         let (inp, class) = Self::parse_helix_class(inp)?; // 39 - 40
-        let (inp, comment) = map(map(take(30usize), str::trim), str::to_owned)(inp)?; // 41 - 70
+        let (inp, comment) = take(30usize)(inp)?; // 41 - 70
         let (inp, _) = jump_newline(inp)?;
         let helix = Helix {
-            id,
+            id: unsafe { std::str::from_utf8_unchecked(id).trim().to_owned() },
             class,
             start: (start_chain, start_serial),
             end: (end_chain, end_serial),
-            comment,
+            comment: unsafe { std::str::from_utf8_unchecked(comment).trim().to_owned() },
         };
         Ok((inp, helix))
     }
 }
 
 impl HelixParser {
-    pub fn parse_helix_class(inp: &str) -> IResult<&str, HelixClass> {
+    pub fn parse_helix_class(inp: &[u8]) -> IResult<&[u8], HelixClass> {
         use HelixClass::*;
         let (inp, code) = parse_right::<usize>(inp, 2)?;
 

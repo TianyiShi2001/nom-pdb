@@ -17,7 +17,7 @@ use crate::types::*;
 pub struct ExperimentalTechniquesParser;
 impl FieldParser for ExperimentalTechniquesParser {
     type Output = Vec<ExperimentalTechnique>;
-    fn parse(inp: &str) -> nom::IResult<&str, Vec<ExperimentalTechnique>> {
+    fn parse(inp: &[u8]) -> nom::IResult<&[u8], Vec<ExperimentalTechnique>> {
         let (inp, techniques_as_str) = parse_multiline_list(inp)?;
         let techniques: Vec<ExperimentalTechnique> = techniques_as_str
             .into_iter()

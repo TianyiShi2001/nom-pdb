@@ -525,7 +525,7 @@ impl NonstandardAminoAcid {
 }
 impl FromStr for NonstandardAminoAcid {
     type Err = String;
-    fn from_str(inp: &str) -> Result<Self, <Self as FromStr>::Err> {
+    fn from_str(inp: &[u8]) -> Result<Self, <Self as FromStr>::Err> {
         match inp {
             "DM0" => Ok(Self::Dm0),
             "API" => Ok(Self::Api),

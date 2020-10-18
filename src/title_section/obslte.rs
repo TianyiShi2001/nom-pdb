@@ -35,6 +35,6 @@ use nom::{
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Header<'a> {
     pub date_replaced: NaiveDate,
-    pub id_code: &'a str,
-    pub id_code_replaced: Vec<&'a str>,
+    pub id_code: &'a [u8],
+    pub id_code_replaced: Vec<&'a [u8]>,
 }

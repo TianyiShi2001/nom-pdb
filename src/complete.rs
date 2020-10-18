@@ -12,7 +12,7 @@ use nom::IResult;
 use protein_core::types::model::Model;
 // use nom::Err::Error;
 
-use protein_core::io::pdb::Pdb;
+use protein_core::Structure;
 
 /// http://www.wwpdb.org/documentation/file-format-content/format33/sect1.html
 #[derive(Eq, PartialEq, Debug, Ord, PartialOrd)]
@@ -112,68 +112,72 @@ enum ParserState {
 
 pub struct Parser {
     // state: ParserState,
-// remaining: &'a str,
-// buffer: String,
+    // remaining: &'a [u8],
+    seqres_buffer: String,
 }
 
 impl Parser {
-    pub fn parse(mut inp: &str) -> nom::IResult<&str, Pdb> {
-        let mut pdb = Pdb::default();
-        pdb.models = vec![Model::default()];
+    pub fn parse(mut inp: &[u8]) -> nom::IResult<&[u8], Structure> {
+        let mut structure = Structure::default();
+        // pdb.models = vec![Model::default()];
         let mut model_idx = 0;
         loop {
             let (i, tag) = take(6usize)(inp)?;
             inp = match tag {
-                "HEADER" => HeaderParser::parse_into(&i, &mut pdb.header),
-                "TITLE " => TitleParser::parse_into(&i, &mut pdb.title),
-                "AUTHOR" => AuthorsParser::parse_into(&i, &mut pdb.authors),
-                "CRYST1" => Cryst1Parser::parse_into(&i, &mut pdb.cryst1),
-                "SEQRES" => SeqResParser::parse_into(&i, &mut pdb.seqres),
-                "MODRES" => ModresParser::parse_into(&i, &mut pdb.modres),
-                "EXPDTA" => {
-                    ExperimentalTechniquesParser::parse_into(&i, &mut pdb.experimental_techniques)
-                }
-                "ATOM  " => AtomParser::parse_into_vec(&i, &mut pdb.models[model_idx].atoms),
-                "ANISOU" => AnisouParser::parse_into_vec(&i, &mut pdb.models[model_idx].anisou),
-                "CONECT" => {
-                    let (i, connect) = ConectParser::parse(&i)?;
-                    for bond in connect {
-                        if !pdb.models[0].connect.contains(&bond) {
-                            for model in &mut pdb.models {
-                                // ! for multiple models, CONECT seems not to repeat
-                                model.connect.push(bond); // ! is this reliable?
-                            }
-                        }
-                    }
-                    i
-                }
-                "MODEL " => {
-                    if pdb.models.len() != 1 {
-                        // * if there's one model, there would be no "MODEL"
-                        pdb.models.push(Model::default());
-                        model_idx += 1;
-                    }
-                    let (i, _) = not_line_ending(i)?;
-                    let (i, _) = line_ending(i)?;
-                    i
-                }
-                "SHEET " => {
-                    let (i, sheet) = SheetParser::parse(&i)?;
-                    for model in &mut pdb.models {
-                        // ! for multiple models, SHEET seems not to repeat
-                        model.sheets.push(sheet.clone()); // ! is this reliable? what about mmCIF?
-                    }
-                    i
-                }
-                "HELIX " => {
-                    let (i, helix) = HelixParser::parse(&i)?;
-                    for model in &mut pdb.models {
-                        model.helices.push(helix.clone());
-                    }
-                    i
-                }
-                "END   " => {
-                    inp = "";
+                // b"HEADER" => HeaderParser::parse_into(&i, &mut pdb.header),
+                // b"TITLE " => TitleParser::parse_into(&i, &mut pdb.title),
+                // b"AUTHOR" => AuthorsParser::parse_into(&i, &mut pdb.authors),
+                // b"CRYST1" => Cryst1Parser::parse_into(&i, &mut pdb.cryst1),
+                // b"SEQRES" => {
+                //     //while &i[..6] == b"SEQRES"
+                //     SeqResParser::parse_into(&i, &mut pdb.seqres)
+                // }
+                b"MODRES" => ModresParser::parse_into_structure(&i, &mut structure)?.0,
+                // b"EXPDTA" => {
+                //     ExperimentalTechniquesParser::parse_into(&i, &mut pdb.experimental_techniques)
+                // }
+                // b"ATOM  " => AtomParser::parse_into_vec(&i, &mut pdb.models[model_idx].atoms),
+                // b"HETATM" => HetAtomParser::parse_into_vec(&i, &mut pdb.models[model_idx].atoms),
+                // b"ANISOU" => AnisouParser::parse_into_vec(&i, &mut pdb.models[model_idx].anisou),
+                // b"CONECT" => {
+                //     let (i, connect) = ConectParser::parse(&i)?;
+                //     for bond in connect {
+                //         if !pdb.models[0].connect.contains(&bond) {
+                //             for model in &mut pdb.models {
+                //                 // ! for multiple models, CONECT seems not to repeat
+                //                 model.connect.push(bond); // ! is this reliable?
+                //             }
+                //         }
+                //     }
+                //     i
+                // }
+                // b"MODEL " => {
+                //     if pdb.models.len() != 1 {
+                //         // * if there's one model, there would be no "MODEL"
+                //         pdb.models.push(Model::default());
+                //         model_idx += 1;
+                //     }
+                //     let (i, _) = not_line_ending(i)?;
+                //     let (i, _) = line_ending(i)?;
+                //     i
+                // }
+                // b"SHEET " => {
+                //     let (i, sheet) = SheetParser::parse(&i)?;
+                //     for model in &mut pdb.models {
+                //         // ! for multiple models, SHEET seems not to repeat
+                //         model.sheets.push(sheet.clone()); // ! is this reliable? what about mmCIF?
+                //     }
+                //     i
+                // }
+                // b"HELIX " => {
+                //     let (i, helix) = HelixParser::parse(&i)?;
+                //     for model in &mut pdb.models {
+                //         model.helices.push(helix.clone());
+                //     }
+                //     i
+                // }
+                b"END   " => {
+                    inp = b"";
                     break;
                 }
                 _ => {
@@ -184,6 +188,6 @@ impl Parser {
                 } //panic!("Unkown field"),
             }
         }
-        Ok((inp, pdb))
+        Ok((inp, structure))
     }
 }

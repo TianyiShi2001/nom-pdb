@@ -20,77 +20,95 @@
 // * MODRES comes after SEQRES, thus non-standard residue names in SEQRES cannot be identified
 //   directly
 
-use crate::common::parser::{parse_amino_acid, parse_right, FieldParser};
-use crate::types::*;
+use crate::common::parser::parse_right;
+use crate::types::{
+    ModifiedAminoAcid, ModifiedNucleotide, StandardAminoAcid, StandardNucleotide, Structure,
+};
 use nom::{
     bytes::complete::take,
     character::complete::{anychar, line_ending},
-    combinator::{map, peek},
     IResult,
 };
 
-use std::collections::HashMap;
-
 pub struct ModresParser;
 
-impl FieldParser for ModresParser {
-    type Output = Modres;
-    fn parse(inp: &str) -> IResult<&str, Modres> {
-        let mut res = HashMap::new();
-        let mut inp = inp;
-        loop {
-            let (i, _) = Self::parse_oneline(inp, &mut res)?;
-            if peek(take(6usize))(i)?.1 != "MODRES" {
-                return Ok((i, res));
-            }
-            let (i, _) = take(6usize)(i)?;
-            inp = i;
-        }
-    }
-}
+// impl  ModresParser {
+//     fn parse_into_structure(inp: &[u8], structure: &mut Structure) -> IResult<&[u8], ()> {
+//         let mut res = HashMap::new();
+//         let mut inp = inp;
+//         loop {
+//             let (i, _) = Self::parse_oneline(inp, &mut res)?;
+//             if peek(take(6usize))(i)?.1 != "MODRES" {
+//                 return Ok((i, res));
+//             }
+//             let (i, _) = take(6usize)(i)?;
+//             inp = i;
+//         }
+//     }
+// }
 
 impl ModresParser {
-    pub fn parse_oneline<'a>(
-        inp: &'a str,
-        hashmap: &mut HashMap<String, CustomAminoAcid>,
-    ) -> IResult<&'a str, ()> {
+    pub fn parse_into_structure<'a>(
+        inp: &'a [u8],
+        structure: &mut Structure,
+    ) -> IResult<&'a [u8], ()> {
         let (inp, _) = take(6usize)(inp)?;
-        let (inp, name) = map(take(3usize), str::to_owned)(inp)?;
+        let (inp, name) = take(3usize)(inp)?;
+        let name = unsafe { std::str::from_utf8_unchecked(name).to_owned() };
         let (inp, _) = take(1usize)(inp)?;
         let (inp, chain) = anychar(inp)?;
         let (inp, _) = take(1usize)(inp)?;
         let (inp, sequence_number) = parse_right::<u32>(inp, 4usize)?;
         let (inp, insertion_code) = anychar(inp)?;
         let (inp, _) = take(1usize)(inp)?;
-        let (inp, standard_res) = parse_amino_acid(inp)?;
-        let (inp, _) = take(2usize)(inp)?;
-        let (inp, description) = map(map(take(51usize), str::trim_end), str::to_owned)(inp)?;
-        let (inp, _) = line_ending(inp)?;
+        let (inp, standard_res) = take(3usize)(inp)?;
 
-        let aa = hashmap.entry(name).or_insert(CustomAminoAcid {
-            standard_res,
-            description,
-            occurence: Vec::new(),
-        });
-        aa.occurence.push((chain, sequence_number));
+        let (inp, _) = take(2usize)(inp)?;
+        let (inp, description) = take(51usize)(inp)?;
+        let description = unsafe {
+            std::str::from_utf8_unchecked(description)
+                .trim_end()
+                .to_owned()
+        };
+        if let Some(standard) = StandardAminoAcid::from_bytes_uppercase(standard_res) {
+            structure.modified_aa.insert(
+                name,
+                ModifiedAminoAcid {
+                    standard,
+                    description,
+                },
+            );
+        } else if let Some(standard) = StandardNucleotide::from_bytes_uppercase_fixed3(standard_res)
+        {
+            structure.modified_nuc.insert(
+                name,
+                ModifiedNucleotide {
+                    standard,
+                    description,
+                },
+            );
+        } else {
+            panic!(format!("Mapping modified residue to standard residue, but encountered invalid standard residue: {:?}", std::str::from_utf8(standard_res).unwrap()))
+        }
+        let (inp, _) = line_ending(inp)?;
 
         Ok((inp, ()))
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn test_modres() {
-        let inp = " 1A8O MSE A  151  MET  SELENOMETHIONINE                                   
-MODRES 1A8O MSE A  185  MET  SELENOMETHIONINE                                   
-MODRES 1A8O FOO A  214  MET  FOOBARBAZATONINE                                   
-MODRES 1A8O FOO A  215  MET  FOOBARBAZATONINE                                   
-XXXXXX ...";
-        let (i, modres) = ModresParser::parse(inp).unwrap();
-        assert_eq!("XXXXXX ...", i);
-        assert_eq!(modres.get("FOO").unwrap().occurence.len(), 2usize);
-        assert_eq!(&modres.get("FOO").unwrap().description, "FOOBARBAZATONINE");
-    }
-}
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+//     #[test]
+//     fn test_modres() {
+//         let inp = " 1A8O MSE A  151  MET  SELENOMETHIONINE
+// MODRES 1A8O MSE A  185  MET  SELENOMETHIONINE
+// MODRES 1A8O FOO A  214  MET  FOOBARBAZATONINE
+// MODRES 1A8O FOO A  215  MET  FOOBARBAZATONINE
+// XXXXXX ...";
+//         let (i, modres) = ModresParser::parse(inp).unwrap();
+//         assert_eq!("XXXXXX ...", i);
+//         assert_eq!(modres.get("FOO").unwrap().occurence.len(), 2usize);
+//         assert_eq!(&modres.get("FOO").unwrap().description, "FOOBARBAZATONINE");
+//     }
+// }

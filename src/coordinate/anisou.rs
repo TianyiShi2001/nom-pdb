@@ -33,7 +33,7 @@ pub struct AnisouParser;
 
 impl FieldParser for AnisouParser {
     type Output = Anisou;
-    fn parse(inp: &str) -> IResult<&str, Anisou> {
+    fn parse(inp: &[u8]) -> IResult<&[u8], Anisou> {
         let (inp, id) = parse_right::<AtomSerial>(inp, 5)?;
         let (inp, _) = take(17usize)(inp)?; // 12 - 28
 

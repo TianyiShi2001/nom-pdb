@@ -21,7 +21,7 @@
 //     }
 // }
 
-// fn parse(input: &str) -> IResult<&str, &str, PdbParseError<&str>> {
+// fn parse(input: &[u8]) -> IResult<&[u8], &[u8], PdbParseError<&[u8]>> {
 //     Err(Error(PdbParseError::Other))
 // }
 

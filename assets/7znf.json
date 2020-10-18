@@ -113310,6 +113310,21 @@
             }
           ]
         }
+      ],
+      "helices": [
+        {
+          "id": "H1",
+          "class": "RightHandedOmega",
+          "start": [
+            "A",
+            15
+          ],
+          "end": [
+            "A",
+            26
+          ],
+          "comment": "SEE REMARK 4"
+        }
       ]
     }
   ]
