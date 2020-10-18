@@ -7,7 +7,6 @@ use nom::bytes::complete::take;
 use nom::character::complete::{line_ending, not_line_ending};
 use nom::IResult;
 use protein_core::types::model::Model;
-use serde::{Deserialize, Serialize};
 // use nom::Err::Error;
 
 use protein_core::io::pdb::Pdb;
@@ -108,13 +107,13 @@ enum ParserState {
     Continue,
 }
 
-pub struct Parser<'a> {
-    state: ParserState,
-    remaining: &'a str,
-    buffer: String,
+pub struct Parser {
+    // state: ParserState,
+// remaining: &'a str,
+// buffer: String,
 }
 
-impl<'a> Parser<'a> {
+impl Parser {
     pub fn parse(mut inp: &str) -> nom::IResult<&str, Pdb> {
         let mut pdb = Pdb::default();
         pdb.models = vec![Model::default()];
@@ -133,9 +132,24 @@ impl<'a> Parser<'a> {
                 }
                 "ATOM  " => AtomParser::parse_into_vec(&i, &mut pdb.models[model_idx].atoms),
                 "ANISOU" => AnisouParser::parse_into_vec(&i, &mut pdb.models[model_idx].anisou),
-                "ENDMDL" => {
-                    pdb.models.push(Model::default());
-                    model_idx += 1;
+                "CONECT" => {
+                    let (i, connect) = ConectParser::parse(&i)?;
+                    for bond in connect {
+                        if !pdb.models[0].connect.contains(&bond) {
+                            for model in &mut pdb.models {
+                                // ! for multiple models, CONECT seems not to repeat
+                                model.connect.push(bond); // ! is this reliable?
+                            }
+                        }
+                    }
+                    i
+                }
+                "MODEL" => {
+                    if pdb.models.len() != 1 {
+                        // * if there's one model, there would be no "MODEL"
+                        pdb.models.push(Model::default());
+                        model_idx += 1;
+                    }
                     let (i, _) = not_line_ending(i)?;
                     let (i, _) = line_ending(i)?;
                     i

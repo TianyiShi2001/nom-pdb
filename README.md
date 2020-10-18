@@ -188,7 +188,7 @@ Note: Priority is, and should be placed on parsing structural information instea
 - [X] [Atom](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ATOM)
 - [X] [Anisou](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ANISOU)
 - [X] [Ter](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#TER)
-- [ ] [Hetatm](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#HETATM)
+- [X] [Hetatm](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#HETATM)
 - [X] [Endmdl](http://www.wwpdb.org/documentation/file-format-content/format33/sect9.html#ENDMDL)
 ### Connectivity Section
 - [ ] [Conect](http://www.wwpdb.org/documentation/file-format-content/format33/sect10.html#CONECT)
