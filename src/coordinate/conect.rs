@@ -32,16 +32,12 @@
 
 use crate::common::parser::FieldParser;
 use crate::common::parser::{parse_amino_acid, parse_right};
-use crate::types::{AtomId, Connect};
+use crate::types::{AtomSerial, Connect};
 use nom::{
     bytes::complete::take,
     character::complete::{line_ending, not_line_ending},
     combinator::map,
     IResult,
-};
-use protein_core::types::{
-    atom::{AminoAcidAtomName, Atom},
-    element::Element,
 };
 
 pub struct ConectParser;
@@ -50,10 +46,10 @@ impl FieldParser for ConectParser {
     type Output = Vec<Connect>;
     fn parse(inp: &str) -> IResult<&str, Self::Output> {
         let mut res = Vec::new();
-        let (inp, x) = parse_right::<AtomId>(inp, 5)?;
+        let (inp, x) = parse_right::<AtomSerial>(inp, 5)?;
         let (inp, ys) = not_line_ending(inp)?;
         for y in ys.split_whitespace() {
-            let n = y.parse::<AtomId>().unwrap();
+            let n = y.parse::<AtomSerial>().unwrap();
             if n > x {
                 res.push([x, n]);
             } else {

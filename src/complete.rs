@@ -1,5 +1,8 @@
 /// A simple single-thread parser.
-use crate::{coordinate::*, crystallography::*, primary_structure::*, title_section::*};
+use crate::{
+    coordinate::*, crystallography::*, primary_structure::*, secondary_structure::*,
+    title_section::*,
+};
 
 // use crate::common::error::PdbParseError;
 use crate::common::parser::FieldParser;
@@ -152,6 +155,14 @@ impl Parser {
                     }
                     let (i, _) = not_line_ending(i)?;
                     let (i, _) = line_ending(i)?;
+                    i
+                }
+                "SHEET" => {
+                    let (i, sheet) = SheetParser::parse(&i)?;
+                    for model in &mut pdb.models {
+                        // ! for multiple models, SHEET seems not to repeat
+                        model.sheets.push(sheet.clone()); // ! is this reliable? what about mmCIF?
+                    }
                     i
                 }
                 "END   " => {

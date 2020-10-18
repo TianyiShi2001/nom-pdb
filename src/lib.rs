@@ -12,6 +12,7 @@ pub mod crystallography;
 pub mod parserbuilder;
 pub mod primary_structure;
 pub mod remark;
+pub mod secondary_structure;
 pub mod title_section;
 pub(crate) mod types;
 

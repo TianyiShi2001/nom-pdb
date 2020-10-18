@@ -35,6 +35,12 @@ pub trait FieldParser {
 //     preceded(multispace0, &inner)(i)
 // }
 
+pub(crate) fn jump_newline(inp: &str) -> IResult<&str, ()> {
+    let (inp, _) = not_line_ending(inp)?;
+    let (inp, _) = line_ending(inp)?;
+    Ok((inp, ()))
+}
+
 fn char_is_space(c: char) -> bool {
     c == ' '
 }

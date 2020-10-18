@@ -25,7 +25,7 @@
 
 use crate::common::parser::parse_right;
 use crate::common::parser::FieldParser;
-use crate::types::{Anisou, AtomId};
+use crate::types::{Anisou, AtomSerial};
 use nom::bytes::complete::take;
 use nom::IResult;
 
@@ -34,7 +34,7 @@ pub struct AnisouParser;
 impl FieldParser for AnisouParser {
     type Output = Anisou;
     fn parse(inp: &str) -> IResult<&str, Anisou> {
-        let (inp, id) = parse_right::<AtomId>(inp, 5)?;
+        let (inp, id) = parse_right::<AtomSerial>(inp, 5)?;
         let (inp, _) = take(17usize)(inp)?; // 12 - 28
 
         let (inp, u11) = parse_right::<i32>(inp, 7)?;

@@ -9,10 +9,10 @@ pub use conect::ConectParser;
 
 use crate::common::parser::{parse_amino_acid, parse_right};
 
-use crate::types::AtomId;
+use crate::types::AtomSerial;
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
 use protein_core::types::{
-    atom::{AminoAcidAtomName, Atom},
+    atom::{Atom, AtomName},
     element::Element,
 };
 
@@ -22,10 +22,10 @@ pub struct GenericAtomParser;
 
 impl GenericAtomParser {
     fn parse(inp: &str, hetatom: bool) -> IResult<&str, Atom> {
-        let (inp, id) = parse_right::<AtomId>(inp, 5)?;
+        let (inp, id) = parse_right::<AtomSerial>(inp, 5)?;
         let (inp, _) = take(1usize)(inp)?;
         let (inp, name) = map(map(take(4usize), str::trim), |x| {
-            AminoAcidAtomName::from_str(x).unwrap()
+            AtomName::from_str(x).unwrap()
         })(inp)?;
         let (inp, id1) = anychar(inp)?;
         let (inp, residue) = parse_amino_acid(inp)?;
