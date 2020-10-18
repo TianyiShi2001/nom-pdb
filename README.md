@@ -1,7 +1,13 @@
 # nom-pdb
 ![CI](https://github.com/TianyiShi2001/nom-pdb/workflows/Continuous%20integration/badge.svg)
+[![crates.io](https://img.shields.io/crates/d/nom-pdb.svg)](https://crates.io/crates/nom-pdb)
+[![crates.io](https://img.shields.io/crates/v/nom-pdb.svg)](https://crates.io/crates/nom-pdb)
+[![crates.io](https://img.shields.io/crates/l/nom-pdb.svg)](https://crates.io/crates/nom-pdb)
+[![docs.rs](https://docs.rs/nom-pdb/badge.svg)](https://docs.rs/nom-pdb)
 
 PDB parser implemented in Rust using nom.
+
+**NOTE: This crate is still in early development. Use it at your own risk.**
 
 ## Features
 
@@ -169,7 +175,7 @@ cargo run --example read 1a8o
 
 # Roadmap
 
-Note: Priority is, and should be placed on parsing structural information instead of metadata, since the latter is more or less disordered free-text and usually not of particular interest to users (even in cases where they are, users can examine the PDB file directly).
+Note: Priority is and is ought to be placed on parsing structural information instead of metadata, since the latter is more or less disordered free-text and usually not of particular interest to users (even in cases where they are, users can examine the PDB file directly).
 
 ### Title Section
 - [X] [Header](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#HEADER)
@@ -195,8 +201,8 @@ Note: Priority is, and should be placed on parsing structural information instea
 - [ ] [Dbref](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#DBREF)
 - [ ] [Dbref1](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#DBREF1)
 - [ ] [Seqadv](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#SEQADV)
-- [ ] [Seqres](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#SEQRES)
-- [ ] [Modres](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#MODRES)
+- [X] [Seqres](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#SEQRES)
+- [X] [Modres](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#MODRES)
 ### Heterogen Section
 - [ ] [Het](http://www.wwpdb.org/documentation/file-format-content/format33/sect4.html#HET)
 - [ ] [Formul](http://www.wwpdb.org/documentation/file-format-content/format33/sect4.html#FORMUL)
