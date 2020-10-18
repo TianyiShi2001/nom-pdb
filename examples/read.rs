@@ -10,7 +10,7 @@ fn main() {
     match id {
         None => panic!("Please specify a filename!"),
         Some(id) => match id.as_str() {
-            "1a8o" | "7znf" => {
+            "1a8o" | "7znf" | "4f7i" => {
                 let data = fs::read(&format!("assets/{}.pdb", id)).unwrap();
                 unsafe {
                     let data = from_utf8_unchecked(&data);

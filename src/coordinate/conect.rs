@@ -31,12 +31,12 @@
 //! - For NMR entries, CONECT records for one model are generated describing heterogen connectivity and others for LINK records assuming that all models are homogeneous models.
 
 use crate::common::parser::FieldParser;
-use crate::common::parser::{parse_amino_acid, parse_right};
+use crate::common::parser::{jump_newline, parse_amino_acid, parse_right};
 use crate::types::{AtomSerial, Connect};
 use nom::{
     bytes::complete::take,
     character::complete::{line_ending, not_line_ending},
-    combinator::map,
+    combinator::{map, peek},
     IResult,
 };
 
@@ -47,16 +47,20 @@ impl FieldParser for ConectParser {
     fn parse(inp: &str) -> IResult<&str, Self::Output> {
         let mut res = Vec::new();
         let (inp, x) = parse_right::<AtomSerial>(inp, 5)?;
-        let (inp, ys) = not_line_ending(inp)?;
-        for y in ys.split_whitespace() {
-            let n = y.parse::<AtomSerial>().unwrap();
-            if n > x {
-                res.push([x, n]);
+        let mut last_inp = inp;
+        loop {
+            let (inp, y) = parse_right::<AtomSerial>(last_inp, 5)?;
+            if y > x {
+                res.push([x, y]);
             } else {
-                res.push([n, x]);
+                res.push([y, x]);
             }
+            if inp.as_bytes()[..5] == b"     "[..] {
+                break;
+            }
+            last_inp = inp
         }
-        let (inp, _) = line_ending(inp)?;
+        let (inp, _) = jump_newline(last_inp)?;
         Ok((inp, res))
     }
 }

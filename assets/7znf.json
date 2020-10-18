@@ -113263,6 +113263,53 @@
           432,
           511
         ]
+      ],
+      "sheets": [
+        {
+          "id": "B1",
+          "strands": [
+            {
+              "start": [
+                "A",
+                2
+              ],
+              "end": [
+                "A",
+                6
+              ],
+              "sense": "Unknown"
+            },
+            {
+              "start": [
+                "A",
+                8
+              ],
+              "end": [
+                "A",
+                13
+              ],
+              "sense": "Antiparallel"
+            }
+          ],
+          "registration": [
+            {
+              "curr": [
+                {
+                  "Other": " N  "
+                },
+                "A",
+                12
+              ],
+              "prev": [
+                {
+                  "Other": " O  "
+                },
+                "A",
+                3
+              ]
+            }
+          ]
+        }
       ]
     }
   ]
