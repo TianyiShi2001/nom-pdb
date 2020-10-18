@@ -6,6 +6,9 @@ PDB parser implemented in Rust using nom.
 ## Features
 
 - Parses structural information and a subset of important metadata.
+  - Primary structure
+  - Secondary structure (sheets and helices)
+  - Coordinates and bonding
 - Able to deal with non-standard residues (not yet mature)
 - JSON serialization powered by serde.
 
@@ -102,27 +105,57 @@ cargo run --example read 1a8o
       ]
     ]
   ],
-  "atoms": [
+  "models": [
     {
-      "id": 9,
-      "name": "N",
-      "id1": " ",
-      "residue": "Asp",
-      "chain": "A",
-      "sequence_number": 152,
-      "insertion_code": " ",
-      "x": 21.554,
-      "y": 34.953,
-      "z": 27.691,
-      "occupancy": 1.0,
-      "temperature_factor": 19.26,
-      "element": "N",
-      "charge": 0
-    },
-    // snip //
-  ]
-  "anisou": [
-      // snip //
+      "atoms":  [
+          "id": 1,
+          "name": "N",
+          "id1": " ",
+          "residue": "Ser",
+          "chain": "A",
+          "sequence_number": 0,
+          "insertion_code": " ",
+          "x": -12.138,
+          "y": 1.867,
+          "z": 20.782,
+          "occupancy": 1.0,
+          "temperature_factor": 67.46,
+          "element": "N",
+          "charge": 0,
+          "hetatom": false
+        },
+        // snip //
+      ]
+      "anisou": [
+        // snip //
+      ],
+      "sheets": [
+        {
+          "id": "A",
+          "strands": [
+            {
+              "start": [
+                "A",
+                34
+              ],
+              "end": [
+                "A",
+                38
+              ],
+              "sense": "Unknown"
+            },
+            // snip //
+          ]
+        },
+        // snip //
+      ]
+      "helices": [
+        // snip
+      ],
+      "connect": [
+        // snip //
+      ]
+    }
   ]
 }
 ```
@@ -170,8 +203,8 @@ Note: Priority is, and should be placed on parsing structural information instea
 - [ ] [Hetnam](http://www.wwpdb.org/documentation/file-format-content/format33/sect4.html#HETNAM)
 - [ ] [Hetsyn](http://www.wwpdb.org/documentation/file-format-content/format33/sect4.html#HETSYN)
 ### Secondary Structure Section
-- [ ] [Helix](http://www.wwpdb.org/documentation/file-format-content/format33/sect5.html#HELIX)
-- [ ] [Sheet](http://www.wwpdb.org/documentation/file-format-content/format33/sect5.html#SHEET)
+- [X] [Helix](http://www.wwpdb.org/documentation/file-format-content/format33/sect5.html#HELIX)
+- [X] [Sheet](http://www.wwpdb.org/documentation/file-format-content/format33/sect5.html#SHEET)
 ### Connectivity Annotation Section
 - [ ] [Ssbond](http://www.wwpdb.org/documentation/file-format-content/format33/sect6.html#SSBOND)
 - [ ] [Link](http://www.wwpdb.org/documentation/file-format-content/format33/sect6.html#LINK)

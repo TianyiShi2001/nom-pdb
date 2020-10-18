@@ -1,5 +1,4 @@
 use nom_pdb::complete::Parser;
-use serde::{Deserialize, Serialize};
 use serde_json;
 use std::env;
 use std::fs;

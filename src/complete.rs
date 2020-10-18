@@ -165,6 +165,13 @@ impl Parser {
                     }
                     i
                 }
+                "HELIX " => {
+                    let (i, helix) = HelixParser::parse(&i)?;
+                    for model in &mut pdb.models {
+                        model.helices.push(helix.clone());
+                    }
+                    i
+                }
                 "END   " => {
                     inp = "";
                     break;
