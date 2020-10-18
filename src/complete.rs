@@ -147,7 +147,7 @@ impl Parser {
                     }
                     i
                 }
-                "MODEL" => {
+                "MODEL " => {
                     if pdb.models.len() != 1 {
                         // * if there's one model, there would be no "MODEL"
                         pdb.models.push(Model::default());
@@ -157,7 +157,7 @@ impl Parser {
                     let (i, _) = line_ending(i)?;
                     i
                 }
-                "SHEET" => {
+                "SHEET " => {
                     let (i, sheet) = SheetParser::parse(&i)?;
                     for model in &mut pdb.models {
                         // ! for multiple models, SHEET seems not to repeat

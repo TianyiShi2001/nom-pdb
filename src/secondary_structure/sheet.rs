@@ -51,7 +51,9 @@
 
 use crate::common::parser::FieldParser;
 use crate::common::parser::{jump_newline, parse_right};
-use crate::types::{AtomName, Registration, ResidueSerial, Sense, Sheet, Strand};
+use crate::types::{
+    AtomName, Registration, ResidueSerial, SecondaryStructureSerial, Sense, Sheet, Strand,
+};
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
 use std::str::FromStr;
 
@@ -71,15 +73,15 @@ impl SheetParser {
         let (inp, _) = take(5usize)(inp)?; // 7 - 11
         let (inp, id) = map(map(take(3usize), str::trim_start), str::to_owned)(inp)?; // 12 - 14
         sheet.id = id;
-        let (inp, num_strands) = parse_right::<u8>(inp, 2)?; // 15 - 16
+        let (inp, num_strands) = parse_right::<SecondaryStructureSerial>(inp, 2)?; // 15 - 16
         let (inp, _) = take(1usize)(inp)?; // 17
         let (inp, first_strand) = Self::parse_first_line(inp)?;
         sheet.strands.push(first_strand);
-        let mut i = 1u8;
+        let mut i = 1 as SecondaryStructureSerial;
         let mut last_inp = inp;
         while i < num_strands {
             let (inp, _) = take(7usize)(last_inp)?; // 1 - 7
-            let (inp, idx) = parse_right::<u8>(inp, 3)?; // 8 - 10
+            let (inp, idx) = parse_right::<SecondaryStructureSerial>(inp, 3)?; // 8 - 10
             i = idx;
             let (inp, _) = take(7usize)(inp)?; // 11 - 17
             let (inp, (strand, registration)) = Self::parse_line(inp)?;
@@ -87,7 +89,7 @@ impl SheetParser {
             sheet.registration.push(registration);
             last_inp = inp;
         }
-        Ok((inp, sheet))
+        Ok((last_inp, sheet))
     }
 
     fn parse_first_line(inp: &str) -> IResult<&str, Strand> {
@@ -163,6 +165,7 @@ impl SheetParser {
         let (inp, sense) = take(2usize)(inp)?;
         let sense = match sense {
             " 1" => Sense::Parallel,
+            " 0" => Sense::Unknown,
             "-1" => Sense::Antiparallel,
             _ => panic!("Error when parsing beta-strand sense!"),
         };
