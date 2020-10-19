@@ -20,16 +20,18 @@
 // * MODRES comes after SEQRES, thus non-standard residue names in SEQRES cannot be identified
 //   directly
 
-use crate::common::parser::parse_right;
-use crate::types::{
-    ModifiedAminoAcid, ModifiedNucleotide, StandardAminoAcid, StandardNucleotide, TryParseFw3,
+use crate::{
+    common::parser::parse_right,
+    types::{
+        ModifiedAminoAcid, ModifiedAminoAcidTable, ModifiedNucleotide, ModifiedNucleotideTable,
+        StandardAminoAcid, StandardNucleotide, TryParseFw3,
+    },
 };
 use nom::{
     bytes::complete::take,
     character::complete::{anychar, line_ending},
     IResult,
 };
-use std::collections::HashMap;
 
 pub struct ModresParser;
 
@@ -51,8 +53,8 @@ pub struct ModresParser;
 impl ModresParser {
     pub fn parse_into<'a>(
         inp: &'a [u8],
-        modified_aa: &mut HashMap<String, ModifiedAminoAcid>,
-        modified_nuc: &mut HashMap<String, ModifiedNucleotide>,
+        modified_aa: &mut ModifiedAminoAcidTable,
+        modified_nuc: &mut ModifiedNucleotideTable,
     ) -> IResult<&'a [u8], ()> {
         let (inp, _) = take(6usize)(inp)?;
         let (inp, name) = take(3usize)(inp)?;

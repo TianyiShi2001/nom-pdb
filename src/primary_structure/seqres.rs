@@ -27,22 +27,26 @@
 // //! | 64 - 66 | Residue name | resName  | Residue name.                                                                                                                     |
 // //! | 68 - 70 | Residue name | resName  | Residue name.                                                                                                                     |
 
-use crate::common::parser::{jump_newline, parse_residue, parse_right};
-use crate::types::{
-    AminoAcid, Chain, ModifiedAminoAcid, ModifiedNucleotide, Nucleotide, ParseFw3, Residue,
+use crate::{
+    common::parser::{jump_newline, parse_residue, parse_right},
+    types::{
+        AminoAcid, Chain, ModifiedAminoAcidTable, ModifiedNucleotideTable, Nucleotide, ParseFw3,
+        Residue,
+    },
 };
-use nom::bytes::complete::take;
-use nom::character::complete::{anychar, line_ending, not_line_ending};
-use nom::combinator::map;
-use nom::IResult;
-use std::collections::HashMap;
+use nom::{
+    bytes::complete::take,
+    character::complete::{anychar, line_ending, not_line_ending},
+    combinator::map,
+    IResult,
+};
 
 pub struct SeqResParser;
 impl SeqResParser {
     pub fn parse<'a>(
         inp: &'a [u8],
-        modified_aa: &HashMap<String, ModifiedAminoAcid>,
-        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+        modified_aa: &ModifiedAminoAcidTable,
+        modified_nuc: &ModifiedNucleotideTable,
     ) -> IResult<(), (Vec<Chain<AminoAcid>>, Vec<Chain<Nucleotide>>)> {
         // let (mut inp, _) = take(6usize)(inp)?; // very first line
         let mut inp = inp;
@@ -74,8 +78,8 @@ impl SeqResParser {
 impl SeqResParser {
     pub fn parse_chain<'a>(
         inp: &'a [u8],
-        modified_aa: &HashMap<String, ModifiedAminoAcid>,
-        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+        modified_aa: &ModifiedAminoAcidTable,
+        modified_nuc: &ModifiedNucleotideTable,
         chains_aa: &mut Vec<Chain<AminoAcid>>,
         chains_nuc: &mut Vec<Chain<Nucleotide>>,
     ) -> IResult<&'a [u8], ()> {

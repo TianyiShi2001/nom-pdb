@@ -35,14 +35,14 @@ pub trait FieldParserWithModifiedTable {
     type Output;
     fn parse<'a>(
         inp: &'a [u8],
-        modified_aa: &HashMap<String, ModifiedAminoAcid>,
-        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+        modified_aa: &ModifiedAminoAcidTable,
+        modified_nuc: &ModifiedNucleotideTable,
     ) -> IResult<&'a [u8], Self::Output>;
     fn parse_into<'a, 'b>(
         inp: &'a [u8],
         dst: &'b mut Self::Output,
-        modified_aa: &HashMap<String, ModifiedAminoAcid>,
-        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+        modified_aa: &ModifiedAminoAcidTable,
+        modified_nuc: &ModifiedNucleotideTable,
     ) -> &'a [u8] {
         let (i, data) = Self::parse(inp, modified_aa, modified_nuc).expect("parse error");
         *dst = data;
@@ -51,8 +51,8 @@ pub trait FieldParserWithModifiedTable {
     fn parse_into_vec<'a>(
         inp: &'a [u8],
         dst: &mut Vec<Self::Output>,
-        modified_aa: &HashMap<String, ModifiedAminoAcid>,
-        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+        modified_aa: &ModifiedAminoAcidTable,
+        modified_nuc: &ModifiedNucleotideTable,
     ) -> &'a [u8] {
         let (i, data) = Self::parse(inp, modified_aa, modified_nuc).expect("parse error");
         dst.push(data);
@@ -203,14 +203,12 @@ use std::collections::HashMap;
 
 pub(crate) fn parse_residue<'a, 'b>(
     inp: &'a [u8],
-    modified_aa: &'b HashMap<String, ModifiedAminoAcid>,
-    modified_nuc: &'b HashMap<String, ModifiedNucleotide>,
+    modified_aa: &'b ModifiedAminoAcidTable,
+    modified_nuc: &'b ModifiedNucleotideTable,
 ) -> IResult<&'a [u8], Residue> {
     let (inp, residue) = take(3usize)(inp)?;
     let residue_s = unsafe { std::str::from_utf8_unchecked(residue).to_owned() };
-    let residue = if &residue == b"HOH" {
-        Residue::Water
-    } else if let Some(res) = StandardAminoAcid::try_parse_fw3(&residue) {
+    let residue = if let Some(res) = StandardAminoAcid::try_parse_fw3(&residue) {
         Residue::AminoAcid(AminoAcid::Standard(res))
     } else if let Some(_res) = modified_aa.get(&residue_s) {
         Residue::AminoAcid(AminoAcid::Modified(residue_s))
@@ -219,7 +217,12 @@ pub(crate) fn parse_residue<'a, 'b>(
     } else if let Some(_res) = modified_nuc.get(&residue_s) {
         Residue::Nucleotide(Nucleotide::Modified(residue_s))
     } else {
-        Residue::Unknown(residue_s)
+        match residue {
+            b"HOH" => Residue::Water,
+            b"UNX" => Residue::UnknownAtomOrIon,
+            b"UNL" => Residue::UnknownLigand,
+            _ => Residue::Other(residue_s),
+        }
     };
     Ok((inp, residue))
 }

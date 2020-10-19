@@ -1,11 +1,12 @@
 use crate::common::parser::{jump_newline, parse_residue, parse_right, FieldParser};
 
 use crate::types::{
-    AminoAcidAtomName, Anisou, Atom, AtomName, AtomSerial, Connect, Element, ModifiedAminoAcid,
-    ModifiedNucleotide, NucleotideAtomName, ParseFw2, ParseFw4, Residue,
+    AminoAcidAtomName, Anisou, Atom, AtomName, AtomSerial, Connect, Element,
+    ModifiedAminoAcidTable, ModifiedNucleotideTable, NucleotideAtomName, ParseFw2, ParseFw4,
+    Residue,
 };
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
-use std::{collections::HashMap, str::from_utf8_unchecked};
+use std::str::from_utf8_unchecked;
 
 /// # ATOM
 ///
@@ -115,8 +116,8 @@ pub struct GenericAtomParser;
 impl GenericAtomParser {
     pub fn parse<'a, 'b>(
         inp: &'a [u8],
-        modified_aa: &'b HashMap<String, ModifiedAminoAcid>,
-        modified_nuc: &'b HashMap<String, ModifiedNucleotide>,
+        modified_aa: &'b ModifiedAminoAcidTable,
+        modified_nuc: &'b ModifiedNucleotideTable,
     ) -> IResult<&'a [u8], Atom> {
         let (inp, id) = parse_right::<AtomSerial>(inp, 5)?;
         let (inp, _) = take(1usize)(inp)?;

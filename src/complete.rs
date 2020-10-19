@@ -9,11 +9,8 @@ use crate::common::parser::FieldParser;
 use nom::bytes::complete::take;
 use nom::character::complete::{line_ending, not_line_ending};
 
-// use nom::Err::Error;
-use std::collections::HashMap;
-
-use protein_core::structure::{
-    Connect, Helix, Model, ModifiedAminoAcid, ModifiedNucleotide, Sheet, Structure,
+use crate::types::{
+    Connect, Helix, Model, ModifiedAminoAcidTable, ModifiedNucleotideTable, Sheet, Structure,
 };
 
 use protein_core::metadata::*;
@@ -33,8 +30,8 @@ impl Parser {
 
         let mut models: Vec<Model> = vec![Model::default()];
 
-        let mut modified_aa: HashMap<String, ModifiedAminoAcid> = Default::default();
-        let mut modified_nuc: HashMap<String, ModifiedNucleotide> = Default::default();
+        let mut modified_aa: ModifiedAminoAcidTable = Default::default();
+        let mut modified_nuc: ModifiedNucleotideTable = Default::default();
 
         let mut model_idx = 0;
 

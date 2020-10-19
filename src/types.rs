@@ -1,6 +1,9 @@
-use nom::{bytes::complete::take, IResult};
 pub use protein_core::metadata::*;
 pub use protein_core::structure::*;
+use std::collections::HashMap;
+
+pub(crate) type ModifiedAminoAcidTable = HashMap<String, ModifiedAminoAcid>;
+pub(crate) type ModifiedNucleotideTable = HashMap<String, ModifiedNucleotide>;
 
 pub trait PdbAminoAcid {
     fn from_uppercase(inp: &str) -> Self;
@@ -75,6 +78,7 @@ impl ParseFw2 for Element {
             b" F" => Self::F,
             b"AL" => Self::Al,
             b" V" => Self::V,
+            b"X1" => Self::Unknown,
             _ => panic!(format!(
                 "fail to parse element: {}",
                 std::str::from_utf8(inp).unwrap()

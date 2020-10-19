@@ -8,7 +8,7 @@ pub mod common;
 pub mod complete;
 pub mod coordinate;
 pub mod crystallography;
-pub mod parserbuilder;
+pub mod het;
 pub mod primary_structure;
 pub mod remark;
 pub mod secondary_structure;
