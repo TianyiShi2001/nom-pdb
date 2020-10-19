@@ -29,6 +29,7 @@ use nom::{
     character::complete::{anychar, line_ending},
     IResult,
 };
+use std::collections::HashMap;
 
 pub struct ModresParser;
 
@@ -48,9 +49,10 @@ pub struct ModresParser;
 // }
 
 impl ModresParser {
-    pub fn parse_into_structure<'a>(
+    pub fn parse_into<'a>(
         inp: &'a [u8],
-        structure: &mut Structure,
+        modified_aa: &mut HashMap<String, ModifiedAminoAcid>,
+        modified_nuc: &mut HashMap<String, ModifiedNucleotide>,
     ) -> IResult<&'a [u8], ()> {
         let (inp, _) = take(6usize)(inp)?;
         let (inp, name) = take(3usize)(inp)?;
@@ -71,22 +73,26 @@ impl ModresParser {
                 .to_owned()
         };
         if let Some(standard) = StandardAminoAcid::from_bytes_uppercase(standard_res) {
-            structure.modified_aa.insert(
+            //unsafe {
+            (*modified_aa).insert(
                 name,
                 ModifiedAminoAcid {
                     standard,
                     description,
                 },
             );
+        //}
         } else if let Some(standard) = StandardNucleotide::from_bytes_uppercase_fixed3(standard_res)
         {
-            structure.modified_nuc.insert(
+            //unsafe {
+            (*modified_nuc).insert(
                 name,
                 ModifiedNucleotide {
                     standard,
                     description,
                 },
             );
+        //}
         } else {
             panic!(format!("Mapping modified residue to standard residue, but encountered invalid standard residue: {:?}", std::str::from_utf8(standard_res).unwrap()))
         }

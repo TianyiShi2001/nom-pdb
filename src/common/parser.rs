@@ -166,20 +166,25 @@ where
     }
 }
 
+use std::collections::HashMap;
+
 pub(crate) fn parse_residue<'a, 'b>(
     inp: &'a [u8],
-    structure: &'b Structure,
-) -> IResult<&'a [u8], Residue<'b>> {
+    modified_aa: &'b HashMap<String, ModifiedAminoAcid>,
+    modified_nuc: &'b HashMap<String, ModifiedNucleotide>,
+) -> IResult<&'a [u8], Residue> {
     let (inp, residue) = take(3usize)(inp)?;
     let residue = unsafe { std::str::from_utf8_unchecked(residue).to_owned() };
-    let residue = if let Some(res) = StandardAminoAcid::from_uppercase(&residue) {
+    let residue = if &residue == "HOH" {
+        Residue::Water
+    } else if let Some(res) = StandardAminoAcid::from_uppercase(&residue) {
         Residue::AminoAcid(AminoAcid::Standard(res))
-    } else if let Some(res) = structure.modified_aa.get(&residue) {
-        Residue::AminoAcid(AminoAcid::Modified(res))
+    } else if let Some(res) = modified_aa.get(&residue) {
+        Residue::AminoAcid(AminoAcid::Modified(residue))
     } else if let Some(res) = StandardNucleotide::from_uppercase_fixed3(&residue) {
         Residue::Nucleotide(Nucleotide::Standard(res))
-    } else if let Some(res) = structure.modified_nuc.get(&residue) {
-        Residue::Nucleotide(Nucleotide::Modified(res))
+    } else if let Some(res) = modified_nuc.get(&residue) {
+        Residue::Nucleotide(Nucleotide::Modified(residue))
     } else {
         Residue::Unknown(residue)
     };

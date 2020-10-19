@@ -3,7 +3,7 @@
 extern crate test;
 
 extern crate nom_pdb;
-use std::fs::read_to_string;
+//use std::fs::read_to_string;
 
 // #[cfg(test)]
 // mod tests {

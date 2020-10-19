@@ -8,20 +8,25 @@ pub use conect::ConectParser;
 use crate::common::parser::{parse_residue, parse_right};
 
 use crate::types::{
-    AminoAcidAtomName, Atom, AtomName, AtomSerial, Element, NucleotideAtomName, Residue, Structure,
+    AminoAcidAtomName, Atom, AtomName, AtomSerial, Element, ModifiedAminoAcid, ModifiedNucleotide,
+    NucleotideAtomName, Residue,
 };
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
-
+use std::collections::HashMap;
 pub struct GenericAtomParser;
 
 impl GenericAtomParser {
-    fn parse<'a, 'b>(inp: &'a [u8], structure: &'b Structure) -> IResult<&'a [u8], Atom<'b>> {
+    pub fn parse<'a, 'b>(
+        inp: &'a [u8],
+        modified_aa: &'b HashMap<String, ModifiedAminoAcid>,
+        modified_nuc: &'b HashMap<String, ModifiedNucleotide>,
+    ) -> IResult<&'a [u8], Atom> {
         let (inp, id) = parse_right::<AtomSerial>(inp, 5)?;
         let (inp, _) = take(1usize)(inp)?;
         let (inp, name) = take(4usize)(inp)?;
         let (inp, id1) = anychar(inp)?;
 
-        let (inp, residue) = parse_residue(inp, &structure)?;
+        let (inp, residue) = parse_residue(inp, modified_aa, modified_nuc)?;
 
         let name = match &residue {
             Residue::AminoAcid(_) => {
@@ -30,6 +35,7 @@ impl GenericAtomParser {
             Residue::Nucleotide(_) => {
                 AtomName::Nucleotide(NucleotideAtomName::from_bytes_uppercase_fixed4(name))
             }
+            Residue::Water => AtomName::WaterO,
             _ => AtomName::Other(unsafe { std::str::from_utf8_unchecked(name).to_owned() }),
         };
 
