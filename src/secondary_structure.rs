@@ -6,8 +6,8 @@
 use crate::common::parser::FieldParser;
 use crate::common::parser::{jump_newline, parse_right, take_trim_start_own};
 use crate::types::{
-    AminoAcidAtomName, AtomName, Helix, HelixClass, Registration, ResidueSerial,
-    SecondaryStructureSerial, Sense, Sheet, Strand,
+    AtomName, Helix, HelixClass, ParseFw4, Registration, ResidueSerial, SecondaryStructureSerial,
+    Sense, Sheet, Strand,
 };
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
 
@@ -251,16 +251,12 @@ impl SheetParser {
         // | 66 - 69 | Integer      | prevResSeq  | Registration. Residue sequence number             |
         // |         |              |             | in previous strand.                               |
         // | 70      | AChar        | prevICode   | Registration.  Insertion code in previous strand. |
-        let (inp, cur_atom) = map(take(4usize), |s| {
-            AtomName::AminoAcid(AminoAcidAtomName::from_bytes_fixed4(s))
-        })(inp)?; // 42 - 45
+        let (inp, cur_atom) = map(take(4usize), AtomName::parse_fw4)(inp)?; // 42 - 45
         let (inp, _) = take(4usize)(inp)?; // 46 - 48; 49
         let (inp, cur_chain) = anychar(inp)?; // 50
         let (inp, cur_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 51 - 54
         let (inp, _) = take(2usize)(inp)?; // 55; 56
-        let (inp, prev_atom) = map(take(4usize), |s| {
-            AtomName::AminoAcid(AminoAcidAtomName::from_bytes_fixed4(s))
-        })(inp)?; // 57 - 60
+        let (inp, prev_atom) = map(take(4usize), AtomName::parse_fw4)(inp)?; // 57 - 60
         let (inp, _) = take(4usize)(inp)?; // 61 - 63; 64
         let (inp, prev_chain) = anychar(inp)?; // 65
         let (inp, prev_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 66 - 69

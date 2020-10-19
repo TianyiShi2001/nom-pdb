@@ -6,9 +6,8 @@
 use crate::common::parser::{jump_newline, parse_residue, parse_right, FieldParser};
 
 use crate::types::{
-    AminoAcidAtomName, Anisou, Atom, AtomName, AtomSerial, Connect, Element,
-    ModifiedAminoAcidTable, ModifiedNucleotideTable, NucleotideAtomName, ParseFw2, ParseFw4,
-    Residue,
+    Anisou, Atom, AtomName, AtomSerial, Connect, Element, ModifiedAminoAcidTable,
+    ModifiedNucleotideTable, ParseFw2, ParseFw4, Residue,
 };
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
 use std::str::from_utf8_unchecked;
@@ -126,17 +125,10 @@ impl GenericAtomParser {
     ) -> IResult<&'a [u8], Atom> {
         let (inp, id) = parse_right::<AtomSerial>(inp, 5)?;
         let (inp, _) = take(1usize)(inp)?;
-        let (inp, name) = take(4usize)(inp)?;
+        let (inp, name) = map(take(4usize), AtomName::parse_fw4)(inp)?;
         let (inp, id1) = anychar(inp)?;
 
         let (inp, residue) = parse_residue(inp, modified_aa, modified_nuc)?;
-
-        let name = match &residue {
-            Residue::AminoAcid(_) => AtomName::AminoAcid(AminoAcidAtomName::parse_fw4(name)),
-            Residue::Nucleotide(_) => AtomName::Nucleotide(NucleotideAtomName::parse_fw4(name)),
-            Residue::Water => AtomName::WaterO,
-            _ => AtomName::Other(unsafe { from_utf8_unchecked(name).trim().to_owned() }),
-        };
 
         let (inp, _) = take(1usize)(inp)?;
         let (inp, chain) = anychar(inp)?;

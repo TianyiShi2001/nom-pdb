@@ -8,8 +8,8 @@ use crate::common::parser::{
     jump_newline, parse_residue, parse_right, take_trim_start_own, FieldParserWithModifiedTable,
 };
 use crate::types::{
-    AminoAcidAtomName, AtomName, Helix, HelixClass, ModifiedAminoAcid, ModifiedNucleotide,
-    Registration, ResidueSerial, SecondaryStructureSerial, Sense, Sheet, Strand,
+    AtomName, Helix, HelixClass, ModifiedAminoAcid, ModifiedNucleotide, Registration,
+    ResidueSerial, SecondaryStructureSerial, Sense, Sheet, Strand,
 };
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
 use std::collections::HashMap;
