@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 //! The [MODRES](http://www.wwpdb.org/documentation/file-format-content/format33/sect3.html#MODRES)
 //! record provides descriptions of modifications (e.g., chemical or post-translational) to protein
 //! and nucleic acid residues. Included are correlations between residue names given in a PDB entry

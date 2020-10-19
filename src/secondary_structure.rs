@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 use crate::common::parser::FieldParser;
 use crate::common::parser::{jump_newline, parse_right, take_trim_start_own};
 use crate::types::{

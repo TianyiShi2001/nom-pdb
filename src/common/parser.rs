@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 use crate::types::*;
 use atoi::atoi;
 use chrono::{

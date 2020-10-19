@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 //! Parsing the [Header](http://www.wwpdb.org/documentation/file-format-content/format33/sect2.html#HEADER).
 //! The HEADER record uniquely identifies a PDB entry through the idCode field.
 //! This record also provides a classification for the entry. Finally, it contains

@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 //! [Cryst1](www.wwpdb.org/documentation/file-format-content/format33/sect8.html#CRYST1)
 //! The CRYST1 record presents the unit cell parameters, space group, and Z value. If the
 //! structure was not determined by crystallographic means, CRYST1 simply provides the unitary

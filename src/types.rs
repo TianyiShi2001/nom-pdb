@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 pub use protein_core::metadata::*;
 pub use protein_core::structure::*;
 use std::collections::HashMap;

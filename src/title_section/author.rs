@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 use crate::common::parser::parse_multiline_list;
 /// Parses AUTHOR record which is a multiline continuation record.
 /// Contains comma-seperated list of author names. If successfull

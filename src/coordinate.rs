@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 use crate::common::parser::{jump_newline, parse_residue, parse_right, FieldParser};
 
 use crate::types::{

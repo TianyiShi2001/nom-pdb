@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 // //! SEQRES records contain a listing of the consecutive chemical components covalently linked
 // //! in a linear fashion to form a polymer. The chemical components included in this listing may
 // //! be standard or modified amino acid and nucleic acid residues. It may also include other residues

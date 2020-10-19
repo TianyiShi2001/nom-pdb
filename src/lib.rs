@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 //! # nom-pdb
 //!
 //! A PDB (Protein Data Bank) file parser implemented with nom.

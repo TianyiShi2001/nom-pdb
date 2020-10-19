@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 // use nom::error::ErrorKind;
 // use nom::error::ParseError;
 // use nom::Err::Error;

@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 //! Parses KEYWDS record which is a multiline continuation record. Contains comma-seperated list of
 //! keywords relevant to pdb entry.If successfull returns [Record](../ast/types/enum.Record.html)
 //! variant containing [KEYWDS](../ast/types/struct.Keywds.html) instance.

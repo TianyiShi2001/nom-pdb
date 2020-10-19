@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 //! OBSLTE appears in entries that have been removed from public distribution.
 //!
 //! This record acts as a flag in an entry that has been removed (“obsoleted”)

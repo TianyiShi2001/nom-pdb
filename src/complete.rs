@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 /// A simple single-thread parser.
 use crate::{
     coordinate::*, crystallography::*, primary_structure::*, secondary_structure::*,

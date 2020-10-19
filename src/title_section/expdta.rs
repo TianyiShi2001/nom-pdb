@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 //! Parses EXPDTA records which is a continuation type of record which may span multi-lines.
 //! Record contains list of `;` seperated experimental techniques. If seuccesfull returns
 //! [Record](../ast/types/enum.Record.html) variant containing

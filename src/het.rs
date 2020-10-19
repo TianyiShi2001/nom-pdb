@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Tianyi Shi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 use crate::common::parser::FieldParser;
 use crate::common::parser::{
     jump_newline, parse_residue, parse_right, take_trim_start_own, FieldParserWithModifiedTable,
@@ -127,3 +132,5 @@ struct HetParser; // ? this this useful?
 /// HETNAM   2 B3P  PROPYLAMINO]-2-HYDROXYMETHYL-PROPANE-1,3-DIOL   
 /// ```
 pub struct HetnamParser;
+
+pub struct FormulParser;
