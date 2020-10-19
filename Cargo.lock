@@ -140,8 +140,6 @@ dependencies = [
 [[package]]
 name = "protein-core"
 version = "0.1.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f90127c796bb4d805940d62dd8dbd984e4cf37437f2cb59aada49a500872f811"
 dependencies = [
  "chrono",
  "num-traits",

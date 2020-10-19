@@ -7,7 +7,7 @@ use crate::common::parser::FieldParser;
 use crate::common::parser::{jump_newline, parse_right, take_trim_start_own};
 use crate::types::{
     AtomName, Helix, HelixClass, ParseFw4, Registration, ResidueSerial, SecondaryStructureSerial,
-    Sense, Sheet, Strand,
+    Sense, Sheet, Ssbond, Strand,
 };
 use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
 
@@ -333,11 +333,25 @@ impl SheetParser {
 /// If SG of cysteine is disordered then there are possible alternate linkages. wwPDB practice is to put together all possible SSBOND records. This is problematic because the alternate location identifier is not specified in the SSBOND record.
 pub struct SsbondParser;
 
-// impl FieldParser for SsbondParser {
-//     fn parse(inp: &[u8]) -> IResult<&[u8], Self> {
-//         let inp = &inp[9..];
-//         let inp = &inp[9..]; // 7 - 15
-//         let (inp, chain_a) = anychar(inp)?; // 16
-//         let inp = &inp[1..];
-//     }
-// }
+impl FieldParser for SsbondParser {
+    type Output = Ssbond;
+    fn parse(inp: &[u8]) -> IResult<&[u8], Ssbond> {
+        let inp = &inp[9..]; // 7 - 15
+        let (inp, chain_a) = anychar(inp)?; // 16
+        let inp = &inp[1..]; // 17
+        let (inp, serial_a) = parse_right::<ResidueSerial>(inp, 4usize)?;
+        let (inp, _insertion_code) = anychar(inp)?;
+        let inp = &inp[7..]; // 23 - 29;
+        let (inp, chain_b) = anychar(inp)?;
+        let inp = &inp[1..];
+        let (inp, serial_b) = parse_right::<ResidueSerial>(inp, 4usize)?;
+        let (inp, _) = jump_newline(inp)?;
+        Ok((
+            inp,
+            Ssbond {
+                a: (chain_a, serial_a),
+                b: (chain_b, serial_b),
+            },
+        ))
+    }
+}

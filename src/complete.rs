@@ -15,7 +15,8 @@ use nom::bytes::complete::take;
 use nom::character::complete::{line_ending, not_line_ending};
 
 use crate::types::{
-    Connect, Helix, Model, ModifiedAminoAcidTable, ModifiedNucleotideTable, Sheet, Structure,
+    Connect, Helix, Model, ModifiedAminoAcidTable, ModifiedNucleotideTable, Sheet, Ssbond,
+    Structure,
 };
 
 use protein_core::metadata::*;
@@ -27,6 +28,7 @@ impl Parser {
         let mut metadata = Metadata::default();
 
         let mut seqres_buffer: Vec<u8> = Default::default();
+        let mut ssbonds: Vec<Ssbond> = Default::default();
 
         let mut helices: Vec<Helix> = Vec::new();
         let mut sheets: Vec<Sheet> = Vec::new();
@@ -49,6 +51,7 @@ impl Parser {
                 b"CRYST1" => Cryst1Parser::parse_into_option(&i, &mut metadata.cryst1),
                 b"SEQRES" => SeqResParser::buffer_seqres(&i, &mut seqres_buffer)?.0,
                 b"MODRES" => ModresParser::parse_into(&i, &mut modified_aa, &mut modified_nuc)?.0,
+                b"SSBOND" => SsbondParser::parse_into_vec(&i, &mut ssbonds),
                 b"EXPDTA" => ExperimentalTechniquesParser::parse_into_option(
                     &i,
                     &mut metadata.experimental_techniques,
@@ -101,6 +104,7 @@ impl Parser {
                 chains_nuc,
                 helices,
                 sheets,
+                ssbonds,
                 modified_aa,
                 modified_nuc,
                 connect,
