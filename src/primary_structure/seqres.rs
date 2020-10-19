@@ -89,11 +89,11 @@ impl SeqResParser {
         chains_nuc: &mut Vec<Chain<Nucleotide>>,
     ) -> IResult<&'a [u8], ()> {
         // println!("{}", unsafe { std::str::from_utf8_unchecked(inp) });
-        let (inp, _) = take(5usize)(inp)?; // first line 7 - 11
+        let inp = &inp[5..]; // first line 7 - 11
         let (inp, chain) = anychar(inp)?; // first line 12
-        let (inp, _) = take(1usize)(inp)?; // first line 13
+        let inp = &inp[1..]; // first line 13
         let (inp, n) = parse_right::<u32>(inp, 4)?; // first line 14 - 17
-        let (inp, _) = take(2usize)(inp)?; // first line 18 - 19
+        let inp = &inp[2..]; // first line 18 - 19
         let lines = n / 13u32;
         let last_line_items = n % 13u32;
         let mut inp = inp;

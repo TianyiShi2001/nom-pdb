@@ -1,4 +1,5 @@
 # nom-pdb
+
 ![CI](https://github.com/TianyiShi2001/nom-pdb/workflows/Continuous%20integration/badge.svg)
 [![crates.io](https://img.shields.io/crates/d/nom-pdb.svg)](https://crates.io/crates/nom-pdb)
 [![crates.io](https://img.shields.io/crates/v/nom-pdb.svg)](https://crates.io/crates/nom-pdb)
@@ -7,7 +8,7 @@
 
 PDB parser implemented in Rust using nom.
 
-**NOTE: This crate is still in early development. Use it at your own risk.**
+**NOTE: This crate is in early development and the API has not yet been stabilized, so do not use this crate in production. If you have any suggestions, please don't hesitate to open an issue or make a PR!**
 
 ## Features
 
@@ -17,6 +18,8 @@ PDB parser implemented in Rust using nom.
   - Coordinates and bonding
 - Able to deal with non-standard residues (not yet mature)
 - JSON serialization powered by serde.
+
+The parsed data is stored in a `Structure`, which is a struct provided by the [`protein-core`](https://github.com/TianyiShi2001/protein-core) crate.
 
 # Example (Last Updated 2020-10-17)
 
@@ -246,4 +249,6 @@ The files in `assets/` are retrieved from [RSCB's FTP server](https://www.rcsb.o
 - 4f7i: Lots of sheets
 - 7znf: solution NMR; lots of models
 - 3l1p: complex with DNA
+
+
 

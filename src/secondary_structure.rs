@@ -63,16 +63,16 @@ pub struct HelixParser;
 impl FieldParser for HelixParser {
     type Output = Helix;
     fn parse(inp: &[u8]) -> IResult<&[u8], Self::Output> {
-        let (inp, _) = take(5usize)(inp)?; // 7; 8 - 10; 11
+        let inp = &inp[5..]; // 7; 8 - 10; 11
         let (inp, id) = take(3usize)(inp)?; // 12 - 14
-        let (inp, _) = take(5usize)(inp)?; // 15; 16 - 18; 19
+        let inp = &inp[5..]; // 15; 16 - 18; 19
         let (inp, start_chain) = anychar(inp)?; // 20
-        let (inp, _) = take(1usize)(inp)?; // 21
+        let inp = &inp[1..]; // 21
         let (inp, start_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 22 - 25
         let (inp, _start_icode) = anychar(inp)?; // 26
-        let (inp, _) = take(5usize)(inp)?; // 27; 28 - 30; 31
+        let inp = &inp[5..]; // 27; 28 - 30; 31
         let (inp, end_chain) = anychar(inp)?; // 32
-        let (inp, _) = take(1usize)(inp)?; // 33
+        let inp = &inp[1..]; // 33
         let (inp, end_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 34 - 37
         let (inp, _end_icode) = anychar(inp)?; // 38
         let (inp, class) = Self::parse_helix_class(inp)?; // 39 - 40
@@ -177,11 +177,11 @@ impl SheetParser {
     fn parse_sheet(inp: &[u8]) -> IResult<&[u8], Sheet> {
         let mut sheet = Sheet::default();
         // first line
-        let (inp, _) = take(5usize)(inp)?; // 7 - 11
+        let inp = &inp[5..]; // 7 - 11
         let (inp, id) = unsafe { take_trim_start_own(inp, 3usize)? }; // 12 - 14
         sheet.id = id;
         let (inp, num_strands) = parse_right::<SecondaryStructureSerial>(inp, 2)?; // 15 - 16
-        let (inp, _) = take(1usize)(inp)?; // 17
+        let inp = &inp[1..]; // 17
         let (inp, first_strand) = Self::parse_first_line(inp)?;
         sheet.strands.push(first_strand);
         let mut i = 1 as SecondaryStructureSerial;
@@ -190,7 +190,7 @@ impl SheetParser {
             let (inp, _) = take(7usize)(last_inp)?; // 1 - 7
             let (inp, idx) = parse_right::<SecondaryStructureSerial>(inp, 3)?; // 8 - 10
             i = idx;
-            let (inp, _) = take(7usize)(inp)?; // 11 - 17
+            let inp = &inp[7..]; // 11 - 17
             let (inp, (strand, registration)) = Self::parse_line(inp)?;
             sheet.strands.push(strand);
             sheet.registration.push(registration);
@@ -207,22 +207,22 @@ impl SheetParser {
 
     fn parse_line(inp: &[u8]) -> IResult<&[u8], (Strand, Registration)> {
         let (inp, strand) = Self::parse_strand(inp)?;
-        let (inp, _) = take(1usize)(inp)?;
+        let inp = &inp[1..];
         let (inp, registration) = Self::parse_registration(inp)?;
         Ok((inp, (strand, registration)))
     }
 
     fn parse_strand(inp: &[u8]) -> IResult<&[u8], Strand> {
         // let (inp, _start_res) = map(take(3usize), parse_amino_acid)(inp)?;
-        let (inp, _) = take(3usize)(inp)?; // 18 - 20
-        let (inp, _) = take(1usize)(inp)?; //           21
+        let inp = &inp[3..]; // 18 - 20
+        let inp = &inp[1..]; //           21
         let (inp, start_chain) = anychar(inp)?; // 22
         let (inp, start_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 23 - 26
         let (inp, _start_icode) = anychar(inp)?; // 27
-        let (inp, _) = take(1usize)(inp)?; // 28
-                                           // let (inp, _end_res) = map(take(3usize), parse_amino_acid)(inp)?;
-        let (inp, _) = take(3usize)(inp)?; // 29 - 31
-        let (inp, _) = take(1usize)(inp)?; //      32
+        let inp = &inp[1..]; // 28
+                             // let (inp, _end_res) = map(take(3usize), parse_amino_acid)(inp)?;
+        let inp = &inp[3..]; // 29 - 31
+        let inp = &inp[1..]; //      32
         let (inp, end_chain) = anychar(inp)?; // 33
         let (inp, end_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 34 - 37
         let (inp, _end_icode) = anychar(inp)?; // 38
@@ -252,12 +252,12 @@ impl SheetParser {
         // |         |              |             | in previous strand.                               |
         // | 70      | AChar        | prevICode   | Registration.  Insertion code in previous strand. |
         let (inp, cur_atom) = map(take(4usize), AtomName::parse_fw4)(inp)?; // 42 - 45
-        let (inp, _) = take(4usize)(inp)?; // 46 - 48; 49
+        let inp = &inp[4..]; // 46 - 48; 49
         let (inp, cur_chain) = anychar(inp)?; // 50
         let (inp, cur_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 51 - 54
-        let (inp, _) = take(2usize)(inp)?; // 55; 56
+        let inp = &inp[2..]; // 55; 56
         let (inp, prev_atom) = map(take(4usize), AtomName::parse_fw4)(inp)?; // 57 - 60
-        let (inp, _) = take(4usize)(inp)?; // 61 - 63; 64
+        let inp = &inp[4..]; // 61 - 63; 64
         let (inp, prev_chain) = anychar(inp)?; // 65
         let (inp, prev_serial) = parse_right::<ResidueSerial>(inp, 4)?; // 66 - 69
         let (inp, _) = jump_newline(inp)?;
@@ -279,3 +279,65 @@ impl SheetParser {
         Ok((inp, sense))
     }
 }
+
+/// # SSBOND
+///
+/// The SSBOND record identifies each disulfide bond in protein and polypeptide structures by identifying the two residues involved in the bond.
+///
+/// The disulfide bond distance is included after the symmetry operations at the end of the SSBOND record.
+///
+/// ## Record Format
+///
+/// | COLUMNS | DATA  TYPE  | FIELD    | DEFINITION                       |
+/// | ------- | ----------- | -------- | -------------------------------- |
+/// | 1 -  6  | Record name | "SSBOND" |                                  |
+/// | 8 - 10  | Integer     | serNum   | Serial number.                   |
+/// | 12 - 14 | LString(3)  | "CYS"    | Residue name.                    |
+/// | 16      | Character   | chainID1 | Chain identifier.                |
+/// | 18 - 21 | Integer     | seqNum1  | Residue sequence number.         |
+/// | 22      | AChar       | icode1   | Insertion code.                  |
+/// | 26 - 28 | LString(3)  | "CYS"    | Residue name.                    |
+/// | 30      | Character   | chainID2 | Chain identifier.                |
+/// | 32 - 35 | Integer     | seqNum2  | Residue sequence number.         |
+/// | 36      | AChar       | icode2   | Insertion code.                  |
+/// | 60 - 65 | SymOP       | sym1     | Symmetry operator for residue 1. |
+/// | 67 - 72 | SymOP       | sym2     | Symmetry operator for residue 2. |
+/// | 74 – 78 | Real(5.2)   | Length   | Disulfide bond distance          |
+///
+/// ## Details
+///
+/// - Bond distances between the sulfur atoms must be close to expected value.
+/// - sym1 and sym2 are right justified and are always given even when identity operator (no cell translation) is to be applied to the residue.
+///
+/// Verification/Validation/Value Authority Control
+///
+/// wwPDB processing programs generate these records automatically.
+///
+/// Relationships to Other Record Types
+///
+/// CONECT records are generated for the disulfide bonds when SG atoms of both cysteines are present in the coordinate records.
+///
+/// Example
+///
+/// ```ignore
+///          1         2          3        4         5         6         7         8
+/// 12345678901234567890123456789012345678901234567890123456789012345678901234567890
+/// SSBOND   1 CYS A    6    CYS A  127                          1555   1555  2.03
+/// SSBOND   2 CYS A   30    CYS A  115                          1555   1555  2.07
+/// SSBOND   3 CYS A   64    CYS A   80                          1555   1555  2.06
+/// SSBOND   4 CYS A   76    CYS A   94                          1555   1555  2.04
+///```
+///
+/// ## Known Problems
+///
+/// If SG of cysteine is disordered then there are possible alternate linkages. wwPDB practice is to put together all possible SSBOND records. This is problematic because the alternate location identifier is not specified in the SSBOND record.
+pub struct SsbondParser;
+
+// impl FieldParser for SsbondParser {
+//     fn parse(inp: &[u8]) -> IResult<&[u8], Self> {
+//         let inp = &inp[9..];
+//         let inp = &inp[9..]; // 7 - 15
+//         let (inp, chain_a) = anychar(inp)?; // 16
+//         let inp = &inp[1..];
+//     }
+// }

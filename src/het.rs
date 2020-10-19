@@ -76,7 +76,7 @@ struct HetParser; // ? this this useful?
                   //     type Output = ();
                   //     fn parse<'a>(inp: &'a [u8], modified_aa: &ModifiedAminoAcidTable,
                   //         modified_nuc: &ModifiedNucleotideTable,) -> IResult<&'a [u8], ()> {
-                  //         let (inp, _) = take(1usize)(inp)?;
+                  //         let inp = &inp[1..];
                   //         let (inp, res) = parse_residue(inp, &modified_aa, &modified_nuc)
                   //     }
                   // }

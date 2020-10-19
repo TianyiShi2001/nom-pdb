@@ -25,10 +25,10 @@ pub struct HeaderParser;
 impl FieldParser for HeaderParser {
     type Output = Header;
     fn parse(inp: &[u8]) -> IResult<&[u8], Self::Output> {
-        let (inp, _) = take(4usize)(inp)?;
+        let inp = &inp[4..];
         let (inp, classification) = unsafe { take_trim_own(inp, 40usize)? };
         let (inp, deposition_date) = parse_date(inp)?;
-        let (inp, _) = take(3usize)(inp)?;
+        let inp = &inp[3..];
         let (inp, id_code) = take(4usize)(inp)?;
         let (inp, _) = multispace1(inp)?;
         Ok((

@@ -124,23 +124,23 @@ impl GenericAtomParser {
         modified_nuc: &'b ModifiedNucleotideTable,
     ) -> IResult<&'a [u8], Atom> {
         let (inp, id) = parse_right::<AtomSerial>(inp, 5)?;
-        let (inp, _) = take(1usize)(inp)?;
+        let inp = &inp[1..];
         let (inp, name) = map(take(4usize), AtomName::parse_fw4)(inp)?;
         let (inp, id1) = anychar(inp)?;
 
         let (inp, residue) = parse_residue(inp, modified_aa, modified_nuc)?;
 
-        let (inp, _) = take(1usize)(inp)?;
+        let inp = &inp[1..];
         let (inp, chain) = anychar(inp)?;
         let (inp, sequence_number) = parse_right::<u32>(inp, 4)?;
         let (inp, insertion_code) = anychar(inp)?;
-        let (inp, _) = take(3usize)(inp)?;
+        let inp = &inp[3..];
         let (inp, x) = parse_right::<f32>(inp, 8)?;
         let (inp, y) = parse_right::<f32>(inp, 8)?;
         let (inp, z) = parse_right::<f32>(inp, 8)?;
         let (inp, occupancy) = parse_right::<f32>(inp, 6)?;
         let (inp, temperature_factor) = parse_right::<f32>(inp, 6)?;
-        let (inp, _) = take(10usize)(inp)?;
+        let inp = &inp[10..];
         let (inp, element) = map(take(2usize), Element::parse_fw2)(inp)?;
         let (inp, charge) = map(take(2usize), |x: &[u8]| match x {
             b"  " => 0,
@@ -200,7 +200,7 @@ impl FieldParser for AnisouParser {
     type Output = Anisou;
     fn parse(inp: &[u8]) -> IResult<&[u8], Anisou> {
         let (inp, id) = parse_right::<AtomSerial>(inp, 5)?;
-        let (inp, _) = take(17usize)(inp)?; // 12 - 28
+        let inp = &inp[17..]; // 12 - 28
 
         let (inp, u11) = parse_right::<i32>(inp, 7)?;
         let (inp, u22) = parse_right::<i32>(inp, 7)?;
@@ -208,7 +208,7 @@ impl FieldParser for AnisouParser {
         let (inp, u12) = parse_right::<i32>(inp, 7)?;
         let (inp, u13) = parse_right::<i32>(inp, 7)?;
         let (inp, u23) = parse_right::<i32>(inp, 7)?;
-        let (inp, _) = take(10usize)(inp)?;
+        let inp = &inp[10..];
         let (inp, _) = nom::character::complete::line_ending(inp)?;
         Ok((
             inp,

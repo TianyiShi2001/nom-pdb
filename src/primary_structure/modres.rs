@@ -61,18 +61,18 @@ impl ModresParser {
         modified_aa: &mut ModifiedAminoAcidTable,
         modified_nuc: &mut ModifiedNucleotideTable,
     ) -> IResult<&'a [u8], ()> {
-        let (inp, _) = take(6usize)(inp)?;
+        let inp = &inp[6..];
         let (inp, name) = take(3usize)(inp)?;
         let name = unsafe { std::str::from_utf8_unchecked(name).to_owned() };
-        let (inp, _) = take(1usize)(inp)?;
+        let inp = &inp[1..];
         let (inp, _chain) = anychar(inp)?;
-        let (inp, _) = take(1usize)(inp)?;
+        let inp = &inp[1..];
         let (inp, _sequence_number) = parse_right::<u32>(inp, 4usize)?;
         let (inp, _insertion_code) = anychar(inp)?;
-        let (inp, _) = take(1usize)(inp)?;
+        let inp = &inp[1..];
         let (inp, standard_res) = take(3usize)(inp)?;
 
-        let (inp, _) = take(2usize)(inp)?;
+        let inp = &inp[2..];
         let (inp, description) = take(51usize)(inp)?;
         let description = unsafe {
             std::str::from_utf8_unchecked(description)
