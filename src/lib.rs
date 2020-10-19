@@ -15,6 +15,8 @@ pub mod secondary_structure;
 pub mod title_section;
 pub(crate) mod types;
 
+pub use complete::Parser;
+
 // /// http://www.wwpdb.org/documentation/file-format-content/format33/sect1.html
 // #[derive(Eq, PartialEq, Debug, Ord, PartialOrd)]
 // enum Fields {
@@ -139,21 +141,4 @@ pub(crate) mod types;
 //     let data = unsafe { from_utf8_unchecked(&bytes) };
 //     let res = parser(data);
 //     Ok(res)
-// }
-mod utils;
-use std::fs::File;
-use std::io::{self, prelude::*, BufReader};
-use std::path::Path;
-
-pub struct Parser {
-    buffer: String,
-}
-
-use crate::utils::BoxedError;
-
-// impl Parser {
-//     pub fn parse_file<P: AsRef<Path>>(path: P) -> Result<(), BoxedError> {
-//         let file = File::open(path)?;
-//         let reader = BufReader::new(file);
-//     }
 // }

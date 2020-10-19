@@ -21,9 +21,7 @@
 //   directly
 
 use crate::common::parser::parse_right;
-use crate::types::{
-    ModifiedAminoAcid, ModifiedNucleotide, StandardAminoAcid, StandardNucleotide, Structure,
-};
+use crate::types::{ModifiedAminoAcid, ModifiedNucleotide, StandardAminoAcid, StandardNucleotide};
 use nom::{
     bytes::complete::take,
     character::complete::{anychar, line_ending},
@@ -58,10 +56,10 @@ impl ModresParser {
         let (inp, name) = take(3usize)(inp)?;
         let name = unsafe { std::str::from_utf8_unchecked(name).to_owned() };
         let (inp, _) = take(1usize)(inp)?;
-        let (inp, chain) = anychar(inp)?;
+        let (inp, _chain) = anychar(inp)?;
         let (inp, _) = take(1usize)(inp)?;
-        let (inp, sequence_number) = parse_right::<u32>(inp, 4usize)?;
-        let (inp, insertion_code) = anychar(inp)?;
+        let (inp, _sequence_number) = parse_right::<u32>(inp, 4usize)?;
+        let (inp, _insertion_code) = anychar(inp)?;
         let (inp, _) = take(1usize)(inp)?;
         let (inp, standard_res) = take(3usize)(inp)?;
 

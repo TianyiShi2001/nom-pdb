@@ -27,17 +27,14 @@
 // //! | 64 - 66 | Residue name | resName  | Residue name.                                                                                                                     |
 // //! | 68 - 70 | Residue name | resName  | Residue name.                                                                                                                     |
 
-use crate::common::parser::{
-    jump_newline, parse_residue, parse_right, FieldParserWithModifiedTable,
-};
+use crate::common::parser::{jump_newline, parse_residue, parse_right};
 use crate::types::{AminoAcid, Chain, ModifiedAminoAcid, ModifiedNucleotide, Nucleotide, Residue};
 use nom::bytes::complete::take;
-use nom::character::complete::{anychar, line_ending, multispace1, not_line_ending};
+use nom::character::complete::{anychar, line_ending, not_line_ending};
 use nom::combinator::map;
 use nom::IResult;
 use std::collections::HashMap;
 
-type SeqRes = Vec<(char, Vec<Residue>)>;
 pub struct SeqResParser;
 impl SeqResParser {
     pub fn parse<'a>(
@@ -106,7 +103,7 @@ impl SeqResParser {
                     inp = jump_newline(inp)?.0;
                     inp = take(13usize)(inp)?.0;
                 }
-                for i in 0..last_line_items {
+                for _i in 0..last_line_items {
                     let (inp1, res) = map(take(3usize), AminoAcid::from_bytes_uppercase)(inp)?;
                     aas.push(res);
                     inp = take(1usize)(inp1)?.0;
@@ -132,7 +129,7 @@ impl SeqResParser {
                     inp = jump_newline(inp)?.0;
                     inp = take(13usize)(inp)?.0;
                 }
-                for i in 0..last_line_items {
+                for _i in 0..last_line_items {
                     let (inp1, res) =
                         map(take(3usize), Nucleotide::from_bytes_uppercase_fixed3)(inp)?;
                     nucs.push(res);

@@ -10,7 +10,6 @@ use nom::{
     combinator::{map, map_res, peek},
     IResult,
 };
-use std::str::FromStr;
 
 pub trait FieldParser {
     type Output;
@@ -213,11 +212,11 @@ pub(crate) fn parse_residue<'a, 'b>(
         Residue::Water
     } else if let Some(res) = StandardAminoAcid::from_uppercase(&residue) {
         Residue::AminoAcid(AminoAcid::Standard(res))
-    } else if let Some(res) = modified_aa.get(&residue) {
+    } else if let Some(_res) = modified_aa.get(&residue) {
         Residue::AminoAcid(AminoAcid::Modified(residue))
     } else if let Some(res) = StandardNucleotide::from_uppercase_fixed3(&residue) {
         Residue::Nucleotide(Nucleotide::Standard(res))
-    } else if let Some(res) = modified_nuc.get(&residue) {
+    } else if let Some(_res) = modified_nuc.get(&residue) {
         Residue::Nucleotide(Nucleotide::Modified(residue))
     } else {
         Residue::Unknown(residue)
@@ -227,23 +226,20 @@ pub(crate) fn parse_residue<'a, 'b>(
 
 pub(crate) unsafe fn take_trim_own(inp: &[u8], n: usize) -> IResult<&[u8], String> {
     let (inp, x) = take(n)(inp)?;
-    Ok((inp, unsafe {
-        std::str::from_utf8_unchecked(x).trim().to_owned()
-    }))
+    Ok((inp, std::str::from_utf8_unchecked(x).trim().to_owned()))
 }
 
 pub(crate) unsafe fn take_trim_start_own(inp: &[u8], n: usize) -> IResult<&[u8], String> {
     let (inp, x) = take(n)(inp)?;
-    Ok((inp, unsafe {
-        std::str::from_utf8_unchecked(x).trim_start().to_owned()
-    }))
+    Ok((
+        inp,
+        std::str::from_utf8_unchecked(x).trim_start().to_owned(),
+    ))
 }
 
 pub(crate) unsafe fn take_trim_end_own(inp: &[u8], n: usize) -> IResult<&[u8], String> {
     let (inp, x) = take(n)(inp)?;
-    Ok((inp, unsafe {
-        std::str::from_utf8_unchecked(x).trim_end().to_owned()
-    }))
+    Ok((inp, std::str::from_utf8_unchecked(x).trim_end().to_owned()))
 }
 
 // pub(crate) fn parse_specification(inp: &[u8]) -> IResult<&[u8], Token> {

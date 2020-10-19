@@ -23,14 +23,7 @@
 //! |67 - 70   |   IDcode       | rIdCode     | ID code of entry that replaced this one. |
 //! |72 - 75   |   IDcode       | rIdCode     | ID code of entry that replaced this one. |
 
-use crate::common::parser::parse_date;
 use chrono::NaiveDate;
-use nom::{
-    bytes::complete::take,
-    character::complete::multispace1,
-    combinator::{map, map_res},
-    IResult,
-};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Header<'a> {

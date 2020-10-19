@@ -47,9 +47,9 @@
 //! |Polyproline                     |           10                 |       
 
 use crate::common::parser::FieldParser;
-use crate::common::parser::{jump_newline, parse_right, take_trim_own};
+use crate::common::parser::{jump_newline, parse_right};
 use crate::types::{Helix, HelixClass, ResidueSerial};
-use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
+use nom::{bytes::complete::take, character::complete::anychar, IResult};
 
 pub struct HelixParser;
 

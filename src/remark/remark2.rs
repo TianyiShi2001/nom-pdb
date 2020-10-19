@@ -1,11 +1,3 @@
-use crate::common::parser::{parse_right, FieldParser};
-use nom::{
-    bytes::complete::{tag, take},
-    character::complete::{anychar, line_ending},
-    IResult,
-};
-use serde::{Deserialize, Serialize};
-
 // type Resolution = Option<f32>;
 
 // pub struct Remark2Parser {};

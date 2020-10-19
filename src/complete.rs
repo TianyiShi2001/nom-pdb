@@ -8,26 +8,17 @@ use crate::{
 use crate::common::parser::FieldParser;
 use nom::bytes::complete::take;
 use nom::character::complete::{line_ending, not_line_ending};
-use nom::IResult;
+
 // use nom::Err::Error;
 use std::collections::HashMap;
 
 use protein_core::structure::{
-    AminoAcid, Chain, Connect, Helix, HelixClass, Model, ModifiedAminoAcid, ModifiedNucleotide,
-    Nucleotide, Sheet, Structure,
+    Connect, Helix, Model, ModifiedAminoAcid, ModifiedNucleotide, Sheet, Structure,
 };
 
 use protein_core::metadata::*;
 
-enum ParserState {
-    FirstLine,
-    Continue,
-}
-
-pub struct Parser {
-    // state: ParserState,
-// remaining: &'a [u8],
-}
+pub struct Parser {}
 
 impl Parser {
     pub fn parse(mut inp: &[u8]) -> nom::IResult<&[u8], Structure> {
