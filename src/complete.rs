@@ -85,21 +85,8 @@ impl Parser {
                     let (i, _) = line_ending(i)?;
                     i
                 }
-                // b"SHEET " => {
-                //     let (i, sheet) = SheetParser::parse(&i)?;
-                //     for model in &mut pdb.models {
-                //         // ! for multiple models, SHEET seems not to repeat
-                //         model.sheets.push(sheet.clone()); // ! is this reliable? what about mmCIF?
-                //     }
-                //     i
-                // }
-                // b"HELIX " => {
-                //     let (i, helix) = HelixParser::parse(&i)?;
-                //     for model in &mut pdb.models {
-                //         model.helices.push(helix.clone());
-                //     }
-                //     i
-                // }
+                b"SHEET " => SheetParser::parse_into_vec(&i, &mut sheets),
+                b"HELIX " => HelixParser::parse_into_vec(&i, &mut helices),
                 b"END   " => {
                     inp = b"";
                     break;
