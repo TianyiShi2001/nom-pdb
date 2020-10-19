@@ -21,7 +21,9 @@
 //   directly
 
 use crate::common::parser::parse_right;
-use crate::types::{ModifiedAminoAcid, ModifiedNucleotide, StandardAminoAcid, StandardNucleotide};
+use crate::types::{
+    ModifiedAminoAcid, ModifiedNucleotide, StandardAminoAcid, StandardNucleotide, TryParseFw3,
+};
 use nom::{
     bytes::complete::take,
     character::complete::{anychar, line_ending},
@@ -70,27 +72,22 @@ impl ModresParser {
                 .trim_end()
                 .to_owned()
         };
-        if let Some(standard) = StandardAminoAcid::from_bytes_uppercase(standard_res) {
-            //unsafe {
-            (*modified_aa).insert(
+        if let Some(standard) = StandardAminoAcid::try_parse_fw3(standard_res) {
+            modified_aa.insert(
                 name,
                 ModifiedAminoAcid {
                     standard,
                     description,
                 },
             );
-        //}
-        } else if let Some(standard) = StandardNucleotide::from_bytes_uppercase_fixed3(standard_res)
-        {
-            //unsafe {
-            (*modified_nuc).insert(
+        } else if let Some(standard) = StandardNucleotide::try_parse_fw3(standard_res) {
+            modified_nuc.insert(
                 name,
                 ModifiedNucleotide {
                     standard,
                     description,
                 },
             );
-        //}
         } else {
             panic!(format!("Mapping modified residue to standard residue, but encountered invalid standard residue: {:?}", std::str::from_utf8(standard_res).unwrap()))
         }

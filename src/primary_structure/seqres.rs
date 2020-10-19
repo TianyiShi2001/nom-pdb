@@ -28,7 +28,9 @@
 // //! | 68 - 70 | Residue name | resName  | Residue name.                                                                                                                     |
 
 use crate::common::parser::{jump_newline, parse_residue, parse_right};
-use crate::types::{AminoAcid, Chain, ModifiedAminoAcid, ModifiedNucleotide, Nucleotide, Residue};
+use crate::types::{
+    AminoAcid, Chain, ModifiedAminoAcid, ModifiedNucleotide, Nucleotide, ParseFw3, Residue,
+};
 use nom::bytes::complete::take;
 use nom::character::complete::{anychar, line_ending, not_line_ending};
 use nom::combinator::map;
@@ -95,7 +97,7 @@ impl SeqResParser {
                 let mut aas: Vec<AminoAcid> = Vec::new();
                 for _i in 0..lines {
                     for _j in 0..13 {
-                        let (inp1, res) = map(take(3usize), AminoAcid::from_bytes_uppercase)(inp)?;
+                        let (inp1, res) = map(take(3usize), AminoAcid::parse_fw3)(inp)?;
                         aas.push(res);
                         inp = take(1usize)(inp1)?.0;
                     }
@@ -104,7 +106,7 @@ impl SeqResParser {
                     inp = take(13usize)(inp)?.0;
                 }
                 for _i in 0..last_line_items {
-                    let (inp1, res) = map(take(3usize), AminoAcid::from_bytes_uppercase)(inp)?;
+                    let (inp1, res) = map(take(3usize), AminoAcid::parse_fw3)(inp)?;
                     aas.push(res);
                     inp = take(1usize)(inp1)?.0;
                 }
@@ -120,8 +122,7 @@ impl SeqResParser {
                 let mut nucs: Vec<Nucleotide> = Vec::new();
                 for _i in 0..lines {
                     for _j in 0..13 {
-                        let (inp1, res) =
-                            map(take(3usize), Nucleotide::from_bytes_uppercase_fixed3)(inp)?;
+                        let (inp1, res) = map(take(3usize), Nucleotide::parse_fw3)(inp)?;
                         nucs.push(res);
                         inp = take(1usize)(inp1)?.0;
                     }
@@ -130,8 +131,7 @@ impl SeqResParser {
                     inp = take(13usize)(inp)?.0;
                 }
                 for _i in 0..last_line_items {
-                    let (inp1, res) =
-                        map(take(3usize), Nucleotide::from_bytes_uppercase_fixed3)(inp)?;
+                    let (inp1, res) = map(take(3usize), Nucleotide::parse_fw3)(inp)?;
                     nucs.push(res);
                     inp = take(1usize)(inp1)?.0;
                 }

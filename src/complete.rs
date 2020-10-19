@@ -34,9 +34,7 @@ impl Parser {
         let mut models: Vec<Model> = vec![Model::default()];
 
         let mut modified_aa: HashMap<String, ModifiedAminoAcid> = Default::default();
-        //let modified_aa_ptr = &mut modified_aa as *mut Vec<ModifiedAminoAcid>;
         let mut modified_nuc: HashMap<String, ModifiedNucleotide> = Default::default();
-        //let modified_nuc_ptr = &mut modified_nuc as *mut HashMap<String, ModifiedNucleotide>;
 
         let mut model_idx = 0;
 
@@ -49,9 +47,10 @@ impl Parser {
                 b"CRYST1" => Cryst1Parser::parse_into_option(&i, &mut metadata.cryst1),
                 b"SEQRES" => SeqResParser::buffer_seqres(&i, &mut seqres_buffer)?.0,
                 b"MODRES" => ModresParser::parse_into(&i, &mut modified_aa, &mut modified_nuc)?.0,
-                // b"EXPDTA" => {
-                //     ExperimentalTechniquesParser::parse_into(&i, &mut pdb.experimental_techniques)
-                // }
+                b"EXPDTA" => ExperimentalTechniquesParser::parse_into_option(
+                    &i,
+                    &mut metadata.experimental_techniques,
+                ),
                 b"ATOM  " | b"HETATM" => {
                     let (i, atom) = GenericAtomParser::parse(&i, &modified_aa, &modified_nuc)?;
                     models[model_idx].atoms.push(atom);

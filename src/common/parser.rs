@@ -207,19 +207,19 @@ pub(crate) fn parse_residue<'a, 'b>(
     modified_nuc: &'b HashMap<String, ModifiedNucleotide>,
 ) -> IResult<&'a [u8], Residue> {
     let (inp, residue) = take(3usize)(inp)?;
-    let residue = unsafe { std::str::from_utf8_unchecked(residue).to_owned() };
-    let residue = if &residue == "HOH" {
+    let residue_s = unsafe { std::str::from_utf8_unchecked(residue).to_owned() };
+    let residue = if &residue == b"HOH" {
         Residue::Water
-    } else if let Some(res) = StandardAminoAcid::from_uppercase(&residue) {
+    } else if let Some(res) = StandardAminoAcid::try_parse_fw3(&residue) {
         Residue::AminoAcid(AminoAcid::Standard(res))
-    } else if let Some(_res) = modified_aa.get(&residue) {
-        Residue::AminoAcid(AminoAcid::Modified(residue))
-    } else if let Some(res) = StandardNucleotide::from_uppercase_fixed3(&residue) {
+    } else if let Some(_res) = modified_aa.get(&residue_s) {
+        Residue::AminoAcid(AminoAcid::Modified(residue_s))
+    } else if let Some(res) = StandardNucleotide::try_parse_fw3(&residue) {
         Residue::Nucleotide(Nucleotide::Standard(res))
-    } else if let Some(_res) = modified_nuc.get(&residue) {
-        Residue::Nucleotide(Nucleotide::Modified(residue))
+    } else if let Some(_res) = modified_nuc.get(&residue_s) {
+        Residue::Nucleotide(Nucleotide::Modified(residue_s))
     } else {
-        Residue::Unknown(residue)
+        Residue::Unknown(residue_s)
     };
     Ok((inp, residue))
 }
@@ -237,10 +237,10 @@ pub(crate) unsafe fn take_trim_start_own(inp: &[u8], n: usize) -> IResult<&[u8],
     ))
 }
 
-pub(crate) unsafe fn take_trim_end_own(inp: &[u8], n: usize) -> IResult<&[u8], String> {
-    let (inp, x) = take(n)(inp)?;
-    Ok((inp, std::str::from_utf8_unchecked(x).trim_end().to_owned()))
-}
+// pub(crate) unsafe fn take_trim_end_own(inp: &[u8], n: usize) -> IResult<&[u8], String> {
+//     let (inp, x) = take(n)(inp)?;
+//     Ok((inp, std::str::from_utf8_unchecked(x).trim_end().to_owned()))
+// }
 
 // pub(crate) fn parse_specification(inp: &[u8]) -> IResult<&[u8], Token> {
 //     let (mut inp, _) = take(4usize)(inp)?;
@@ -507,8 +507,4 @@ pub(crate) unsafe fn take_trim_end_own(inp: &[u8], n: usize) -> IResult<&[u8], S
 //     pub idbns_begin: Option<char>,
 //     pub db_seq_end: u32,
 //     pub dbins_end: Option<char>,
-// }
-
-// pub(crate) fn parse_amino_acid(inp: &[u8]) -> IResult<&[u8], AminoAcid> {
-//     map(take(3usize), AminoAcid::from_bytes_uppercase)(inp)
 // }
