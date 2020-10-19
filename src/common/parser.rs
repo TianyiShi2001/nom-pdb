@@ -27,6 +27,35 @@ pub trait FieldParser {
     }
 }
 
+pub trait FieldParserWithModifiedTable {
+    type Output;
+    fn parse<'a>(
+        inp: &'a [u8],
+        modified_aa: &HashMap<String, ModifiedAminoAcid>,
+        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+    ) -> IResult<&'a [u8], Self::Output>;
+    fn parse_into<'a, 'b>(
+        inp: &'a [u8],
+        dst: &'b mut Self::Output,
+        modified_aa: &HashMap<String, ModifiedAminoAcid>,
+        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+    ) -> &'a [u8] {
+        let (i, data) = Self::parse(inp, modified_aa, modified_nuc).expect("parse error");
+        *dst = data;
+        i
+    }
+    fn parse_into_vec<'a>(
+        inp: &'a [u8],
+        dst: &mut Vec<Self::Output>,
+        modified_aa: &HashMap<String, ModifiedAminoAcid>,
+        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+    ) -> &'a [u8] {
+        let (i, data) = Self::parse(inp, modified_aa, modified_nuc).expect("parse error");
+        dst.push(data);
+        i
+    }
+}
+
 // fn ws<'a, F: 'a, O, E: ParseError<&'a [u8]>>(inner: F) -> impl Fn(&'a [u8]) -> IResult<&'a [u8], O, E>
 // where
 //     F: Fn(&'a [u8]) -> IResult<&'a [u8], O, E>,

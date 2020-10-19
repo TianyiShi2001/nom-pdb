@@ -27,55 +27,144 @@
 // //! | 64 - 66 | Residue name | resName  | Residue name.                                                                                                                     |
 // //! | 68 - 70 | Residue name | resName  | Residue name.                                                                                                                     |
 
-// use crate::common::parser::{parse_amino_acid, parse_right, FieldParser};
-// use nom::bytes::complete::take;
-// use nom::character::complete::{anychar, multispace1};
-// use nom::combinator::peek;
-// use nom::IResult;
-// use protein_core::types::AminoAcid;
+use crate::common::parser::{
+    jump_newline, parse_residue, parse_right, FieldParserWithModifiedTable,
+};
+use nom::bytes::complete::take;
+use nom::character::complete::{anychar, line_ending, multispace1, not_line_ending};
+use nom::combinator::map;
+use nom::IResult;
+use protein_core::types::{
+    AminoAcid, Chain, ModifiedAminoAcid, ModifiedNucleotide, Nucleotide, Residue,
+};
+use std::collections::HashMap;
 
-// use crate::types::SeqRes;
-// pub struct SeqResParser;
-// impl FieldParser for SeqResParser {
-//     type Output = SeqRes;
-//     fn parse(inp: &[u8]) -> IResult<&[u8], SeqRes> {
-//         let mut v: Vec<(char, Vec<AminoAcid>)> = Vec::new();
-//         // let (mut inp, _) = take(6usize)(inp)?; // very first line
-//         let mut inp = inp;
-//         loop {
-//             let (i, chain) = parse_chain(inp)?;
-//             v.push(chain);
-//             match peek(take(6usize))(i)?.1 {
-//                 "SEQRES" => inp = take(6usize)(i)?.0,
-//                 _ => return Ok((i, v)),
-//             }
-//         }
-//     }
-// }
-// pub fn parse_chain(inp: &[u8]) -> IResult<&[u8], (char, Vec<AminoAcid>)> {
-//     let (inp, _) = take(5usize)(inp)?; // first line 7 - 11
-//     let (inp, chain) = anychar(inp)?; // first line 12
-//     let (inp, _) = take(1usize)(inp)?; // first line 13
-//     let (inp, n) = parse_right::<u32>(inp, 4)?; // first line 14 - 17
-//     let (inp, _) = take(2usize)(inp)?; // first line 18 - 19
-//     let lines = n / 13u32;
-//     let last_line_items = n % 13u32;
-//     let mut amino_acids: Vec<AminoAcid> = Vec::new();
-//     let mut inp = inp;
-//     for i in 0..lines {
-//         for j in 0..13 {
-//             let (inp1, aa) = parse_amino_acid(inp)?;
-//             amino_acids.push(aa);
-//             inp = take(1usize)(inp1)?.0;
-//         }
-//         inp = multispace1(inp)?.0;
-//         inp = take(19usize)(inp)?.0;
-//     }
-//     for i in 0..last_line_items {
-//         let (inp1, aa) = parse_amino_acid(inp)?;
-//         amino_acids.push(aa);
-//         inp = take(1usize)(inp1)?.0;
-//     }
-//     inp = multispace1(inp)?.0; // newline
-//     Ok((inp, (chain, amino_acids)))
-// }
+type SeqRes = Vec<(char, Vec<Residue>)>;
+pub struct SeqResParser;
+impl SeqResParser {
+    pub fn parse<'a>(
+        inp: &'a [u8],
+        modified_aa: &HashMap<String, ModifiedAminoAcid>,
+        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+    ) -> IResult<(), (Vec<Chain<AminoAcid>>, Vec<Chain<Nucleotide>>)> {
+        // let (mut inp, _) = take(6usize)(inp)?; // very first line
+        let mut inp = inp;
+        // loop {
+        //     let (i, chain) = Self::parse_chain(inp, modified_aa, modified_nuc)?;
+        //     v.push(chain);
+        //     match peek(take(6usize))(i)?.1 {
+        //         b"SEQRES" => inp = take(6usize)(i)?.0, // TODO: CHANGE
+        //         _ => return Ok((i, v)),
+        //     }
+        // }
+        let mut chains_aa: Vec<Chain<AminoAcid>> = Vec::new();
+        let mut chains_nuc: Vec<Chain<Nucleotide>> = Vec::new();
+        while inp.len() > 0 {
+            let (new_inp, _) = Self::parse_chain(
+                inp,
+                modified_aa,
+                modified_nuc,
+                &mut chains_aa,
+                &mut chains_nuc,
+            )
+            .unwrap(); // TODO: remove unwrap
+            inp = new_inp;
+        }
+        Ok(((), (chains_aa, chains_nuc)))
+    }
+}
+
+impl SeqResParser {
+    pub fn parse_chain<'a>(
+        inp: &'a [u8],
+        modified_aa: &HashMap<String, ModifiedAminoAcid>,
+        modified_nuc: &HashMap<String, ModifiedNucleotide>,
+        chains_aa: &mut Vec<Chain<AminoAcid>>,
+        chains_nuc: &mut Vec<Chain<Nucleotide>>,
+    ) -> IResult<&'a [u8], ()> {
+        // println!("{}", unsafe { std::str::from_utf8_unchecked(inp) });
+        let (inp, _) = take(5usize)(inp)?; // first line 7 - 11
+        let (inp, chain) = anychar(inp)?; // first line 12
+        let (inp, _) = take(1usize)(inp)?; // first line 13
+        let (inp, n) = parse_right::<u32>(inp, 4)?; // first line 14 - 17
+        let (inp, _) = take(2usize)(inp)?; // first line 18 - 19
+        let lines = n / 13u32;
+        let last_line_items = n % 13u32;
+        let mut inp = inp;
+
+        let first_res = &inp[..3];
+        //println!("{:?}", (chain as char, n, lines));
+        // try parse
+        match parse_residue(inp, modified_aa, modified_nuc)?.1 {
+            Residue::AminoAcid(_) => {
+                let mut aas: Vec<AminoAcid> = Vec::new();
+                for _i in 0..lines {
+                    for _j in 0..13 {
+                        let (inp1, res) = map(take(3usize), AminoAcid::from_bytes_uppercase)(inp)?;
+                        aas.push(res);
+                        inp = take(1usize)(inp1)?.0;
+                    }
+                    //inp = multispace1(inp)?.0;
+                    inp = jump_newline(inp)?.0;
+                    inp = take(13usize)(inp)?.0;
+                }
+                for i in 0..last_line_items {
+                    let (inp1, res) = map(take(3usize), AminoAcid::from_bytes_uppercase)(inp)?;
+                    aas.push(res);
+                    inp = take(1usize)(inp1)?.0;
+                }
+                //inp = multispace1(inp)?.0; // newline
+                inp = jump_newline(inp)?.0;
+                chains_aa.push(Chain {
+                    id: chain,
+                    seq: aas,
+                });
+                return Ok((inp, ()));
+            }
+            Residue::Nucleotide(_) => {
+                let mut nucs: Vec<Nucleotide> = Vec::new();
+                for _i in 0..lines {
+                    for _j in 0..13 {
+                        let (inp1, res) =
+                            map(take(3usize), Nucleotide::from_bytes_uppercase_fixed3)(inp)?;
+                        nucs.push(res);
+                        inp = take(1usize)(inp1)?.0;
+                    }
+                    //inp = multispace1(inp)?.0;
+                    inp = jump_newline(inp)?.0;
+                    inp = take(13usize)(inp)?.0;
+                }
+                for i in 0..last_line_items {
+                    let (inp1, res) =
+                        map(take(3usize), Nucleotide::from_bytes_uppercase_fixed3)(inp)?;
+                    nucs.push(res);
+                    inp = take(1usize)(inp1)?.0;
+                }
+                //inp = multispace1(inp)?.0; // newline
+                inp = jump_newline(inp)?.0;
+                chains_nuc.push(Chain {
+                    id: chain,
+                    seq: nucs,
+                });
+                return Ok((inp, ()));
+            }
+            _ => panic!(format!("Invalid residue in chain: {}", unsafe {
+                std::str::from_utf8_unchecked(first_res)
+            })),
+        }
+    }
+    pub fn buffer_seqres<'a>(inp: &'a [u8], buffer: &mut Vec<u8>) -> IResult<&'a [u8], ()> {
+        let (inp, first_line) = not_line_ending(inp)?;
+        let (mut inp, _) = line_ending(inp)?;
+        buffer.extend_from_slice(&first_line);
+        buffer.push(b'\n');
+        while inp[..6] == b"SEQRES"[..] {
+            let (new_inp, ln) = not_line_ending(inp)?;
+            let (new_inp, _) = line_ending(new_inp)?;
+            buffer.extend_from_slice(&ln[6..]);
+            buffer.push(b'\n');
+            inp = new_inp;
+        }
+        Ok((inp, ()))
+    }
+}

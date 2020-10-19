@@ -22,12 +22,13 @@ enum ParserState {
 
 pub struct Parser {
     // state: ParserState,
-    // remaining: &'a [u8],
-    seqres_buffer: String,
+// remaining: &'a [u8],
 }
 
 impl Parser {
     pub fn parse(mut inp: &[u8]) -> nom::IResult<&[u8], Structure> {
+        let mut seqres_buffer: Vec<u8> = Default::default();
+
         let mut chains_aa: Vec<Chain<AminoAcid>> = Default::default();
         let mut chains_nuc: Vec<Chain<Nucleotide>> = Default::default();
         let mut helices: Vec<Helix> = Vec::new();
@@ -51,10 +52,7 @@ impl Parser {
                 // b"TITLE " => TitleParser::parse_into(&i, &mut pdb.title),
                 // b"AUTHOR" => AuthorsParser::parse_into(&i, &mut pdb.authors),
                 // b"CRYST1" => Cryst1Parser::parse_into(&i, &mut pdb.cryst1),
-                // b"SEQRES" => {
-                //     //while &i[..6] == b"SEQRES"
-                //     SeqResParser::parse_into(&i, &mut pdb.seqres)
-                // }
+                b"SEQRES" => SeqResParser::buffer_seqres(&i, &mut seqres_buffer)?.0,
                 b"MODRES" => ModresParser::parse_into(&i, &mut modified_aa, &mut modified_nuc)?.0,
                 // b"EXPDTA" => {
                 //     ExperimentalTechniquesParser::parse_into(&i, &mut pdb.experimental_techniques)
@@ -114,6 +112,8 @@ impl Parser {
                 } //panic!("Unkown field"),
             }
         }
+        let (_, (chains_aa, chains_nuc)) =
+            SeqResParser::parse(&seqres_buffer, &modified_aa, &modified_nuc).unwrap();
         Ok((
             inp,
             Structure {

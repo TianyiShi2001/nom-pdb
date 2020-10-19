@@ -9,7 +9,7 @@ fn main() {
     match id {
         None => panic!("Please specify a filename!"),
         Some(id) => match id.as_str() {
-            "1a8o" | "7znf" | "4f7i" => {
+            "1a8o" | "7znf" | "4f7i" | "3l1p" => {
                 let data = fs::read(&format!("assets/{}.pdb", id)).unwrap();
 
                 let (_, res) = Parser::parse(&data).unwrap();
