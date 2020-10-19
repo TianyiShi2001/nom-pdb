@@ -25,6 +25,11 @@ pub trait FieldParser {
         dst.push(data);
         i
     }
+    fn parse_into_option<'a>(inp: &'a [u8], dst: &mut Option<Self::Output>) -> &'a [u8] {
+        let (i, data) = Self::parse(inp).expect("parse error");
+        *dst = Some(data);
+        i
+    }
 }
 
 pub trait FieldParserWithModifiedTable {
