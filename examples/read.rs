@@ -8,19 +8,13 @@ fn main() {
     let id = env::args().skip(1).next();
     match id {
         None => panic!("Please specify a filename!"),
-        Some(id) => match id.as_str() {
-            "1a8o" | "7znf" | "4f7i" | "3l1p" => {
-                let data = fs::read(&format!("assets/{}.pdb", id)).unwrap();
+        Some(id) => {
+            let data = fs::read(&format!("assets/{}.pdb", id)).unwrap();
 
-                let (_, res) = Parser::parse(&data).unwrap();
-                // println!("{:?}, {:?}", data, r);
-                let pretty = serde_json::to_string_pretty(&res).unwrap();
-                println!("{}", pretty);
-            }
-            _ => panic!(format!(
-                "{} is not a sample file in the `assets/` directory.",
-                id
-            )),
-        },
+            let (_, res) = Parser::parse(&data).unwrap();
+            // println!("{:?}, {:?}", data, r);
+            let pretty = serde_json::to_string_pretty(&res).unwrap();
+            println!("{}", pretty);
+        }
     }
 }

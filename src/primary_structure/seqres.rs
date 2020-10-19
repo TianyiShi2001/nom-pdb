@@ -30,13 +30,11 @@
 use crate::common::parser::{
     jump_newline, parse_residue, parse_right, FieldParserWithModifiedTable,
 };
+use crate::types::{AminoAcid, Chain, ModifiedAminoAcid, ModifiedNucleotide, Nucleotide, Residue};
 use nom::bytes::complete::take;
 use nom::character::complete::{anychar, line_ending, multispace1, not_line_ending};
 use nom::combinator::map;
 use nom::IResult;
-use protein_core::types::{
-    AminoAcid, Chain, ModifiedAminoAcid, ModifiedNucleotide, Nucleotide, Residue,
-};
 use std::collections::HashMap;
 
 type SeqRes = Vec<(char, Vec<Residue>)>;

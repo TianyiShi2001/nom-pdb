@@ -9,11 +9,15 @@ use crate::common::parser::FieldParser;
 use nom::bytes::complete::take;
 use nom::character::complete::{line_ending, not_line_ending};
 use nom::IResult;
-use protein_core::{Model, ModifiedAminoAcid, ModifiedNucleotide};
 // use nom::Err::Error;
 use std::collections::HashMap;
 
-use protein_core::{AminoAcid, Chain, Connect, Helix, HelixClass, Nucleotide, Sheet, Structure};
+use protein_core::structure::{
+    AminoAcid, Chain, Connect, Helix, HelixClass, Model, ModifiedAminoAcid, ModifiedNucleotide,
+    Nucleotide, Sheet, Structure,
+};
+
+use protein_core::metadata::*;
 
 enum ParserState {
     FirstLine,
@@ -27,6 +31,8 @@ pub struct Parser {
 
 impl Parser {
     pub fn parse(mut inp: &[u8]) -> nom::IResult<&[u8], Structure> {
+        let mut metadata = Metadata::default();
+
         let mut seqres_buffer: Vec<u8> = Default::default();
 
         let mut chains_aa: Vec<Chain<AminoAcid>> = Default::default();
@@ -48,10 +54,10 @@ impl Parser {
         loop {
             let (i, tag) = take(6usize)(inp)?;
             inp = match tag {
-                // b"HEADER" => HeaderParser::parse_into(&i, &mut pdb.header),
-                // b"TITLE " => TitleParser::parse_into(&i, &mut pdb.title),
-                // b"AUTHOR" => AuthorsParser::parse_into(&i, &mut pdb.authors),
-                // b"CRYST1" => Cryst1Parser::parse_into(&i, &mut pdb.cryst1),
+                b"HEADER" => HeaderParser::parse_into(&i, &mut metadata.header),
+                b"TITLE " => TitleParser::parse_into(&i, &mut metadata.title),
+                b"AUTHOR" => AuthorsParser::parse_into(&i, &mut metadata.authors),
+                b"CRYST1" => Cryst1Parser::parse_into(&i, &mut metadata.cryst1),
                 b"SEQRES" => SeqResParser::buffer_seqres(&i, &mut seqres_buffer)?.0,
                 b"MODRES" => ModresParser::parse_into(&i, &mut modified_aa, &mut modified_nuc)?.0,
                 // b"EXPDTA" => {
@@ -112,6 +118,7 @@ impl Parser {
                 modified_nuc,
                 connect,
                 models,
+                metadata: Some(metadata),
             },
         ))
     }

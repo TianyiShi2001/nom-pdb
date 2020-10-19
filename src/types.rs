@@ -1,2 +1,2 @@
-pub use protein_core::io::pdb::*;
-pub use protein_core::types::*;
+pub use protein_core::metadata::*;
+pub use protein_core::structure::*;
