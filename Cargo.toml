@@ -1,6 +1,6 @@
 [package]
 name = "nom-pdb"
-version = "0.0.7"
+version = "0.0.8"
 authors = ["Tianyi Shi <ShiTianyi2001@outlook.com>"]
 edition = "2018"
 keywords = ["bioinformatics", "protein", "parser","nom", "pdb"]
@@ -13,11 +13,12 @@ description = "PDB parser implemented with nom"
 [dependencies]
 nom = "5"
 chrono = {version = "0.4", features = ["serde"]}
-#itertools = "0.8"
-#memmap = "0.7"
 num-traits = "0.2"
+protein-core = "0.1.7"
+#protein-core = {path = "/home/tianyi/Github/protein/protein-core"}
+atoi = "0.3.2"
+
+
+[dev-dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-#protein-core = "0.1.6"
-protein-core = {path = "/home/tianyi/Github/protein/protein-core"}
-atoi = "0.3.2"

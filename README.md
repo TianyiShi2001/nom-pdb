@@ -21,9 +21,11 @@ PDB parser implemented in Rust using nom.
 
 The parsed data is stored in a `Structure`, which is a struct provided by the [`protein-core`](https://github.com/TianyiShi2001/protein-core) crate.
 
-# Example (Last Updated 2020-10-17)
+# Example
 
-```rust
+## Read to JSON
+
+```bash
 cargo run --example read 1a8o
 ```
 

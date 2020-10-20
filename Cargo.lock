@@ -46,6 +46,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "dihedral"
+version = "0.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2febd89f0fead6c4ecaaaf2910f771d59ea26ce2055f96a9a551639ecd0ed0fa"
+
+[[package]]
 name = "heck"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -98,7 +104,7 @@ dependencies = [
 
 [[package]]
 name = "nom-pdb"
-version = "0.0.7"
+version = "0.0.8"
 dependencies = [
  "atoi",
  "chrono",
@@ -139,9 +145,12 @@ dependencies = [
 
 [[package]]
 name = "protein-core"
-version = "0.1.6"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d253654c4af9e802f2ba7d6d7d896f0897d81a71e3b698dd550e772a10c4da4"
 dependencies = [
  "chrono",
+ "dihedral",
  "num-traits",
  "serde",
  "serde_json",
