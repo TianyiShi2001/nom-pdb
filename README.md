@@ -19,7 +19,7 @@ PDB parser implemented in Rust using nom.
 - Able to deal with non-standard residues (not yet mature)
 - JSON serialization powered by serde.
 
-The parsed data is stored in a `Structure`, which is a struct provided by the [`protein-core`](https://github.com/TianyiShi2001/protein-core) crate.
+The parsed data is stored in a `Structure`, which is a struct provided by the [`protein-core`](https://github.com/TianyiShi2001/protein/tree/main/protein-core) crate.
 
 # Example
 

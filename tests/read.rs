@@ -8,7 +8,7 @@ fn main() {
     for f in entries {
         let data = fs::read(f).unwrap();
 
-        let (_, res) = Parser::parse(&data).unwrap();
+        let res = Parser::parse(&data).unwrap();
         let pretty = serde_json::to_string_pretty(&res).unwrap();
         println!("{}", pretty);
     }

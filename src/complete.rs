@@ -24,7 +24,12 @@ use protein_core::metadata::*;
 pub struct Parser {}
 
 impl Parser {
-    pub fn parse(mut inp: &[u8]) -> nom::IResult<&[u8], Structure> {
+    pub fn parse(input: &[u8]) -> Result<Structure, Box<dyn std::error::Error + '_>> {
+        let (_, result) = Self::_parse(input)?;
+        Ok(result)
+    }
+
+    fn _parse(mut inp: &[u8]) -> nom::IResult<&[u8], Structure> {
         let mut metadata = Metadata::default();
 
         let mut seqres_buffer: Vec<u8> = Default::default();
