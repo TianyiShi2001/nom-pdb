@@ -1,21 +1,18 @@
 #![feature(test)]
 
-extern crate test;
+use criterion::{criterion_group, criterion_main, Criterion};
 
 extern crate nom_pdb;
-//use std::fs::read_to_string;
+const PDB_7ZNF: &'static [u8] = include_bytes!("../assets/7znf.pdb"); // 6460 * 80 bytes (0.05168 MB)
+                                                                      //use std::fs::read_to_string;
 
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-//     use test::Bencher;
+fn criterion_benchmark(c: &mut Criterion) {
+    c.bench_function("Read 7ZNF (0.05168 MB)", |b| {
+        b.iter(|| {
+            let _ = nom_pdb::Parser::parse(PDB_7ZNF);
+        })
+    });
+}
 
-//     #[bench]
-//     fn bench_read_to_string_unsafe(b: &mut Bencher) {
-//         b.iter(|| unsafe { apply_file_content_unsafe("4F7I.pdb", |x| {}) });
-//     }
-//     #[bench]
-//     fn bench_read_to_string(b: &mut Bencher) {
-//         b.iter(|| apply_file_content("4F7I.pdb", |x| {}));
-//     }
-// }
+criterion_group!(benches, criterion_benchmark);
+criterion_main!(benches);
