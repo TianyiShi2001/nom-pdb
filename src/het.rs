@@ -11,7 +11,12 @@ use crate::types::{
     AtomName, Helix, HelixClass, ModifiedAminoAcid, ModifiedNucleotide, Registration,
     ResidueSerial, SecondaryStructureSerial, Sense, Sheet, Strand,
 };
-use nom::{bytes::complete::take, character::complete::anychar, combinator::map, IResult};
+use nom::{
+    bytes::complete::take,
+    character::complete::{anychar, line_ending, multispace1, not_line_ending},
+    combinator::map,
+    IResult,
+};
 use std::collections::HashMap;
 
 /// HET records are used to describe non-standard residues, such as prosthetic groups, inhibitors, solvent molecules, and ions for which coordinates are supplied. Groups are considered HET if they are not part of a biological polymer described in SEQRES and considered to be a molecule bound to the polymer, or they are a chemical species that constitute part of a biological polymer and is not one of the following:
@@ -133,4 +138,53 @@ struct HetParser; // ? this this useful?
 /// ```
 pub struct HetnamParser;
 
+type Hetnam = std::collections::HashMap<String, String>;
+
+impl HetnamParser {
+    pub fn parse_hetnam<'a>(inp: &'a [u8], hetname: &mut Hetnam) -> IResult<&'a [u8], ()> {
+        let mut name = String::new();
+        let inp = &inp[5..];
+        let (inp, ident) = take(3usize)(inp)?;
+        let ident = std::str::from_utf8(ident).unwrap().to_owned();
+        let inp = &inp[1..];
+        let (inp, first_line) = not_line_ending(inp)?;
+        let (inp, _) = line_ending(inp)?;
+        name += std::str::from_utf8(first_line).unwrap().trim();
+        let mut last_inp = inp;
+        while last_inp[..6] == b"HETNAM"[..] && last_inp[9] != b' ' {
+            let inp = &last_inp[16..];
+            let (inp, ln) = not_line_ending(inp)?;
+            let (inp, _) = line_ending(inp)?;
+            name += std::str::from_utf8(ln).unwrap().trim();
+            last_inp = inp;
+        }
+        let _ = hetname.insert(ident, name);
+        Ok((last_inp, ()))
+    }
+}
+
 pub struct FormulParser;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_hetnam() {
+        const HETNAME_TEST: &'static [u8] =
+            b"     NAG N-ACETYL-D-GLUCOSAMINE                                           
+HETNAM     B3P 2-[3-(2-HYDROXY-1,1-DIHYDROXYMETHYL-ETHYLAMINO)-                 
+HETNAM   2 B3P  PROPYLAMINO]-2-HYDROXYMETHYL-PROPANE-1,3-DIOL                   
+FOOBAR  BAZ";
+        let mut hetname_table = Hetnam::new();
+        let (inp, _) = HetnamParser::parse_hetnam(HETNAME_TEST, &mut hetname_table).unwrap();
+        let inp = &inp[6..];
+        let (inp, _) = HetnamParser::parse_hetnam(inp, &mut hetname_table).unwrap();
+        println!("{:?}", &hetname_table);
+        assert_eq!(
+            hetname_table.get("NAG"),
+            Some(&"N-ACETYL-D-GLUCOSAMINE".to_owned())
+        );
+        assert_eq!(hetname_table.get("B3P"), Some(&"2-[3-(2-HYDROXY-1,1-DIHYDROXYMETHYL-ETHYLAMINO)-PROPYLAMINO]-2-HYDROXYMETHYL-PROPANE-1,3-DIOL".to_owned()));
+        assert_eq!(inp, b"FOOBAR  BAZ");
+    }
+}
